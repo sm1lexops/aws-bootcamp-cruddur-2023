@@ -10,10 +10,6 @@ tasks:
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
 
-  - name: Script Task
-    init: echo 'init script' # runs during prebuild => https://www.gitpod.io/docs/configure/projects/prebuilds
-    command: echo 'start script'
-
 # List the ports to expose. Learn more: https://www.gitpod.io/docs/configure/workspaces/ports
 ports:
   - name: Frontend
