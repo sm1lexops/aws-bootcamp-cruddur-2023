@@ -4,7 +4,7 @@
 
 ### Install AWS CLI
 
-- Tutorial for installing AWS CLI [AWS CLI Install Instructions]https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html
+- [*AWS CLI Install Instructions*](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)
 
 ### Install AWS CLI for our SDE Gitpod
 
