@@ -13,7 +13,7 @@ gp init # for initialize our .gitpod.yml conf file
 ```
 ### Add next instructions to .gitpod.yml file
 
-    ```sh
+```sh
 tasks:
   - name: aws-cli
     env:
