@@ -61,7 +61,7 @@ You should see something like this:
 We need to turn on Billing Alerts to recieve alerts...
 
 
-- In your Root Account go to the [Billing Page](https://console.aws.amazon.com/billing/)
+- In your [Root Account](assets/id_aws.jpg) go to the [Billing Page](https://console.aws.amazon.com/billing/)
 - Under `Billing Preferences` Choose `Receive Billing Alerts`
 - Save Preferences
 
