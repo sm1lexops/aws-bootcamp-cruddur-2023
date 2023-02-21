@@ -2,6 +2,17 @@
 
 ## Homework Tasks
 
+## Create AWS Account
+
+### To create a new AWS account, go to aws.amazon.com and choose Create an AWS Account.
+
+- [Create Your AWS Account](https://aws.amazon.com/getting-started/guides/setup-environment/module-one/)
+
+## Secure your AWS Account
+
+- Secure and add MFA for root user [What is MFA](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+- Create additional user at the IAM Dashboard
+- Set account alias and region
 ### Install AWS CLI
 
 - [*AWS CLI Install Instructions*](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)
@@ -61,12 +72,15 @@ You should see something like this:
 We need to turn on Billing Alerts to recieve alerts...
 
 
-- In your Root Account ![Root Account](assets/id_aws.jpg)
+- In your Root Account
+
+![Root Account](assets/id_aws.jpg)
+
 - go to the [Billing Page](https://console.aws.amazon.com/billing/)
 - Under `Billing Preferences` Choose `Receive Billing Alerts`
 - Save Preferences
 
-
+![Enable billing AWS](assets/billing_aws.jpg)
 ## Creating a Billing Alarm
 
 ### Create SNS Topic
