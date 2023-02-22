@@ -135,3 +135,7 @@ aws budgets create-budget \
     --budget file://aws/json/budget.json \
     --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
 ```
+
+## Create AWS Logical Architecture Design
+
+> Our project we present at [Lucid Charts Share Link](https://lucid.app/lucidchart/eb621a17-c846-41d6-8a65-f4f78e24fe99/edit?viewport_loc=118%2C-112%2C2860%2C1641%2C0_0&invitationId=inv_f4254ef2-6662-43ed-8a9f-941cd1dd9a2a)
