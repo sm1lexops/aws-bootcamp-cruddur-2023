@@ -34,6 +34,9 @@
   - [x] Install AWS CLI for SDE 
   - [x] Create AWS Credentials and Secure Account 
   - [x] Enable Billing and Billing alarm for AWS Account
+  - [x] Create Napkin Diagramm
+  - [x] Create Conceptual Diagramm
+  - [x] Create Logical Diagramm
   - [x] Create AWS Budget
 
   ## Homework Tasks
