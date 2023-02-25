@@ -2,10 +2,21 @@
 
 ## Homework Tasks
 
+## Create Napkin Diagramm for our Application
+
+> My Example
+
+![Napkin Diagramm](assets/napkin_diagramm_aws_bootcamp.jpg)
+
+## Create Conceptual Diagramm
+
+> My Conceptual Diagramm [Conceptual Diagramm](https://lucid.app/lucidchart/47e0b332-5cb0-4a44-be38-129df91d194c/edit?viewport_loc=71%2C21%2C2113%2C1201%2C0_0&invitationId=inv_0c80c396-af0e-4f34-a650-8be042ab3ad8)
+
+![Conceptual Diagramm](assets/Week-0%20Conceptual%20Diagramm.jpeg)
 
 ## Create AWS Logical Architecture Design
 
-> My project you can look at the following link [Lucid Charts Share Link](https://lucid.app/lucidchart/eb621a17-c846-41d6-8a65-f4f78e24fe99/edit?viewport_loc=-349%2C-358%2C3801%2C2161%2C0_0&invitationId=inv_f4254ef2-6662-43ed-8a9f-941cd1dd9a2a)
+> My example for this project [Lucid Charts Share Link](https://lucid.app/lucidchart/eb621a17-c846-41d6-8a65-f4f78e24fe99/edit?viewport_loc=-349%2C-358%2C3801%2C2161%2C0_0&invitationId=inv_f4254ef2-6662-43ed-8a9f-941cd1dd9a2a)
 
 ![sm1lexops Lucid Chart Share Link](assets/AWS%20Week-0%20Architecting%20and%20Billing.jpeg)
 ## Create AWS Account
@@ -17,7 +28,7 @@
 ## Secure your AWS Account
 
 - Secure and add MFA for root user [What is MFA](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
-- Create additional user at the IAM Dashboard
+- Create additional user at the IAM Dashboard (Optinal: you can creat user with AWS portall or AD login with granular access policy)
 - Set account alias and region
 ### Install AWS CLI
 
@@ -141,3 +152,28 @@ aws budgets create-budget \
     --budget file://aws/json/budget.json \
     --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
 ```
+
+## Homework Submissions
+
+- [x] Watched Week-0 Video 
+> [Live Stream Week-0](https://www.youtube.com/watch?v=SG8blanhAOg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=13)
+
+> [Week 0 - Generate Credentials, AWS CLI, Budget and Billing Alarm via CLI](https://www.youtube.com/watch?v=OdUnNuKylHg)
+
+> [AWS Bootcamp Week 0 - Pricing Basics and Free tier](https://www.youtube.com/watch?v=OVw3RrlP-sI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=14) 
+
+> [AWS Organizations & AWS IAM Tutorial For Beginners - Cloud BootCamp - Week 0](https://www.youtube.com/watch?v=4EMWBYVggQI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=16)
+
+- [x] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
