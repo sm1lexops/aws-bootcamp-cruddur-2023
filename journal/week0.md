@@ -27,9 +27,19 @@
     
   - [x] Creat All needed for project account
 
-  > AWS, Lucidcharts, Github/Codespace, Gitpod, Momento, AWS Route 53 (delyourhistory.link), HoneyComb, Rollbar 
+    - AWS
+    - Lucidcharts
+    - Github/Codespace
+    - Gitpod
+    - Momento
+    - AWS Route 53 (delyourhistory.link)
+    - HoneyComb
+    - Rollbar 
 
-  - [x] Clone main branch for cruddur app 
+  - [x] Clone main branch for cruddur app
+
+  > [aws-bootcamp-cruddur-2023](https://github.com/omenking/aws-bootcamp-cruddur-2023.git)
+  
   - [x] Create week-0 branch for Homework submissions 
   - [x] Install AWS CLI for SDE 
   - [x] Create AWS Credentials
@@ -47,7 +57,9 @@
   - [x] Create Logical Diagramm
   - [x] Create AWS Budget
   - [x] Activate AWS CloudTrail Services (free tier for 90 days)
+  
   ## Homework Tasks
+
   ## Create Napkin Diagramm for our Application
 
   > My Example
@@ -101,6 +113,10 @@
         cd $THEIA_WORKSPACE_ROOT
   ```
   ### Set Env Vars
+
+  > You can get these ENV Variable via **command line or programmatic access link**
+
+  ![env_aws](assets/env_aws_week0.jpg)
 
   We will set these credentials for the current bash terminal
   ```
