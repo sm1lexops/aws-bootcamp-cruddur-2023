@@ -2,7 +2,7 @@
 
   ## Homework Submissions
 
-  - [ x ] Watch Week-0 Video 
+  - [x] Watch Week-0 Video 
   > [Live Stream Week-0](https://www.youtube.com/watch?v=SG8blanhAOg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=13)
 
   > [Week 0 - Generate Credentials, AWS CLI, Budget and Billing Alarm via CLI](https://www.youtube.com/watch?v=OdUnNuKylHg)
