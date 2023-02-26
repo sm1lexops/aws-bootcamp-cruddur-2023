@@ -131,6 +131,10 @@
   }
   ```
 
+  > In my case lools like this:
+
+  ![AWS Credentials](assets/cli_credentials_aws.jpg)
+
   ## Enable Billing 
 
   We need to turn on Billing Alerts to recieve alerts...
