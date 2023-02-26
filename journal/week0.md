@@ -189,6 +189,8 @@
 
   Check your email and confirm the subscription
 
+  ![Billing Subscription](assets/billing_alarm_aws_week0.jpg)
+  
   #### Create Alarm
 
   - [aws cloudwatch put-metric-alarm](https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-alarm.html)
