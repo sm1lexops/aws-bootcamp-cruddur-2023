@@ -2,7 +2,7 @@
 
   ## Homework Submissions
 
-  - [x] Watched Week-0 Video 
+  - [ x ] Watch Week-0 Video 
   > [Live Stream Week-0](https://www.youtube.com/watch?v=SG8blanhAOg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=13)
 
   > [Week 0 - Generate Credentials, AWS CLI, Budget and Billing Alarm via CLI](https://www.youtube.com/watch?v=OdUnNuKylHg)
@@ -25,20 +25,28 @@
 
   > [AWS Cloud Project Bootcamp Sponsorship Package](https://docs.google.com/document/d/1FpVI2fZaji-q2xPj8BIxOWjUjnd7wsYZfxqFc1aa0VY/edit?usp=sharing)
     
-  - [x] Created All needed for project account
+  - [x] Creat All needed for project account
 
   > AWS, Lucidcharts, Github/Codespace, Gitpod, Momento, AWS Route 53 (delyourhistory.link), HoneyComb, Rollbar 
 
   - [x] Clone main branch for cruddur app 
   - [x] Create week-0 branch for Homework submissions 
   - [x] Install AWS CLI for SDE 
-  - [x] Create AWS Credentials and Secure Account 
+  - [x] Create AWS Credentials
+  - [x] Secure Account with MFA and AWS Organizations
+
+  > [AWS Organizations Unit Best Practice](https://aws.amazon.com/blogs/mt/best-practices-for-organizational-units-with-aws-organizations/?org_product_gs_bp_OUBlog)
+
+  - [x] Create Custom AWS OU SCP Best Practice Policy
+
+  > [https://github.com/hashishrajan/aws-scp-best-practice-policies](https://github.com/hashishrajan/aws-scp-best-practice-policies.git)
+
   - [x] Enable Billing and Billing alarm for AWS Account
   - [x] Create Napkin Diagramm
   - [x] Create Conceptual Diagramm
   - [x] Create Logical Diagramm
   - [x] Create AWS Budget
-
+  - [x] Activate AWS CloudTrail Services (free tier for 90 days)
   ## Homework Tasks
   ## Create Napkin Diagramm for our Application
 
@@ -68,6 +76,7 @@
   - Secure and add MFA for root user [What is MFA](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
   - Create additional user at the IAM Dashboard (Optinal: you can creat user with AWS portall or AD login with granular access policy)
   - Set account alias and region
+  
   ### Install AWS CLI
 
   - [*AWS CLI Install Instructions*](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-version.html)
@@ -190,3 +199,18 @@
       --budget file://aws/json/budget.json \
       --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
   ```
+
+  ## Create Custom AWS OU SCP Best Practice Policy
+
+  - AWS OU Configuration
+
+  ![AWS OU](assets/aws_ou.jpg)
+
+  - AWS SCP Recommendation
+
+  ![AWS SCP](assets/scp_custom_policy_aws.jpg)
+  ## Activate AWS CloudTrail Services (free tier for 90 days)
+
+  - AWS CloudTrail 
+
+  ![AWS CloudTrail](assets/cloudtrail_aws.jpg)
