@@ -12,7 +12,7 @@
 
 ## Class Summary
 
-- [ ] Create a new branch week-1 
+- [ ] Create a new branch week-1
 - [ ] Launch apps localy
 - [ ] Write a Dockerfile for each app (backend, frontdent)
 - [ ] Ensure we get the apps running via individual container
