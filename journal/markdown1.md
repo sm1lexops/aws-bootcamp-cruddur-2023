@@ -1,0 +1,1 @@
+ - [x] Watch Week-0 Video
