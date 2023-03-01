@@ -1,4 +1,4 @@
-# Videocontent Week-1
+# Video Content Week-1
 
 - [Watch How to Ask for Technical Help](https://www.youtube.com/watch?v=tDPqmwKMP7Y&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=29)
 
