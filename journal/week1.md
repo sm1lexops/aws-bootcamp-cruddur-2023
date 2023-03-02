@@ -229,3 +229,96 @@ networks:
     driver: bridge
     name: delyourhistory
 ```
+
+> Check that you don't run any containers
+
+```sh
+docker ps -a
+```
+
+> If containers exists delete them all
+
+```sh
+docker rm -f $(docker ps -aq)
+```
+
+> Next you can run docker-compose.yml file
+
+```sh
+docker compose -f "docker-compose.yml" up -d --build
+```
+
+> If all stage complete success on cli you should get output
+
+```
+[+] Running 3/3
+ ✔ Network aws-bootcamp-cruddur-2023_default                Created                                                                                                         0.0s 
+ ✔ Container aws-bootcamp-cruddur-2023-frontend-react-js-1  Started                                                                                                         0.6s 
+ ✔ Container aws-bootcamp-cruddur-2023-backend-flask-1      Started                                                                                                         0.6s 
+ *  Terminal will be reused by tasks, press any key to close it. 
+ ```
+
+ > And you'll see in your frontend new picture with backend
+
+ ![BACK and FRONT APP](assets/back_and_frontend_app.jpg)
+
+
+## Adding DynamoDB Local and Postgres
+
+> We are going to use Postgres and DynamoDB local in future labs We can bring them in as containers and reference them externally
+
+> Lets integrate the following into our existing docker compose file:
+
+### Postgres
+
+```sh
+
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
+```
+
+> To install the postgres client into Gitpod add next line to .gitpod.yml
+
+```sh
+  - name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+```
+
+### DynamoDB Local
+
+```sh
+
+services:
+  dynamodb-local:
+    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+    # We needed to add user:root to get this working.
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+```
+
+Example of using DynamoDB local 
+https://github.com/100DaysOfCloud/challenge-dynamodb-local
+
