@@ -151,3 +151,81 @@ docker exec CONTAINER_ID -it /bin/bash
 
 ## Create Dockerfile for Frontend Application
 
+### First Install npm to Get Dependencies from /node_modules
+
+```sh
+cd frontend-react-js
+npm i
+```
+> You'll have /node_modules directory, run `ll` in cli to check it
+
+### Create Dockerfile
+
+> place Dockerfile here: `frontend-react-js/Dockerfile
+
+```sh
+FROM node:16.18
+
+WORKDIR /frontend-react-js
+
+COPY . /frontend-react-js/
+
+RUN npm install
+
+ENV PORT=3000
+
+EXPOSE ${PORT}
+
+CMD [ "npm", "start" ]
+```
+
+### Build Container
+
+```sh
+docker build -t frontend-react-js ./frontend-react-js
+```
+
+### Run Container
+
+```sh
+docker run -d -p 3000:3000 frontend-react-js
+```
+
+> Go To `PORTS` Tab, make public port 3000 and click on the link
+
+> If you see start home page your application `CONGRATULATIONS👋!!!`
+
+![FRONTEND APP](assets/frontend_app.jpg)
+
+## Manage Multiple Containers
+
+### Create `docker-compose.yml` at the root of your project
+
+```sh
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: delyourhistory
+```
