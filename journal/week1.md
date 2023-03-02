@@ -2,6 +2,8 @@
 
 ## Class Summary Tasks
 
+> Check progress [week-1 markdown.md](markdown1.md) 
+
 ### Run Python Localy
 
 ```sh
