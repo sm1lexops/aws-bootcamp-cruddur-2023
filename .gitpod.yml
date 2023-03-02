@@ -16,7 +16,6 @@ tasks:
 #    description: Port 3000 for the frontend
 #    port: 3000
 #    onOpen: open-preview
-
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 vscode:
   extensions:
