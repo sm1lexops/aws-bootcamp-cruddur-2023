@@ -16,9 +16,9 @@
 - [x] Launch apps localy
 - [x] Write a Dockerfile for each app (backend, frontdent)
 - [x] Ensure we get the apps running via individual container
-- [ ] Create a docker-compose file
-- [ ] Ensure we cat orchestrate multiple containers to run side by side
-- [ ] Mount volume directories so we can make changes while we code
+- [x] Create a docker-compose file
+- [x] Ensure we cat orchestrate multiple containers to run side by side
+- [x] Mount volume directories so we can make changes while we code
 
 ## Homework Challenges
 
