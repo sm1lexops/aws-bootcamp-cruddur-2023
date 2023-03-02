@@ -14,7 +14,7 @@
 
 - [x] Create a new branch week-1
 - [x] Launch apps localy
-- [x] Write a Dockerfile for each app (backend, frontdent)
+- [x] Write a Dockerfile for each app (backend, frontend)
 - [x] Ensure we get the apps running via individual container
 - [x] Create a docker-compose file
 - [x] Ensure we cat orchestrate multiple containers to run side by side
@@ -22,7 +22,7 @@
 
 ## Homework Challenges
 
-- [ ] Run the Dockerfile CMD as an external script
+- [x] Run the Dockerfile CMD as an external script
 - [ ] Push and tag a image to DockerHub
 - [ ] Create Dockerfile with multi-stage building
 - [ ] Implement a healthcheck in the v3 docker-compose file

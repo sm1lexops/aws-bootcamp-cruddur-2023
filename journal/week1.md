@@ -327,3 +327,31 @@ Example of using DynamoDB local
 <https://github.com/100DaysOfCloud/challenge-dynamodb-local>
 
 > After All We Can Make Change while we Coding
+
+## Homework Challenges
+
+- [x] Run the Dockerfile CMD as an external script
+
+> Create at the `backend-flask` cmd_docker.sh script
+
+```sh
+#!/bin/bash -xe
+python3 -m flask run --host=0.0.0.0 --port=4567 
+```
+  
+> Change Dockerfile 
+
+```sh
+COPY cmd_docker.sh cmd_docker.sh # add this line to put script into container
+CMD [ "bash", "cmd_docker.sh" ] # change CMD command to run the script
+```
+
+- [x] Push and tag a image to DockerHub
+
+> First need to create dockerhub account and repository
+
+ Go to the https://hub.docker.com/ in the navigation bar go to the `Repositories` and create public repo
+
+![DockerHub Account](assets/create_github_acc.jpg)
+
+ 
