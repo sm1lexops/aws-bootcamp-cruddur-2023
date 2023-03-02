@@ -27,7 +27,7 @@ cd ..
 
 ![JSON](assets/run_app_local_with_api.jpg)
 
-## Add to Dockerfile
+## Create Dockerfile for Backend Application
 
 ```sh
 FROM python:3.10-slim-buster
@@ -55,7 +55,7 @@ CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567" ]
 docker build -t backend-flask ./backend-flask # build container with name `backend-flask`
 ```
 
-> You should get something like this status
+> You should get status like this
 
 ```sh
 Successfully built cdd5c72cf552
@@ -83,7 +83,7 @@ CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS  
 99461a672215   backend-flask   "python3 -m flask ru…"   6 minutes ago   Up 6 minutes   0.0.0.0:4567->4567/tcp, :::4567->4567/tcp   fervent_kirch
 ```
 
-### Get Container backend json 
+### Get Container Backend JSON 
 
 - open the link for 4567 in your browser again
 - append to the url to /api/acivities/home
@@ -113,4 +113,41 @@ docker logs CONTAINER_ID -f
 docker logs backend-flask -f
 docker logs $CONTAINER_ID -f
 ```
+### Debugging adjacent containers with other containers
+
+```sh
+docker run --rm -it curlimages/curl /bin/bash $(curl -X GET http://localhost:4567/api/activities/home -H \"Accept: application/json\" -H \"Content-Type: application/json\")
+```
+
+> You should get back answer from adjacent containers like this
+```sh
+gitpod /workspace/aws-bootcamp-cruddur-2023 (week-1) $ docker run --rm -it curlimages/curl /bin/bash $(curl -X GET http://localhost:4567/api/activities/home -H \"Accept: application/json\" -H \"Content-Type: application/json\")
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1235  100  1235    0     0   402k      0 --:--:-- --:--:-- --:--:--  402k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: application
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: application
+curl: (3) URL using bad/illegal format or missing URL
+curl: (3) bad range specification in URL position 2:
+```
+### For Debuging you can use `busybosy` container
+
+```sh
+docker run --rm -it busybosy
+```
+
+> Gain Access to Container CLI
+
+```sh
+docker exec CONTAINER_ID -it /bin/bash
+```
+
+> You can get all additional information about working with containers
+[Docker Tutorial Link](https://docs.docker.com/get-started/)
+
+## Create Dockerfile for Frontend Application
 
