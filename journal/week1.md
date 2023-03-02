@@ -23,7 +23,7 @@ cd ..
 
 - After appent to the url to `/api/activities/home`
 
-> You should get back srv backend `json` answer 
+> You should get back srv backend `json` answer
 
 ![JSON](assets/run_app_local_with_api.jpg)
 
@@ -75,7 +75,7 @@ docker run --rm -it -p 4567:4567 backend-flask # run container backend-flask in 
 192.168.34.200 - - [01/Mar/2023 15:25:08] "GET /api/activities/home HTTP/1.1" 200 -
 ```
 
-### Get Running Container ID 
+### Get Running Container ID
 
 ```sh
 docker ps -a # `"-a"` argument meaning info about `all` container running and stoped
@@ -83,7 +83,7 @@ CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS  
 99461a672215   backend-flask   "python3 -m flask ru…"   6 minutes ago   Up 6 minutes   0.0.0.0:4567->4567/tcp, :::4567->4567/tcp   fervent_kirch
 ```
 
-### Get Container Backend JSON 
+### Get Container Backend JSON
 
 - open the link for 4567 in your browser again
 - append to the url to /api/acivities/home
@@ -113,6 +113,7 @@ docker logs CONTAINER_ID -f
 docker logs backend-flask -f
 docker logs $CONTAINER_ID -f
 ```
+
 ### Debugging adjacent containers with other containers
 
 ```sh
@@ -120,6 +121,7 @@ docker run --rm -it curlimages/curl /bin/bash $(curl -X GET http://localhost:456
 ```
 
 > You should get back answer from adjacent containers like this
+
 ```sh
 gitpod /workspace/aws-bootcamp-cruddur-2023 (week-1) $ docker run --rm -it curlimages/curl /bin/bash $(curl -X GET http://localhost:4567/api/activities/home -H \"Accept: application/json\" -H \"Content-Type: application/json\")
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -134,6 +136,7 @@ gitpod /workspace/aws-bootcamp-cruddur-2023 (week-1) $ docker run --rm -it curli
 curl: (3) URL using bad/illegal format or missing URL
 curl: (3) bad range specification in URL position 2:
 ```
+
 ### For Debuging you can use `busybosy` container
 
 ```sh
@@ -157,6 +160,7 @@ docker exec CONTAINER_ID -it /bin/bash
 cd frontend-react-js
 npm i
 ```
+
 > You'll have /node_modules directory, run `ll` in cli to check it
 
 ### Create Dockerfile
@@ -179,13 +183,13 @@ EXPOSE ${PORT}
 CMD [ "npm", "start" ]
 ```
 
-### Build Container
+### Build Frontend App Container
 
 ```sh
 docker build -t frontend-react-js ./frontend-react-js
 ```
 
-### Run Container
+### Run Frontend Container
 
 ```sh
 docker run -d -p 3000:3000 frontend-react-js
@@ -193,7 +197,7 @@ docker run -d -p 3000:3000 frontend-react-js
 
 > Go To `PORTS` Tab, make public port 3000 and click on the link
 
-> If you see start home page your application `CONGRATULATIONS👋!!!`
+If you see start home page your application `CONGRATULATIONS👋!!!`
 
 ![FRONTEND APP](assets/frontend_app.jpg)
 
@@ -250,7 +254,7 @@ docker compose -f "docker-compose.yml" up -d --build
 
 > If all stage complete success on cli you should get output
 
-```
+```sh
 [+] Running 3/3
  ✔ Network aws-bootcamp-cruddur-2023_default                Created                                                                                                         0.0s 
  ✔ Container aws-bootcamp-cruddur-2023-frontend-react-js-1  Started                                                                                                         0.6s 
@@ -262,12 +266,10 @@ docker compose -f "docker-compose.yml" up -d --build
 
  ![BACK and FRONT APP](assets/back_and_frontend_app.jpg)
 
-
 ## Adding DynamoDB Local and Postgres
 
 > We are going to use Postgres and DynamoDB local in future labs We can bring them in as containers and reference them externally
-
-> Lets integrate the following into our existing docker compose file:
+Lets integrate the following into our existing docker compose file:
 
 ### Postgres
 
@@ -319,6 +321,5 @@ services:
     working_dir: /home/dynamodblocal
 ```
 
-Example of using DynamoDB local 
-https://github.com/100DaysOfCloud/challenge-dynamodb-local
-
+Example of using DynamoDB local
+<https://github.com/100DaysOfCloud/challenge-dynamodb-local>
