@@ -375,4 +375,67 @@ latest: digest: sha255:97feff57a3587fea6e0178358204793e9eeab7087be3686b82eeb3971
 
 ## Create Multi-Stage Building Dockerfile
 
-> We can 
+> First we build container with all dependencies, then copy this app to nginx
+
+```sh
+FROM node:16.18 as build
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . ./
+
+RUN npm run build
+# stage 2
+FROM nginx:1.16.0-alpine
+
+WORKDIR /usr/share/nginx/html
+
+RUN rm -rf ./*
+ 
+COPY --from=build /app/build .
+
+EXPOSE 80
+
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+```
+
+> You can `notice` our nginx container with all dependencies have a smaller size, in my case this 22MB vs 129MB
+
+```sh
+gitpod /workspace/aws-bootcamp-cruddur-2023 (week-1) $ docker images
+REPOSITORY                                    TAG                IMAGE ID       CREATED          SIZE
+crud_multistage                               latest             977abba0e2ef   31 minutes ago   22.2MB
+awsbootcamp                                   latest             b07335cde236   4 hours ago      129MB
+```
+
+> Best practise use multi-stage building container for production
+
+```sh
+docker run --rm -it -p 80:80 crud_multistage
+```
+
+> Start lightweight container and go `PORT` 80, you should see
+
+![Multi-stage Dockerfile](assets/crud_multistage_image.jpg)
+
+## Implement a Healthcheck in the docker-compose v3 file
+
+> You need add this to our docker-compose.yml file
+
+```sh
+    healthcheck:
+      # This property specifies the command that will be executed and is the health check of the container. This command HAS TO be available and working if everything is set up correctly.
+      test: curl --fail http://localhost || exit 1
+      # specifies the number of seconds to initially wait before executing the health check and then the frequency at which subsequent health checks will be performed.
+      interval: 60s
+      # specifies the number of consecutive health check failures required to declare the container as unhealthy.
+      retries: 5
+      # specifies the number of seconds your container needs to bootstrap. During this period, health checks with an exit code greater than zero won’t mark the container as unhealthy; however, a status code of 0 will mark the container as healthy.
+      start_period: 20s
+      # specifies the number of seconds Docker awaits for your health check command to return an exit code before declaring it as failed.
+      timeout: 10s
+```
