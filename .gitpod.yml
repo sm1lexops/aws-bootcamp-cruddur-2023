@@ -15,7 +15,7 @@ tasks:
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
-      
+
 # List the ports to expose. Learn more: https://www.gitpod.io/docs/configure/workspaces/ports
 #ports:
 #  - name: Frontend
@@ -31,4 +31,4 @@ vscode:
     - 42Crunch.vscode-openapi
     - ms-python.isort
     - DavidAnson.vscode-markdownlint
-    - vscodevim.vim
+    - asvetliakov.vscode-neovim
