@@ -365,18 +365,14 @@ docker push <yournamedockerhub>/<reponame_dockerhub>:<tag>
 
 ```sh
 1959218cc351: Pushed 
-5b34fe8e471c: Pushed 
-d87dcbe24ad5: Pushed 
-706290162d84: Pushed 
-185159c4a7b0: Mounted from library/python 
-6f5f98f7704c: Mounted from library/python 
-1717b9df61c8: Mounted from library/python 
-be4f95edf25e: Mounted from library/python 
 d412d872f329: Mounted from library/python 
 latest: digest: sha255:97feff57a3587fea6e0178358204793e9eeab7087be3686b82eeb3971c698d78 size: 2203
 ```
 
-> and your new tag image in DockerHub 
+> and you'll see new tag image in DockerHub 
 
 ![IMAGE DOCKERHUB](assets/dockerhub_image.jpg)
-The push refers to repository [docker.io/sm1love/awsbootcamp]
+
+## Create Multi-Stage Building Dockerfile
+
+> We can 
