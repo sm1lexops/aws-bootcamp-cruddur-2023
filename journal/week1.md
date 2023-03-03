@@ -330,7 +330,7 @@ Example of using DynamoDB local
 
 ## Homework Challenges
 
-- [x] Run the Dockerfile CMD as an external script
+### - [x] Run the Dockerfile CMD as an external script
 
 > Create at the `backend-flask` cmd_docker.sh script
 
@@ -346,7 +346,7 @@ COPY cmd_docker.sh cmd_docker.sh # add this line to put script into container
 CMD [ "bash", "cmd_docker.sh" ] # change CMD command to run the script
 ```
 
-- [x] Push and tag a image to DockerHub
+### - [x] Push and tag a image to DockerHub
 
 > First need to create dockerhub account and repository
 
@@ -373,7 +373,7 @@ latest: digest: sha255:97feff57a3587fea6e0178358204793e9eeab7087be3686b82eeb3971
 
 ![IMAGE DOCKERHUB](assets/dockerhub_image.jpg)
 
-## Create Multi-Stage Building Dockerfile
+### - [x]  Create Multi-Stage Building Dockerfile
 
 > First we build container with all dependencies, then copy this app to nginx
 
@@ -422,7 +422,7 @@ docker run --rm -it -p 80:80 crud_multistage
 
 ![Multi-stage Dockerfile](assets/crud_multistage_image.jpg)
 
-## Implement a Healthcheck in the docker-compose v3 file
+### - [x] Implement a Healthcheck in the docker-compose v3 file
 
 > You need add this to our docker-compose.yml file
 
@@ -438,4 +438,56 @@ docker run --rm -it -p 80:80 crud_multistage
       start_period: 20s
       # specifies the number of seconds Docker awaits for your health check command to return an exit code before declaring it as failed.
       timeout: 10s
+```
+
+### - [x] Install Docker Localy
+
+> We can use official tutorial for [installing docker on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or other OS
+
+#### Uninstall Old Version
+
+```sh
+sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+
+#### Install using the repository
+
+> Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+
+```sh
+sudo apt-get update
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+```
+
+> Add Docker’s official GPG key:
+
+```sh
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+> Use the following command to set up the repository:
+
+```sh
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+#### Install Docker Engine
+
+> To install the latest version, run:
+
+```sh
+sudo apt-get update
+#if problem with gpg 
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+#run first container
+sudo docker run hello-world
 ```

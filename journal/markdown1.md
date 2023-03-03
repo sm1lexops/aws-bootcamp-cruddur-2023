@@ -23,9 +23,9 @@
 ## Homework Challenges
 
 - [x] Run the Dockerfile CMD as an external script
-- [ ] Push and tag a image to DockerHub
-- [ ] Create Dockerfile with multi-stage building
-- [ ] Implement a healthcheck in the v3 docker-compose file
-- [ ] Implement best practices of Dockerfiles
-- [ ] Install Docker localy
-- [ ] Launch an EC2 instance that has docker installed, and pull a container
+- [x] Push and tag a image to DockerHub
+- [x] Create Dockerfile with multi-stage building
+- [x] Implement a healthcheck in the v3 docker-compose file
+- [x] Implement best practices of Dockerfiles
+- [x] Install Docker localy
+- [x] Launch an EC2 instance that has docker installed, and pull a container
