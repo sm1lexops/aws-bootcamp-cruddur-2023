@@ -354,4 +354,27 @@ CMD [ "bash", "cmd_docker.sh" ] # change CMD command to run the script
 
 ![DockerHub Account](assets/create_github_acc.jpg)
 
- 
+docker tag awsbootcamp:latest sm1love/awsbootcamp:latest
+gitpod /workspace/aws-bootcamp-cruddur-2023 (week-1) $ docker images
+REPOSITORY                                    TAG                IMAGE ID       CREATED              SIZE
+awsbootcamp                                   latest             b07335cde236   About a minute ago   129MB
+sm1love                                       latest             b07335cde236   About a minute ago   129MB
+sm1love/awsbootcamp                           latest             b07335cde236   About a minute ago   129MB
+aws-bootcamp-cruddur-2023-frontend-react-js   latest             dc4e373fb165   3 minutes ago        1.15GB
+aws-bootcamp-cruddur-2023-backend-flask       latest             a1ff282fadad   3 minutes ago        129MB
+<none>                                        <none>             aa42d2ca2c2a   6 minutes ago        1.19GB
+<none>                                        <none>             9baa0f7b8e53   7 minutes ago        129MB
+python                                        3.10-slim-buster   9ab67b0788d8   43 hours ago         118MB
+postgres                                      13-alpine          55f14697b527   2 weeks ago          238MB
+gitpod /workspace/aws-bootcamp-cruddur-2023 (week-1) $ docker push sm1love/awsbootcamp:latest
+The push refers to repository [docker.io/sm1love/awsbootcamp]
+1959219cc351: Pushed 
+6b34fe8e471c: Pushed 
+d88dcbe24ad5: Pushed 
+706290163d84: Pushed 
+185160c4a7b0: Mounted from library/python 
+7f5f98f7704c: Mounted from library/python 
+1718b9df61c8: Mounted from library/python 
+be5f95edf25e: Mounted from library/python 
+d413d872f329: Mounted from library/python 
+latest: digest: sha256:97feff57a3587fea6e0178358204793e9eeab7087be3686b82eeb3971c698d78 size: 2203
