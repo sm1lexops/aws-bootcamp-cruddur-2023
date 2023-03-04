@@ -529,3 +529,11 @@ Digest: sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2
 Status: Downloaded newer image for nginx:latest
 docker.io/library/nginx:latest
 ```
+
+## Implement Notifications in App
+
+> Use this [videotutorial](https://www.youtube.com/watch?v=k-_o0cCpksk&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=28) for implement notifications
+
+![Notifications App](assets/notifications_app.jpg)
+
+## Well Done Week-1
