@@ -491,3 +491,33 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #run first container
 sudo docker run hello-world
 ```
+
+> If you have an issue with `permission denied` run docker command
+
+```sh
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo reboot
+```
+### Launch EC2 instance, install Docker and pull container
+
+> Launch EC2 instance and get .pem private key for ssh connection
+
+![EC2](assets/run_aws_instance.jpg)
+
+> Install Docker and pull container
+
+```sh
+smirnov@ip-0-0:~$ docker pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+3f9582a2cbe7: Pull complete
+9a8c6f286718: Pull complete
+e81b85700bc2: Pull complete
+73ae4d451120: Pull complete
+6058e3569a68: Pull complete
+3a1b8f201356: Pull complete
+Digest: sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2
+Status: Downloaded newer image for nginx:latest
+docker.io/library/nginx:latest
+```

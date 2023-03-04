@@ -29,3 +29,6 @@
 - [x] Implement best practices of Dockerfiles
 - [x] Install Docker localy
 - [x] Launch an EC2 instance that has docker installed, and pull a container
+- [x] Make change in the Application to getting `Notifacation` tab work
+- [x] Read and Implement Dockerfile Best Practices
+- [x] Preinstall Postgresql and run DynamoDB Localy
