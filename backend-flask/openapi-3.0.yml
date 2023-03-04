@@ -148,7 +148,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Message'
-  /api/activities/notification:
+  /api/activities/notifications:
     get:
       description: 'Return a feed of activity for a for followers user'
       parameters: []
