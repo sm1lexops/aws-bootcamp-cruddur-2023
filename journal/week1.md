@@ -304,6 +304,12 @@ volumes:
       sudo apt install -y postgresql-client-13 libpq-dev
 ```
 
+> Check connections to postgresql 
+
+```sh
+psql -h localhost -U postgres
+```
+
 ### DynamoDB Local
 
 ```sh
