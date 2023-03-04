@@ -6,9 +6,9 @@
 
 > [Video Content Link](video_content_week1.md)
 
-- [ ] Homework Submissions
+- [x] Homework Submissions
 
-- [ ] Knowledge Chalenges
+- [x] Knowledge Chalenges
 
 ## Class Summary
 

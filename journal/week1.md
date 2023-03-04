@@ -326,7 +326,9 @@ services:
 Example of using DynamoDB local
 <https://github.com/100DaysOfCloud/challenge-dynamodb-local>
 
-> After All We Can Make Change while we Coding
+> After All We Can Make Change while we Coding, create table for DynamoDB and etc.
+
+
 
 ## Homework Challenges
 
