@@ -8,9 +8,9 @@
 
 ## Class Summary
 
-- [ ] Create a new branch week-2
-- [ ] Instrument our backend flask application to use Open Telemetry (OTEL) with Honeycomb.io as the provider
-- [ ] Run queries to explore traces within Honeycomb.io
+- [x] Create a new branch week-2
+- [x] Instrument our backend flask application to use Open Telemetry (OTEL) with Honeycomb.io as the provider
+- [x] Run queries to explore traces within Honeycomb.io
 - [ ] Instrument AWS X-Ray into backend flask application
 - [ ] Configure and provision X-Ray daemon within docker-compose and send data back to X-Ray API
 - [ ] Observe X-Ray traces within the AWS Console
