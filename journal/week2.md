@@ -108,3 +108,9 @@ with tracer.start_as_current_span("home-activities-data") as outer_span:
 > If you generate new data you'll get sub spans with attribute value
 
 ![Nested Spans](assets/2_home-activity-nested-span.jpg)
+
+> Alson you can run some Query to sort your data
+
+![Query Spans](assets/3_query-span.jpg)
+
+## AWS X-Ray
