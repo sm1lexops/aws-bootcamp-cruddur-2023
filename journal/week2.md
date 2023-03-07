@@ -84,12 +84,27 @@ Update your page few times for generate some data
 
 ![Honeycomb.io data](assets/1_home-activity-span.jpg)
 
-> Adding Attributes to Spans
+> Adding Attributes and Nested Spans
+
+For getting information, for example, how your services is working when recieving api call and how long it lasted
 
 ```sh
-span = trace.get_current_span()
-span.set_attribute("user.id", user.id())
+...
+
+with tracer.start_as_current_span("home-activities-data") as outer_span:
+    outer_span.set_attribute("outer", True)
+    span = trace.get_current_span()
+    span.set_attribute("app.hubabuba", now.isoformat())
+    ...
+    
+    with tracer.start_as_current_span("home-result-activities") as inner_span:
+        inner_span.set_attribute("inner", True)
+        span = trace.get_current_span()
+        span.set_attribute("app.hubabuba", now.isoformat())
+    ...
+# `return results` end your home_activities.py service file
 ```
 
-> If you update your environment and generate new data you'll get sub spans with attribute value
+> If you generate new data you'll get sub spans with attribute value
 
+![Nested Spans](assets/2_home-activity-nested-span.jpg)
