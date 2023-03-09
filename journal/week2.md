@@ -314,7 +314,7 @@ xray_recorder.end_segment()
 
 You can experiment with `user_activities.py` following [This Article](https://olley.hashnode.dev/aws-free-cloud-bootcamp-instrumenting-aws-x-ray-subsegments)
 
-> Code example [user_activities_example.md](assets/user_activities_example.md)
+> Code example [user_activities_example.md](assets/user_activities_example.py)
 
-> Or use [Manually create segment/subsegment AWS-XRAY-SDK](https://docs.aws.amazon.com/xray-sdk-for-python/latest/reference/basic.html)
+Or use [Manually create segment/subsegment AWS-XRAY-SDK](https://docs.aws.amazon.com/xray-sdk-for-python/latest/reference/basic.html)
 
