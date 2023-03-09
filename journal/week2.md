@@ -114,3 +114,61 @@ with tracer.start_as_current_span("home-activities-data") as outer_span:
 ![Query Spans](assets/3_query-span.jpg)
 
 ## AWS X-Ray
+
+### Instrument AWS X-Ray for Flask
+
+> Add sdk library to the `requirements.txt`
+
+```sh
+aws-xray-sdk
+```
+
+> Install dependencies for python
+
+```sh
+pip install -r requirements.txt
+```
+
+> Add to `app.py`
+
+```sh
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+...
+
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
+
+> Run the X-Ray daemon with a user data script (EC2 Linux)
+
+```sh
+#!/bin/bash
+curl https://s3.dualstack.eu-central-1.amazonaws.com/aws-xray-assets.eu-central-1/xray-daemon/aws-xray-daemon-3.x.rpm -o /home/ec2-user/xray.rpm
+yum install -y /home/ec2-user/xray.rpm
+```
+
+> For Amazon ECS
+
+1. Create a folder and download the daemon
+
+```sh
+mkdir xray-daemon && cd xray-daemon
+curl https://s3.dualstack.eu-central-1.amazonaws.com/aws-xray-assets.eu-central-1/xray-daemon/aws-xray-daemon-linux-3.x.zip -o ./aws-xray-daemon-linux-3.x.zip
+unzip -o aws-xray-daemon-linux-3.x.zip -d .
+```
+
+2. Create a Dockerfile with the following content
+
+```sh
+FROM ubuntu:12.04
+COPY xray /usr/bin/xray-daemon
+CMD xray-daemon -f /var/log/xray-daemon.log &
+```
+
+3. Build the image
+
+```sh
+docker build -t xray .
+```

@@ -17,9 +17,10 @@ tasks:
       sudo apt install -y postgresql-client-13 libpq-dev
   
   - name: dependencies
-    init: |
+    command: |
       cd ./frontend-react-js
       npm i
+      cd ../
 
 # List the ports to expose. Learn more: https://www.gitpod.io/docs/configure/workspaces/ports
 #ports:
