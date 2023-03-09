@@ -164,7 +164,7 @@ sudo dpkg -i **.deb
       - 2000:2000/udp
 ```
 
-> Add ENV to `docker-compose.yml` file
+> Add ENV to backend-flask service `docker-compose.yml` file
 
 ```sh
 AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
