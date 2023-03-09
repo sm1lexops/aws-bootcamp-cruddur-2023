@@ -140,6 +140,36 @@ xray_url = os.getenv("AWS_XRAY_URL")
 xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
 XRayMiddleware(app, xray_recorder)
 ```
+## Add X-Ray Daemon for Docker Compose
+
+(Optional) We can add our x-ray daemon to cli sde
+
+```sh
+wget https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.deb
+sudo dpkg -i **.deb
+ ```
+
+ > For best practise we add container to `docker-compose.yml` file (notice to your AWS_REGION)
+
+ ```sh
+   xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "eu-central-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+
+> Add ENV to `docker-compose.yml` file
+
+```sh
+AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
 
 ### Optional AWS recommendation for installatin X-Ray
 
@@ -223,5 +253,4 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 You should get json answer and rule appeared in console
 
 ![X-Ray Rule](assets/x-ray-rule.jpg)
-
 
