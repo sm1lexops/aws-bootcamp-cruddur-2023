@@ -1,6 +1,6 @@
 {
   "SamplingRule": {
-      "RuleName": "Cruddur",
+      "RuleName": "x-ray-backend",
       "ResourceARN": "*",
       "Priority": 9000,
       "FixedRate": 0.1,
