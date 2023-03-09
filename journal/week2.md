@@ -142,6 +142,58 @@ XRayMiddleware(app, xray_recorder)
 ```
 ## Add X-Ray Daemon for Docker Compose
 
+### Check your CLI credentials for AWS
+
+*Don't use AWS_SESSION_KEY, X-Ray can't sent the data*
+
+> You need to create an `Access Key` in the AWS console and check your credentials
+
+```sh
+env | grep AWS
+...
+gp env | grep AWS # 
+```
+
+*Credentials in your SDE should be the same*
+
+> Create group for X-Ray by CLI
+
+```sh
+aws xray create-group \
+   --group-name "x-ray-backend" \
+   --filter-expression "service(\"backend-flask\") {fault OR error}"
+```
+
+You should get json answer like this
+
+```sh
+{
+    "Group": {
+        "GroupName": "Cruddur",
+        "GroupARN": "arn:aws:xray:eu-central-1:446171166981:group/Cruddur/GWSZYWM5HTHXLCB76QTGZ2LKHDBI2NFPYU2QN4CV2XZO43GHUQKA",
+        "FilterExpression": "service(\"backend-flask\")",
+        "InsightsConfiguration": {
+            "InsightsEnabled": false,
+            "NotificationsEnabled": false
+        }
+    }
+}
+```
+
+> In AWS Cloudwatch X-Ray console should appear new group
+
+![X-Ray Group](assets/x-ray-group.jpg)
+
+> Next create rule for collecting traces
+
+```sh
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+You should get json answer and rule appeared in console
+
+![X-Ray Rule](assets/x-ray-rule.jpg)
+
 (Optional) We can add our x-ray daemon to cli sde
 
 ```sh
@@ -171,7 +223,7 @@ AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
 AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
 
-### Optional AWS recommendation for installatin X-Ray
+### (Optional) AWS recommendation for installatin X-Ray
 
 > Run the X-Ray daemon with a user data script (EC2 Linux)
 
@@ -205,52 +257,28 @@ CMD xray-daemon -f /var/log/xray-daemon.log &
 docker build -t xray .
 ```
 
-### Check your CLI credentials for AWS
+### Run Docker Compose and Get Traces
 
-> Check your credentials 
-
-```sh
-env | grep AWS
-```
-
-You should get same as in your AWS account env `AWS_SECRET_ACCESS_KEY', 'AWS_ACCESS_KEY_ID', 'AWS_SESSION_TOKEN'
-
-> Create group for X-Ray by CLI
+> Run `docker-compose.yml` file
 
 ```sh
-FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-aws xray create-group \
-   --group-name "Cruddur" \
-   --filter-expression "service(\"$FLASK_ADDRESS\") {fault OR error}"
+docker compose -f "docker-compose.yml" up -d --build
 ```
 
-You should get json answer like this
+> Go to the `PORTS` tab and open `4567` in your browser, add to the end of url `/api/activities/home` and generate some data
+
+> Check your x-ray container, you should get 
 
 ```sh
-{
-    "Group": {
-        "GroupName": "Cruddur",
-        "GroupARN": "arn:aws:xray:eu-central-1:446171166981:group/Cruddur/GWSZYWM5HTHXLCB76QTGZ2LKHDBI2NFPYU2QN4CV2XZO43GHUQKA",
-        "FilterExpression": "service(\"backend-flask\")",
-        "InsightsConfiguration": {
-            "InsightsEnabled": false,
-            "NotificationsEnabled": false
-        }
-    }
-}
+2023-03-09T12:45:08Z [Info] HTTP Proxy server using X-Ray Endpoint : https://xray.eu-central-1.amazonaws.com
+2023-03-09T12:45:08Z [Info] Starting proxy http server on 0.0.0.0:2000
+2023-03-09T12:45:21Z [Info] Successfully sent batch of 1 segments (0.073 seconds)
+2023-03-09T12:45:22Z [Info] Successfully sent batch of 1 segments (0.016 seconds)
+2023-03-09T12:45:29Z [Info] Successfully sent batch of 1 segments (0.016 seconds)
+2023-03-09T12:45:30Z [Info] Successfully sent batch of 1 segments (0.014 seconds)
 ```
 
-> In AWS Cloudwatch X-Ray console should appear new group
+> Now you can see `Traces` in the AWS CloudWatch Console 
 
-![X-Ray Group](assets/x-ray-group.jpg)
-
-> Next create rule for collecting traces
-
-```sh
-aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
-```
-
-You should get json answer and rule appeared in console
-
-![X-Ray Rule](assets/x-ray-rule.jpg)
+![AWS X-Ray Traces](assets/x-ray-traces.jpg)
 
