@@ -141,6 +141,8 @@ xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
 XRayMiddleware(app, xray_recorder)
 ```
 
+### Optional AWS recommendation for installatin X-Ray
+
 > Run the X-Ray daemon with a user data script (EC2 Linux)
 
 ```sh
@@ -172,3 +174,54 @@ CMD xray-daemon -f /var/log/xray-daemon.log &
 ```sh
 docker build -t xray .
 ```
+
+### Check your CLI credentials for AWS
+
+> Check your credentials 
+
+```sh
+env | grep AWS
+```
+
+You should get same as in your AWS account env `AWS_SECRET_ACCESS_KEY', 'AWS_ACCESS_KEY_ID', 'AWS_SESSION_TOKEN'
+
+> Create group for X-Ray by CLI
+
+```sh
+FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"$FLASK_ADDRESS\") {fault OR error}"
+```
+
+You should get json answer like this
+
+```sh
+{
+    "Group": {
+        "GroupName": "Cruddur",
+        "GroupARN": "arn:aws:xray:eu-central-1:446171166981:group/Cruddur/GWSZYWM5HTHXLCB76QTGZ2LKHDBI2NFPYU2QN4CV2XZO43GHUQKA",
+        "FilterExpression": "service(\"backend-flask\")",
+        "InsightsConfiguration": {
+            "InsightsEnabled": false,
+            "NotificationsEnabled": false
+        }
+    }
+}
+```
+
+> In AWS Cloudwatch X-Ray console should appear new group
+
+![X-Ray Group](assets/x-ray-group.jpg)
+
+> Next create rule for collecting traces
+
+```sh
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+You should get json answer and rule appeared in console
+
+![X-Ray Rule](assets/x-ray-rule.jpg)
+
+
