@@ -2,7 +2,7 @@
 
 ## To Do Checklist
 
-- [ ] Watch Week-2 Video
+- [x] Watch Week-2 Video
 
 > [Video Content Link](video_content_week2.md)
 
@@ -11,9 +11,9 @@
 - [x] Create a new branch week-2
 - [x] Instrument our backend flask application to use Open Telemetry (OTEL) with Honeycomb.io as the provider
 - [x] Run queries to explore traces within Honeycomb.io
-- [ ] Instrument AWS X-Ray into backend flask application
-- [ ] Configure and provision X-Ray daemon within docker-compose and send data back to X-Ray API
-- [ ] Observe X-Ray traces within the AWS Console
+- [x] Instrument AWS X-Ray into backend flask application
+- [x] Configure and provision X-Ray daemon within docker-compose and send data back to X-Ray API
+- [x] Observe X-Ray traces within the AWS Console
 - [ ] Integrate Rollbar for Error Logging
 - [ ] Trigger an error an observe an error with Rollbarv
 - [ ] Install WatchTower and write a custom logger to send application log data to - CloudWatch Log group

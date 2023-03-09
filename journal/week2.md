@@ -282,3 +282,39 @@ docker compose -f "docker-compose.yml" up -d --build
 
 ![AWS X-Ray Traces](assets/x-ray-traces.jpg)
 
+### AWS SDK X-Ray for Python
+
+> The original source for [instrumentation x-ray](https://github.com/aws/aws-xray-sdk-python)
+
+For testing subsegment implementation add next line to `app.py` after `@app.route("/api/activities/notifications", methods=['GET'])` the service what you want to test Traces
+
+```sh
+@xray_recorder.capture('user_notifications')
+```
+
+> In the service folder add to `notifications_activities.py`
+
+```sh
+segment = xray_recorder.begin_segment('backend_notifications')
+now = datetime.now(timezone.utc).astimezone()
+xray_dict = {'now': now.isoformat()}
+segment.put_metadata('key', xray_dict, 'namespace')
+subsegment = xray_recorder.begin_subsegment('sub_xray_backend')
+subsegment.put_annotation('end_notifications', now.isoformat())
+...
+
+return results
+xray_recorder.end_subsegment()
+xray_recorder.end_segment()
+```
+
+> Generate some data port `4567`, you should get
+
+![X-Ray Subsegment](assets/x-ray-subsegment.jpg)
+
+You can experiment with `user_activities.py` following [This Article](https://olley.hashnode.dev/aws-free-cloud-bootcamp-instrumenting-aws-x-ray-subsegments)
+
+> Code example [user_activities_example.md](assets/user_activities_example.md)
+
+> Or use [Manually create segment/subsegment AWS-XRAY-SDK](https://docs.aws.amazon.com/xray-sdk-for-python/latest/reference/basic.html)
+
