@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta, timezone
-from aws_xray_sdk.core import xray_recorder
+#from aws_xray_sdk.core import xray_recorder
 class NotificationsActivities:
   def run():
     # Start a segment
-    segment = xray_recorder.begin_segment('backend_notifications')
+    #segment = xray_recorder.begin_segment('backend_notifications')
     now = datetime.now(timezone.utc).astimezone()
-    xray_dict = {'now': now.isoformat()}
-    segment.put_metadata('key', xray_dict, 'namespace')
-    subsegment = xray_recorder.begin_subsegment('sub_xray_backend')
-    subsegment.put_annotation('end_notifications', now.isoformat())
+    #xray_dict = {'now': now.isoformat()}
+    #segment.put_metadata('key', xray_dict, 'namespace')
+    #subsegment = xray_recorder.begin_subsegment('sub_xray_backend')
+    #subsegment.put_annotation('end_notifications', now.isoformat())
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
       'handle':  'Donal Duck',
@@ -31,5 +31,5 @@ class NotificationsActivities:
       }
     ]
     return results
-    xray_recorder.end_subsegment()
-    xray_recorder.end_segment()
+    #xray_recorder.end_subsegment()
+    #xray_recorder.end_segment()
