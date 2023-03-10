@@ -318,3 +318,74 @@ You can experiment with `user_activities.py` following [This Article](https://ol
 
 Or use [Manually create segment/subsegment AWS-XRAY-SDK](https://docs.aws.amazon.com/xray-sdk-for-python/latest/reference/basic.html)
 
+## Watchtower for CloudWatch AWS
+
+> Add to the `requirements.txt`
+
+```sh
+watchtower
+```
+
+> Add to the `app.py`
+
+```sh
+import watchtower
+import logging
+from time import strftime
+```
+
+bellow
+
+```sh
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("cruddur log messages from /api/activities/home")
+```
+
+and
+
+```sh
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+
+> Add the ENV in your backend-flask for `docker-compose.yml`
+
+```sh
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+> Add LOGGER to `@app.route("/api/activities/home", methods=['GET'])`
+
+```sh
+  data = HomeActivities.run(logger=LOGGER)
+```
+
+and to the `home_activities.py`
+
+```sh
+  def run(logger):
+    logger.info("HomeActivities")
+```
+
+> Up your `docker-compose.yml` file, and update few times web page
+
+You should get log-group `crudder`, logs and events in CloudWatch AWS
+
+![Cruddur Log Group](assets/log_group_cloudwatch.jpg)
+
+![Logs](assets/cloudwatch_logs.jpg)
+
+![Events](assets/cloudwatch_events.jpg)
+
+## Roll Bar
