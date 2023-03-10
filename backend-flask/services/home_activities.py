@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from opentelemetry import trace
 tracer = trace.get_tracer("home.activities")
 class HomeActivities:
-  def run():
+  def run(logger):
     logger.info("HomeActivities")
     with tracer.start_as_current_span("home-activities-data") as outer_span:
         outer_span.set_attribute("outer", True)
