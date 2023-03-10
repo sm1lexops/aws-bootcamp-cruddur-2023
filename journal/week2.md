@@ -456,6 +456,8 @@ def rollbar_test():
 
 You can advance your code with [Rollbar Flask Example](https://github.com/rollbar/rollbar-flask-example/blob/master/hello.py)
 
-> UP `docker-compose.yml` and you should get 
+> UP `docker-compose.yml` 
 
-![Rollbar]()
+Break your code in `home_activities.py` update web page port `4567`, and you should get
+
+![Rollbar](assets/rollbar.jpg)
