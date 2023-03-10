@@ -455,3 +455,7 @@ def rollbar_test():
 ```
 
 You can advance your code with [Rollbar Flask Example](https://github.com/rollbar/rollbar-flask-example/blob/master/hello.py)
+
+> UP `docker-compose.yml` and you should get 
+
+![Rollbar]()

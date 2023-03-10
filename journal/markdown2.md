@@ -14,9 +14,9 @@
 - [x] Instrument AWS X-Ray into backend flask application
 - [x] Configure and provision X-Ray daemon within docker-compose and send data back to X-Ray API
 - [x] Observe X-Ray traces within the AWS Console
-- [ ] Integrate Rollbar for Error Logging
-- [ ] Trigger an error an observe an error with Rollbarv
-- [ ] Install WatchTower and write a custom logger to send application log data to - CloudWatch Log group
+- [x] Integrate Rollbar for Error Logging
+- [x] Trigger an error an observe an error with Rollbarv
+- [x] Install WatchTower and write a custom logger to send application log data to - CloudWatch Log group
 
 ## Homework Challenges
 
