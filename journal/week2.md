@@ -388,4 +388,70 @@ You should get log-group `crudder`, logs and events in CloudWatch AWS
 
 ![Events](assets/cloudwatch_events.jpg)
 
-## Roll Bar
+## Rollbar
+
+Add to `requirements.txt`
+
+```sh
+blinker
+rollbar
+```
+
+Install dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+> Set your access token
+
+```sh
+export ROLLBAR_ACCESS_TOKEN=""
+gp env ROLLBAR_ACCESS_TOKEN=""
+```
+
+> Add to backend-flask for `docker-compose.yml`
+
+```sh
+ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+```
+
+Add to `app.py` 
+
+```sh
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+```
+
+and 
+
+```sh
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+```
+
+> Test how rollbar works with `app.py`
+
+```sh
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+```
+
+You can advance your code with [Rollbar Flask Example](https://github.com/rollbar/rollbar-flask-example/blob/master/hello.py)
