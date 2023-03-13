@@ -1,4 +1,4 @@
-# Video Content Week-1
+# Video Content Week-2
 
 - [Watch Week 2 - Live Streamed Video](https://www.youtube.com/watch?v=2GD9xCzRId4&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=31)
 
