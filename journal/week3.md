@@ -38,7 +38,7 @@ Conditionally show components based on logged in or logged out
 > Add to `HomeFeedPage.js`
 
 ```sh
-mport { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 
 // set a state
 const [user, setUser] = React.useState(null);
@@ -64,5 +64,13 @@ const checkAuth = async () => {
 };
 ```
 
+> Check all ENV VAR
 
+```sh
+      REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_USER_POOLS_ID: "<your-central-region>"
+      REACT_APP_CLIENT_ID: "<your id>"
+```
 
+`userPoolWebClientId` ENV same as the `aws_user_pools_web_client_id`
