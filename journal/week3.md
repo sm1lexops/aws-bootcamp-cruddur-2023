@@ -73,4 +73,77 @@ const checkAuth = async () => {
       REACT_APP_CLIENT_ID: "<your id>"
 ```
 
-`userPoolWebClientId` ENV same as the `aws_user_pools_web_client_id`
+`userPoolWebClientId` ENV need to be same as the `aws_user_pools_web_client_id`
+
+> Update our `./frontend-react-js/src/components/ProfileInfo.js`
+
+```sh
+import { Auth } from 'aws-amplify';
+
+const signOut = async () => {
+  try {
+      await Auth.signOut({ global: true });
+      window.location.href = "/"
+  } catch (error) {
+      console.log('error signing out: ', error);
+  }
+}
+```
+
+Change `DesktopSidebar.js` for showing components if you are logged or not
+
+```sh
+  let trending;
+  let suggested;
+  let join;
+  if (props.user) {
+    trending = <TrendingSection trendings={trendings} />
+    suggested = <SuggestedUsersSection users={users} />
+  } else {
+    join = <JoinSection />
+  }
+```
+
+Change `SigninPage.js` for authorizations with aws-amplify
+
+```sh
+  const onsubmit = async (event) => {
+    setErrors('')
+    event.preventDefault();
+    Auth.signIn(email, password)
+    .then(user => {
+      console.log('user',user)
+      localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+      window.location.href = "/"
+    })
+    .catch(error => { 
+      if (error.code == 'UserNotConfirmedException') {
+        window.location.href = "/confirm"
+      }
+      setErrors(error.message)
+    });
+    return false
+  }
+```
+
+> If all Correct, Up your `compose-docker.yml`, and login with user wich you create in AWS Cognito
+
+![Incorrect Username or Password](assets/signin_page_incorrect_user.jpg)
+
+> For bypassing jwttoken for authorization users, and the need to change password, send to AWS command
+
+```sh
+aws cognito-idp admin-set-user-password \
+> --user-pool-id eu-central-1_voJ0qpCh7 \
+> --username <your_mail> \
+> --password <your_password> \
+> --permanent
+```
+
+After that you should get authorized
+
+![Login to Application](assets/success_signin_page.jpg)
+
+> Change `SignupPage.js`
+
+```sh
