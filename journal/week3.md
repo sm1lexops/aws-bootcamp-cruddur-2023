@@ -140,7 +140,11 @@ aws cognito-idp admin-set-user-password \
 > --permanent
 ```
 
-After that you should get authorized
+> For correct display loggin user, set user attributes in Cognito   
+
+![Attribute Name](assets/cognito_user_attribute.jpg)
+
+After that you should get authorized, and see your name in the left lower corner
 
 ![Login to Application](assets/success_signin_page.jpg)
 
@@ -176,4 +180,4 @@ After that you should get authorized
   }
 ```
 
-> For correct display loggin user, set user attributes in Cognito   
+>
