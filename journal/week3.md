@@ -330,7 +330,7 @@ Flask-AWSCognito
       AWS_COGNITO_USER_POOL_CLIENT_ID: "<your-client-id>"   
 ```
 
-
+Up `docker-compose.yml` check for 
 
 ## Homework Challenges
 
