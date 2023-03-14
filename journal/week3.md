@@ -265,6 +265,16 @@ Add in the `HomeFeedPage.js` a header eto pass along the access token
 
 Update `App.py`
 
+> add library for JWT Token
+
+```sh
+import sys
+
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+```
+
+> update CORS
+
 ```py
 cors = CORS(
   app, 
@@ -274,6 +284,53 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 ```
+
+> add cognito env var for token
+
+```py
+cognito_jwt_token = CognitoJwtToken(
+  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region=os.getenv("AWS_DEFAULT_REGION")
+)
+```
+
+> update `@app.route("/api/activities/home", methods=['GET'])`
+
+```py
+@app.route("/api/activities/home", methods=['GET'])
+@xray_recorder.capture('activities_home')
+def data_home():
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    # authenicatied request
+    app.logger.debug("authenicated")
+    app.logger.debug(claims)
+    app.logger.debug(claims['username'])
+    data = HomeActivities.run(cognito_user_id=claims['username'])
+  except TokenVerifyError as e:
+    # unauthenicatied request
+    app.logger.debug(e)
+    app.logger.debug("unauthenicated")
+    data = HomeActivities.run()
+  return data, 200
+```
+
+Add to `requirements.txt`
+
+```sh
+Flask-AWSCognito
+```
+
+> Add ENV VAR to backend
+
+```sh
+      AWS_COGNITO_USER_POOL_ID: "<your-region>"
+      AWS_COGNITO_USER_POOL_CLIENT_ID: "<your-client-id>"   
+```
+
+
 
 ## Homework Challenges
 
