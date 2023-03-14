@@ -217,6 +217,14 @@ import { Auth } from 'aws-amplify';
   }
 ```
 
+> After All you should can SignIn
+
+![SignIn](assets/success_signin_page.jpg)
+
+>  and SignUp
+
+![SignUp](assets/success_signup.jpg)
+
 ## Update `RecoveryPage.js`
 
 ```js
@@ -244,6 +252,10 @@ const onsubmit_confirm_code = async (event) => {
   return false
 }
 ```
+
+Check that you should can recovery your password
+
+![Recovery Password](assets/reset_password_cruddur.jpg)
 
 ## Authenticating Server Side
 
