@@ -265,7 +265,7 @@ Add in the `HomeFeedPage.js` a header eto pass along the access token
 
 Update `App.py`
 
-```sh
+```py
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
