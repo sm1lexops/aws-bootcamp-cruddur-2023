@@ -35,7 +35,7 @@ Amplify.configure({
 
 Conditionally show components based on logged in or logged out
 
-> Add to `HomeFeedPage.js`
+## Update `HomeFeedPage.js`
 
 ```sh
 import { Auth } from 'aws-amplify';
@@ -75,7 +75,7 @@ const checkAuth = async () => {
 
 `userPoolWebClientId` ENV need to be same as the `aws_user_pools_web_client_id`
 
-> Update our `./frontend-react-js/src/components/ProfileInfo.js`
+## Update `./frontend-react-js/src/components/ProfileInfo.js`
 
 ```sh
 import { Auth } from 'aws-amplify';
@@ -90,7 +90,7 @@ const signOut = async () => {
 }
 ```
 
-Change `DesktopSidebar.js` for showing components if you are logged or not
+## Update `DesktopSidebar.js` for showing components if you are logged or not
 
 ```sh
   let trending;
@@ -104,7 +104,7 @@ Change `DesktopSidebar.js` for showing components if you are logged or not
   }
 ```
 
-Change `SigninPage.js` for authorizations with aws-amplify
+## Update `SigninPage.js` for authorizations with aws-amplify
 
 ```sh
   const onsubmit = async (event) => {
@@ -148,9 +148,9 @@ After that you should get authorized, and see your name in the left lower corner
 
 ![Login to Application](assets/success_signin_page.jpg)
 
-> Change `SignupPage.js`
+## Update `SignupPage.js`
 
-```sh
+```js
   const onsubmit = async (event) => {
     event.preventDefault();
     setErrors('')
@@ -180,9 +180,11 @@ After that you should get authorized, and see your name in the left lower corner
   }
 ```
 
-> Change `ConfirmationPage.js`
+## Update `ConfirmationPage.js`
 
-```sh
+```js
+import { Auth } from 'aws-amplify';
+
   const resend_code = async (event) => {
     setErrors('')
     try {
@@ -214,3 +216,57 @@ After that you should get authorized, and see your name in the left lower corner
     return false
   }
 ```
+
+## Update `RecoveryPage.js`
+
+```js
+import { Auth } from 'aws-amplify';
+
+const onsubmit_send_code = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  Auth.forgotPassword(username)
+  .then((data) => setFormState('confirm_code') )
+  .catch((err) => setErrors(err.message) );
+  return false
+}
+
+const onsubmit_confirm_code = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  if (password == passwordAgain){
+    Auth.forgotPasswordSubmit(username, code, password)
+    .then((data) => setFormState('success'))
+    .catch((err) => setErrors(err.message) );
+  } else {
+    setErrors('Passwords do not match')
+  }
+  return false
+}
+```
+
+## Authenticating Server Side
+
+Add in the `HomeFeedPage.js` a header eto pass along the access token
+
+```js
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("access_token")}`
+  }
+```
+
+Update `App.py`
+
+```sh
+cors = CORS(
+  app, 
+  resources={r"/api/*": {"origins": origins}},
+  headers=['Content-Type', 'Authorization'], 
+  expose_headers='Authorization',
+  methods="OPTIONS,GET,HEAD,POST"
+)
+```
+
+## Homework Challenges
+
+*In Progress*
