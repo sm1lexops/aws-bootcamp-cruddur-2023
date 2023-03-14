@@ -217,13 +217,9 @@ import { Auth } from 'aws-amplify';
   }
 ```
 
-> After All you should can SignIn
+> After All you should can SignIn and SignUp with `Your email confirmation code`
 
 ![SignIn](assets/success_signin_page.jpg)
-
->  and SignUp
-
-![SignUp](assets/success_signup.jpg)
 
 ## Update `RecoveryPage.js`
 
@@ -253,7 +249,7 @@ const onsubmit_confirm_code = async (event) => {
 }
 ```
 
-Check that you should can recovery your password
+Make sure you have received a recovery code to reset your password
 
 ![Recovery Password](assets/reset_password_cruddur.jpg)
 
