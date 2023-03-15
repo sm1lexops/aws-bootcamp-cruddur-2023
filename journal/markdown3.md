@@ -19,6 +19,8 @@
 *speeding up until next week*
 - [TO DO in process] [Hard] Decouple the JWT verify process by using Envoy as a sidecar https://www.envoyproxy.io/
 
+- [x] Improve UI
+
 - [x] [Easy] Implement MFA that send an SMS (text message), warning this has spend, investigate spend before considering, text messages are not eligible for AWS Credits
 
 - [x] *Homework Submissions*
