@@ -7,10 +7,10 @@
 	},
 	"remoteEnv": {
 		"AWS_CLI_AUTO_PROMPT": "on-partial",
-        	"AWS_ACCESS_KEY_ID": "AKIAWPYO7XEC5VPGASNE",
+        	"AWS_ACCESS_KEY_ID": "*",
 			"AWS_SECRET_ACCESS_KEY": "*",
         	"AWS_DEFAULT_REGION": "eu-central-1",
-        	"ROLLBAR_ACCESS_TOKEN": "bd77bb0f33454174b796e71a3c52a383",
+        	"ROLLBAR_ACCESS_TOKEN": "bfacba91d0fa4d078ff25df20b00fb1f",
        		"HONEYCOMB_API_KEY": "HYbMhvu1iS9T9EmvWuhS5A"
 		},	
 	"customizations": {
