@@ -7,7 +7,7 @@
 	},
 	"remoteEnv": {
 		"AWS_CLI_AUTO_PROMPT": "on-partial",
-        	"AWS_ACCESS_KEY_ID": "*",
+        	"AWS_ACCESS_KEY_ID": "AKIAWPYO7XEC5VPGASNE",
 			"AWS_SECRET_ACCESS_KEY": "*",
         	"AWS_DEFAULT_REGION": "eu-central-1",
         	"ROLLBAR_ACCESS_TOKEN": "bfacba91d0fa4d078ff25df20b00fb1f",
