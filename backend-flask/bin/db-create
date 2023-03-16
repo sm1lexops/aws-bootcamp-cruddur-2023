@@ -1,3 +1,12 @@
 #!/usr/bin/bash -xe
 
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-drop"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
+NO_DB_CONNECTION_URL=$(sed "s/\cruddur/ /g" <<< "$CONNECTION_PSQL_DEV")
+echo $NO_DB_CONNECTION_URL
+psql $NO_DB_CONNECTION_URL -c "SELECT 1 FROM pg_database WHERE datname = 'cruddur'" | grep -q 1 | psql $NO_DB_CONNECTION_URL -c "CREATE DATABASE cruddur;"
+
+echo $0

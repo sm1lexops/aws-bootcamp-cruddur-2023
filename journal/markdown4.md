@@ -9,9 +9,9 @@
 ## Class Summary
 
 - [x] Create week-4 branch and go ahead 
-- [ ] Provision an RDS instance
-- [ ] Temporarily stop an RDS instance
-- [ ] Remotely connect to RDS instance
+- [x] Provision an RDS instance
+- [x] Temporarily stop an RDS instance
+- [x] Remotely connect to RDS instance
 - [ ] Programmatically update a security group rule
 - [ ] Write several bash scripts for database operations
 - [ ] Operate common SQL commands
@@ -32,4 +32,4 @@
 
 - [ ] *Homework Submissions*
 
-- [ ] *Knowledge Chalenges*
+- [x] *Knowledge Chalenges*
