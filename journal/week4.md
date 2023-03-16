@@ -40,8 +40,8 @@ aws rds create-db-instance \
   --db-instance-class db.t4g.micro \
   --engine postgres \
   --engine-version  14.6 \
-  --master-username root \
-  --master-user-password Zaqswe123 \
+  --master-username psqlroot \
+  --master-user-password Zaqswe_123 \
   --allocated-storage 20 \
   --availability-zone eu-central-1a \
   --backup-retention-period 0 \
@@ -51,9 +51,11 @@ aws rds create-db-instance \
   --storage-type gp2 \
   --publicly-accessible \
   --storage-encrypted \
+  --no-deletion-protection
+
+  # optional
   --enable-performance-insights \
   --performance-insights-retention-period 7 \
-  --no-deletion-protection
   ```
 
 * You should get json answer
@@ -92,7 +94,28 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 * Run command in CLI
 
 ```sql
-psql cruddur < db/schema.sql -h localhost -U postgres
+psql cruddur < ./backend-flask/db/schema.sql -h localhost -U postgres
+```
+
+> Output
+
+```sh
+Password for user postgres: 
+CREATE EXTENSION
+```
+
+* We can automate our connections to DB, adding SECRET to your ENV VAR 
+
+> you can add this to secret codespace or gitpod
+
+```sh
+CONNECTION_PSQL="[user[:password]@][network_location][:port][/dbname][?param1=value1&...]
+```
+
+> rebuild SDE and the try
+
+```sh
+psql $CONNECTION_PSQL
 ```
 
 

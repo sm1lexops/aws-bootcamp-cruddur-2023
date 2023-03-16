@@ -1,0 +1,3 @@
+#!/usr/bin/bash -xe
+
+psql $CONNECTION_PSQL -c "DROP DATABASE cruddur;"
