@@ -340,6 +340,28 @@ INSERT 0 1
 (6 rows)
 ```
 
+* For using scripts in a bundle
+
+> Create `./db-setup`
+
+```sh
+#! /usr/bin/bash
+-e # stop if it fails at any point
+
+#echo "==== db-setup"
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-setup"
+printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
+
+bin_path="./backend-flask/bin"
+
+source "$bin_path/db-drop"
+source "$bin_path/db-create"
+source "$bin_path/db-schema-load"
+source "$bin_path/db-seed"
+```
+
 * Check data from table `psql $CONNECTION_PSQL_DEV -c "SELECT * FROM activities;"`
 
 ```sh
@@ -354,3 +376,103 @@ reply_to_activity_uuid |
 expires_at             | 2023-03-29 16:45:48.889741
 created_at             | 2023-03-19 16:45:48.889741
 ```
+
+## Implement Postgresql Driver for Python
+
+* Add to `reuquirements.txt`
+
+```sh
+psycopg[binary]
+psycopg[pool]
+```
+
+* Automatically update timestamp column psql
+
+```sql
+DROP TRIGGER IF EXISTS trig_users_updated_at ON users;
+DROP TRIGGER IF EXISTS trig_activities_updated_at ON activities;
+```
+
+```sql
+DROP FUNCTION IF EXISTS func_updated_at();
+CREATE FUNCTION func_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+```
+
+```sql
+CREATE TRIGGER trig_users_updated_at 
+BEFORE UPDATE ON users 
+FOR EACH ROW EXECUTE PROCEDURE func_updated_at();
+CREATE TRIGGER trig_activities_updated_at 
+BEFORE UPDATE ON activities 
+FOR EACH ROW EXECUTE PROCEDURE func_updated_at();
+```
+
+* Add ENV VAR to backend flask
+
+```js
+  backend-flask:
+    environment:
+      CONNECTION_URL: "${CONNECTION_URL}"
+```
+
+* Create `./backend-flask/lib/db.py`
+
+```py
+from psycopg_pool import ConnectionPool
+import os
+
+def query_wrap_object(template):
+  sql = '''
+  (SELECT COALESCE(row_to_json(object_row),'{}'::json) FROM (
+  {template}
+  ) object_row);
+  '''
+
+def query_wrap_array(template):
+  sql = '''
+  (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+  {template}
+  ) array_row);
+  '''
+
+connection_url = os.getenv("CONNECTION_URL")
+pool = ConnectionPool(connection_url)
+```
+
+> Replace in `home_activities.py` our mock endpoint with real API call
+
+```py
+from lib.db import pool, query_wrap_array
+
+      sql = query_wrap_array("""
+      SELECT
+        activities.uuid,
+        users.display_name,
+        users.handle,
+        activities.message,
+        activities.replies_count,
+        activities.reposts_count,
+        activities.likes_count,
+        activities.reply_to_activity_uuid,
+        activities.expires_at,
+        activities.created_at
+      FROM public.activities
+      LEFT JOIN public.users ON users.uuid = activities.user_uuid
+      ORDER BY activities.created_at DESC
+      """)
+      print(sql)
+      with pool.connection() as conn:
+        with conn.cursor() as cur:
+          cur.execute(sql)
+          # this will return a tuple
+          # the first field being the data
+          json = cur.fetchone()
+      return json[0]
+```
+
