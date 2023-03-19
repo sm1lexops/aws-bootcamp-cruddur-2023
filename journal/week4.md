@@ -112,7 +112,7 @@ CREATE EXTENSION
 CONNECTION_PSQL="[user[:password]@][network_location][:port][/dbname][?param1=value1&...]
 ```
 
-> rebuild SDE and the try
+> rebuild SDE and then try
 
 ```sh
 psql $CONNECTION_PSQL
