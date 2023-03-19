@@ -1,0 +1,10 @@
+#! /usr/bin/bash
+
+if [ "$1" = "prod" ]; then
+  echo "Running in production mode"
+  URL=$CONNECTION_PSQL_PROD
+else
+  URL=$CONNECTION_PSQL_DEV
+fi
+
+psql $URL
