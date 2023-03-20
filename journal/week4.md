@@ -418,7 +418,7 @@ FOR EACH ROW EXECUTE PROCEDURE func_updated_at();
 ```js
   backend-flask:
     environment:
-      CONNECTION_URL: "${CONNECTION_URL}"
+      CONNECTION_URL: "${CONNECTION_PSQL_DEV}"
 ```
 
 * Create `./backend-flask/lib/db.py`
@@ -428,44 +428,58 @@ from psycopg_pool import ConnectionPool
 import os
 
 def query_wrap_object(template):
-  sql = '''
-  (SELECT COALESCE(row_to_json(object_row),'{}'::json) FROM (
+  sql = f"""
+  (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
   {template}
   ) object_row);
-  '''
+  """
+  return sql
 
 def query_wrap_array(template):
-  sql = '''
+  sql = f"""
   (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
   {template}
   ) array_row);
-  '''
+  """
+  return sql
 
 connection_url = os.getenv("CONNECTION_URL")
 pool = ConnectionPool(connection_url)
+
 ```
 
-> Replace in `home_activities.py` our mock endpoint with real API call
+> Update `home_activities.py` our mock endpoint with real API call
 
 ```py
-from lib.db import pool, query_wrap_array
+from datetime import datetime, timedelta, timezone
+from opentelemetry import trace
+from lib.db import pool, query_wrap_object, query_wrap_array
 
+tracer = trace.get_tracer("home.activities")
+class HomeActivities:
+  def run(cognito_user_id=None):
+    #logger.info("HomeActivities")
+    with tracer.start_as_current_span("home-activities-data") as outer_span:
+      outer_span.set_attribute("outer", True)
+      span = trace.get_current_span()
+      now = datetime.now(timezone.utc).astimezone()
+      span.set_attribute("app.hubabuba", now.isoformat())
       sql = query_wrap_array("""
-      SELECT
-        activities.uuid,
-        users.display_name,
-        users.handle,
-        activities.message,
-        activities.replies_count,
-        activities.reposts_count,
-        activities.likes_count,
-        activities.reply_to_activity_uuid,
-        activities.expires_at,
-        activities.created_at
-      FROM public.activities
-      LEFT JOIN public.users ON users.uuid = activities.user_uuid
-      ORDER BY activities.created_at DESC
-      """)
+        SELECT
+          activities.uuid,
+          users.display_name,
+          users.handle,
+          activities.message,
+          activities.replies_count,
+          activities.reposts_count,
+          activities.likes_count,
+          activities.reply_to_activity_uuid,
+          activities.expires_at,
+          activities.created_at
+        FROM public.activities
+        LEFT JOIN public.users ON users.uuid = activities.user_uuid
+        ORDER BY activities.created_at DESC
+        """)
       print(sql)
       with pool.connection() as conn:
         with conn.cursor() as cur:
@@ -473,6 +487,10 @@ from lib.db import pool, query_wrap_array
           # this will return a tuple
           # the first field being the data
           json = cur.fetchone()
+      with tracer.start_as_current_span("home-results-activities") as inner_span:
+        inner_span.set_attribute("inner", True)
+        span = trace.get_current_span()
+        span.set_attribute("app.result_length", len(sql))
       return json[0]
 ```
 

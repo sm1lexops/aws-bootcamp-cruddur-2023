@@ -10,4 +10,11 @@ seed_path="./backend-flask/db/seed.sql"
 
 echo $seed_path
 
-psql $CONNECTION_PSQL_DEV cruddur < $seed_path
+if [ "$1" = "prod" ]; then
+  echo "Running in production mode"
+  URL=$CONNECTION_PSQL_PROD
+else
+  URL=$CONNECTION_PSQL_DEV
+fi
+
+psql $URL cruddur < $seed_path
