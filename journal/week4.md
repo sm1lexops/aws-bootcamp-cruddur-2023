@@ -502,4 +502,68 @@ class HomeActivities:
 
 > Up docker compose, public port 3000, and you should see 
 
-![]
+![Data from PSQL DB](assets/week-4/pg_driver_implement.jpg)
+
+## Connect to AWS RDS DB via SDE
+
+We need our sde ip and add it to whitelist for inbound traffic `POSTGRESQL` 
+
+> ENV VAR with SDE IP
+
+```sh
+GITPOD_IP=$(curl ifconfig.me)
+```
+
+> Add ENV VAR for AWS CLI (*paste your sg group #*)
+
+```sh
+export DB_SG_ID="sg-0b725ebab7e25635e"
+gp env DB_SG_ID="sg-0b725ebab7e25635e"
+export DB_SG_RULE_ID="sgr-070061bba156cfa88"
+gp env DB_SG_RULE_ID="sgr-070061bba156cfa88"
+```
+
+> Update AWS security group for access [SG Tutorial](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-security-group-rules.html#examples)
+
+```aws
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "Description=GitPod,SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+```
+
+> Create `db-update-sg-rule`
+
+```sh
+#! /usr/bin/bash
+
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "Description=GitPod,SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+```
+
+* Test remote Access to AWS RDS where for example `$CONNECTION_PSQL_PROD=postgresql://root:huEE33z2Qvl383@cruddur-db-instance.czz1cuvepklc.ca-central-1.rds.amazonaws.com:5433/cruddur`
+
+```sh
+psql $CONNECTION_PSQL_PROD
+```
+
+You can update your ENV VAR for SDE or add this ENV VAR to secrets services like a codespace
+
+```sh
+export PROD_CONNECTION_URL="postgresql://root:huEE33z2Qvl383@cruddur-db-instance.czz1cuvepklc.ca-central-1.rds.amazonaws.com:5432/cruddur"
+gp env PROD_CONNECTION_URL="postgresql://root:huEE33z2Qvl383@cruddur-db-instance.czz1cuvepklc.ca-central-1.rds.amazonaws.com:5432/cruddur"
+```
+
+## Automate your SDE ENV VAR 
+
+> Add to postgres `docker-compose.yml` file
+
+```sh
+    command: |
+      export GITPOD_IP=$(curl ifconfig.me)
+      source "$THEIA_WORKSPACE_ROOT/backend-flask/db-update-sg-rule"
+```
+
+
+
+
