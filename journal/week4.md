@@ -420,8 +420,9 @@ FOR EACH ROW EXECUTE PROCEDURE func_updated_at();
     environment:
       CONNECTION_URL: "${CONNECTION_PSQL_DEV}"
 ```
+* Temporarily change `${CONNECTION_PSQL_DEV}` to `postgresql://postgres:password@db:5432/cruddur`
 
-* Create `./backend-flask/lib/db.py`
+> Create `./backend-flask/lib/db.py`
 
 ```py
 from psycopg_pool import ConnectionPool
@@ -494,3 +495,11 @@ class HomeActivities:
       return json[0]
 ```
 
+> If everything is correct
+
+* Database created, schema and seed loaded
+* Created `db.py` updated `home_activities.py`
+
+> Up docker compose, public port 3000, and you should see 
+
+![]
