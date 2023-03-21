@@ -908,3 +908,4 @@ class HomeActivities:
         span.set_attribute("app.result_length", len(sql))
       return results
 ```
+*It's all about thoughts. Thought is the beginning of everything. And thoughts can be controlled. And therefore the main thing of improvement is to work on thoughts*
