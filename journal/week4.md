@@ -653,3 +653,21 @@ aws lambda update-function-configuration \
 
 * Create post confirmation trigger for AWS Lambda
 
+* Create and Attach AWS Lambda policy for network
+
+* Check attached security group for Lambda
+
+* Check you created database and load schema and seed
+
+* UP docker compose and sign up account
+
+* Confirm account and check your AWS database for created user
+
+```sh
+psql $CONNECTION_PSQL_PROD -c "SELECT * FROM USERS;"
+```
+
+> You should see registered account data
+
+## Create Activities
+
