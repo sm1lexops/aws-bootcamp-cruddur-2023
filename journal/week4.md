@@ -554,7 +554,7 @@ export PROD_CONNECTION_URL="postgresql://root:huEE33z2Qvl383@cruddur-db-instance
 gp env PROD_CONNECTION_URL="postgresql://root:huEE33z2Qvl383@cruddur-db-instance.czz1cuvepklc.ca-central-1.rds.amazonaws.com:5432/cruddur"
 ```
 
-## Automate your SDE ENV VAR 
+## Automate your SDE building with ENV VAR 
 
 > Add to postgres `docker-compose.yml` file
 
@@ -564,6 +564,71 @@ gp env PROD_CONNECTION_URL="postgresql://root:huEE33z2Qvl383@cruddur-db-instance
       source "$THEIA_WORKSPACE_ROOT/backend-flask/db-update-sg-rule"
 ```
 
+## Implement AWS Cognito Post Confirmation Lambda
 
+### Create the Handler Function
+
+* Create lambda in same vpc as rds instance Python 3.8
+
+* Add a layer for psycopg2 with one of the below methods for development or production
+
+> ENV variables for the lambda environment (*change for yours*)
+
+```sh
+PG_HOSTNAME='cruddur-db-instance.czz1cuvepklc.ca-central-1.rds.amazonaws.com'
+PG_DATABASE='cruddur'
+PG_USERNAME='root'
+PG_PASSWORD='huEE33z2Qvl383'
+```
+
+> Create Function for AWS Lambda add to `./aws/lambda/cruddur-post-confirrmation.py`
+
+```py
+import json
+import psycopg2
+import os
+
+def lambda_handler(event, context):
+    user = event['request']['userAttributes']
+    print('userAttributes')
+    print(user)
+
+    user_display_name  = user['name']
+    user_email         = user['email']
+    user_handle        = user['preferred_username']
+    user_cognito_id    = user['sub']
+    try:
+      print('entered-try')
+      sql = f"""
+         INSERT INTO public.users (
+          display_name, 
+          email,
+          handle, 
+          cognito_user_id
+          ) 
+        VALUES(%s,%s,%s,%s)
+      """
+      print('SQL Statement ----')
+      print(sql)
+      conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
+      cur = conn.cursor()
+      params = [
+        user_display_name,
+        user_email,
+        user_handle,
+        user_cognito_id
+      ]
+      cur.execute(sql,*params)
+      conn.commit() 
+
+    except (Exception, psycopg2.DatabaseError) as error:
+      print(error)
+    finally:
+      if conn is not None:
+          cur.close()
+          conn.close()
+          print('Database connection closed.')
+    return event
+```
 
 
