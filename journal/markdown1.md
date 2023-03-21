@@ -4,7 +4,7 @@
 
 - [x] Watch Week-1 Video
 
-> [Video Content Link](video_content_week1.md)
+> [Video Content Link](videocontent/video_content_week1.md)
 
 - [x] Homework Submissions
 

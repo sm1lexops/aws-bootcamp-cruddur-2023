@@ -4,7 +4,7 @@
 
 - [x] Watch Week-4 Video
 
-> [Video Content Link](video_content_week4.md)
+> [Video Content Link](videocontent/video_content_week4.md)
 
 ## Class Summary
 
