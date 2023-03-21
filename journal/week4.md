@@ -581,6 +581,18 @@ PG_USERNAME='root'
 PG_PASSWORD='huEE33z2Qvl383'
 ```
 
+You can create Lambda in AWS Console or use [CLI for AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html)
+
+> To create a function and connect it to a VPC using the AWS Command Line Interface (AWS CLI), you can use the create-function command with the vpc-config option. The following example creates a function with a connection to a VPC with two subnets, one security group adn ENV VAR
+
+```sh
+aws lambda create-function \
+--function-name my-function \
+--runtime nodejs18.x --handler <your_code_for_lambda>.py --zip-file fileb://function.zip \
+--role arn:aws:iam::123456789012:role/lambda-role \
+--vpc-config SubnetIds=subnet-071f712345678e7c8,subnet-07fd123456788a036,SecurityGroupIds=sg-085912345678492fb \
+```
+
 > Create Function for AWS Lambda add to `./aws/lambda/cruddur-post-confirrmation.py`
 
 ```py
@@ -631,4 +643,13 @@ def lambda_handler(event, context):
     return event
 ```
 
+> Update ENV VAR for AWS Lambda
+
+```sh
+aws lambda update-function-configuration \
+--function-name my-function \
+--environment "Variables={BUCKET=my-bucket,KEY=file.txt}"
+```
+
+* Create post confirmation trigger for AWS Lambda
 

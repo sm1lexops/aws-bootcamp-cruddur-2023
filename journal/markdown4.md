@@ -19,9 +19,9 @@
 - [x] Work with UUIDs and PSQL extensions
 - [x] Implement a postgres client for python using a connection pool
 - [x] Troubleshoot common SQL errors
-- [ ] Implement a Lambda that runs in a VPC and commits code to RDS
-- [ ] Work with PSQL json functions to directly return json from the database
-- [ ] Correctly sanitize parameters passed to SQL to execute
+- [x] Implement a Lambda that runs in a VPC and commits code to RDS
+- [x] Work with PSQL json functions to directly return json from the database
+- [x] Correctly sanitize parameters passed to SQL to execute
 
 ## Homework Challenges
 *speeding up until next week*
