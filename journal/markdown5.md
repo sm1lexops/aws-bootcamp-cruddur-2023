@@ -8,7 +8,7 @@
 
 ## Class Summary
 
-- [ ] Create week-5 branch and go ahead 
+- [x] Create week-5 branch and go ahead 
 - [ ] 
 - [ ] 
 - [ ]
