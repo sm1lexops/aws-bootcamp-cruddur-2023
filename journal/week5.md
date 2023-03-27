@@ -36,7 +36,7 @@ attrs = {
 if len(sys.argv) == 2;
   if "prod" in sys.argv[1]:
     attrs = {}
-dynamodb = boto3.client('dynamodb', **attrs)
+ddb = boto3.client('dynamodb', **attrs)
 
 table_name = 'cruddur-message'
 
@@ -72,4 +72,20 @@ response = ddb.create_table(
 )
 
 print(response)
+```
+
+* Change permission `chmod x+u ./schema-load`, UP docker compose and try run script
+
+> You should get json answer in cli
+
+* Create `../ddb/list-tables` file
+
+```sh
+#!/usr/bin/bash
+
+if [ "$1" = "prod" ] then
+  ENDPOINT_URL = ""
+else
+  ENDPOINT_URL = "--endpoint-url=http://localhost:"
+end
 ```
