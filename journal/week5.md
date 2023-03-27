@@ -36,7 +36,7 @@ attrs = {
 if len(sys.argv) == 2;
   if "prod" in sys.argv[1]:
     attrs = {}
-dynamodb = boto3.client('dynamodb', **attrs)
+ddb = boto3.client('dynamodb', **attrs)
 
 table_name = 'cruddur-message'
 
