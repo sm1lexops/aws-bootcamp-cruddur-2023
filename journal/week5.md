@@ -73,3 +73,7 @@ response = ddb.create_table(
 
 print(response)
 ```
+
+* Change permission `chmod x+u ./schema-load`, UP docker compose and try run script
+
+> You should get json answer in cli
