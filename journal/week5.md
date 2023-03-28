@@ -526,5 +526,3 @@ for item in items:
 ```
 
 > Add u+x permission for script files and run `get-conversation`, you should get conversation data
-
-
