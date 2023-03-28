@@ -6,7 +6,7 @@ NO_COLOR='\033[0m'
 LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-seed_path="./backend-flask/db/seed.sql"
+seed_path="./backend-flask/sql/seed.sql"
 
 echo $seed_path
 

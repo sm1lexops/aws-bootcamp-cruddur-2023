@@ -61,8 +61,8 @@ aws rds create-db-instance \
   --db-instance-class db.t4g.micro \
   --engine postgres \
   --engine-version  14.6 \
-  --master-username psqlroot \
-  --master-user-password Zaqswe_123 \
+  --master-username root \
+  --master-user-password p@ssw0rd \
   --allocated-storage 20 \
   --availability-zone eu-central-1a \
   --backup-retention-period 0 \
