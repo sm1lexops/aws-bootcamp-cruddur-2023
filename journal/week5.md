@@ -114,7 +114,11 @@ print(response)
 
 > You should get json answer in cli
 
-* Create `../ddb/list-tables` file add execute persmission
+```sh
+{'TableDescription': {'AttributeDefinitions': [{'AttributeName': 'pk', 'AttributeType': 'S'}, {'AttributeName': 'sk', 'AttributeType': 'S'}], 'TableName': 'cruddur-messages', 'KeySchema': [{'AttributeName': 'pk', 'KeyType': 'HASH'}, {'AttributeName': 'sk', 'KeyType': 'RANGE'}], 'TableStatus': 'ACTIVE', 'CreationDateTime': datetime.datetime(2023, 3, 29, 8, 41, 44, 906000, tzinfo=tzlocal()), 'ProvisionedThroughput': {'LastIncreaseDateTime': datetime.datetime(1970, 1, 1, 0, 0, tzinfo=tzlocal()), 'LastDecreaseDateTime': datetime.datetime(1970, 1, 1, 0, 0, tzinfo=tzlocal()), 'NumberOfDecreasesToday': 0, 'ReadCapacityUnits': 5, 'WriteCapacityUnits': 5}, 'TableSizeBytes': 0, 'ItemCount': 0, 'TableArn': 'arn:aws:dynamodb:ddblocal:000000000000:table/cruddur-messages'}, 'ResponseMetadata': {'RequestId': '203947e1-3d17-4e5d-97f5-fe6550829c4b', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Wed, 29 Mar 2023 08:41:44 GMT', 'x-amzn-requestid': '203947e1-3d17-4e5d-97f5-fe6550829c4b', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '3894244954', 'content-length': '580', 'server': 'Jetty(9.4.48.v20220622)'}, 'RetryAttempts': 0}}
+```
+
+* Create `../ddb/list-tables` file add persmission
 
 ```sh
 #!/usr/bin/bash
@@ -124,6 +128,16 @@ if [ "$1" = "prod" ]; then
 else
   ENDPOINT_URL = "--endpoint-url=http://localhost:"
 end
+```
+
+> Run list-tables and you'll get
+
+```sh
+----------------------
+|     ListTables     |
++--------------------+
+|  cruddur-messages  |
++--------------------+
 ```
 
 * Create `../ddb/drop` file u+x
@@ -148,6 +162,8 @@ aws dynamodb delete-table $ENDPOINT_URL \
 --table-name $TABLE_NAME \
 --output table
 ```
+
+> Run `./backend-flask/bin/ddb/drop cruddur-messages`, table will be deleted and you should get json answer 
 
 * Create `../ddb/seed` file u+x, 
 
