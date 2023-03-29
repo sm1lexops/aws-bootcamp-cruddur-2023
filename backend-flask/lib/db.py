@@ -40,6 +40,7 @@ class Db:
     no_color = '\033[0m'
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
     print(sql,params)
+    
   def query_commit(self,sql,params={}):
     self.print_sql('commit with returning',sql,params)
 
@@ -82,6 +83,7 @@ class Db:
           "{}"
         else:
           return json[0]
+
   def query_value(self,sql,params={}):
     self.print_sql('value',sql,params)
     with self.pool.connection() as conn:
@@ -89,6 +91,7 @@ class Db:
         cur.execute(sql,params)
         json = cur.fetchone()
         return json[0]
+
   def query_wrap_object(self,template):
     sql = f"""
     (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
