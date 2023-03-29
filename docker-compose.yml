@@ -6,7 +6,7 @@ services:
       #BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      CONNECTION_URL: "${CONNECTION_PSQL_PROD}"
+      CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
       OTEL_SERVICE_NAME: 'backend-flask' 
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
@@ -37,8 +37,8 @@ services:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "eu-central-1_SNp3X0CQ4"
-      REACT_APP_CLIENT_ID: "7s4fa15do7dfgd1m9fdhhv26p5"
+      REACT_APP_AWS_USER_POOLS_ID: "eu-central-1_twwEkiAtq"
+      REACT_APP_CLIENT_ID: "7ftl739bve6h6r6s145cnp5172"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
