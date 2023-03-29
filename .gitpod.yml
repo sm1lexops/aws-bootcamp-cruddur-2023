@@ -33,3 +33,17 @@ vscode:
     - ms-python.isort
     - mtxr.sqltools-driver-pg
     - mtxr.sqltools
+ports:
+  - name: frontend
+    port: 3000
+    onOpen: open-browser
+    visibility: public
+  - name: backend
+    port: 4567
+    visibility: public
+  - name: xray-daemon
+    port: 2000
+    visibility: public
+  - name: ddb
+    port: 8000
+    visibility: public
