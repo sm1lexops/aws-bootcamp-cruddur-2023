@@ -6,7 +6,7 @@
 
 ## Implementing DynamoDB query using Single Table Design
 
-* Up `docker-compose.yml`, check db is up and use scripts to add data
+* Up `docker-compose.yml`, check db is up
 
 * Update `requirements.txt` add boto3
 
@@ -19,6 +19,40 @@ boto3
 > Create `./backend-flask/bin/db, ../../rds directory and move db scripts to db
 
 > Move `update-sg-rule` ../rds
+
+* Check all ours scripts is working 
+
+> from `aws-bootcamp-cruddur-2023` directory run
+
+```sh
+./backend-flask/bin/db/setup
+```
+
+> You should get success output
+
+```sh
+==== db-setup
+== db-drop
+DROP DATABASE
+====DATABASE <cruddur> DROP SUCCESS====
+./backend-flask/bin/db/setup
+== db-create
+CREATE DATABASE
+./backend-flask/bin/db/setup
+== db-schema-load
+./backend-flask/sql/schema.sql
+CREATE EXTENSION
+NOTICE:  table "users" does not exist, skipping
+DROP TABLE
+NOTICE:  table "activities" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+== db-seed
+./backend-flask/sql/seed.sql
+INSERT 0 2
+INSERT 0 1
+```
 
 > Create dir for DynamoDB ../ddb
 
@@ -258,7 +292,7 @@ for i in range(len(lines)):
   )
 ```
 
-> Add `Pattern A/B/C/D` some logic
+> Add `Patterns` some logic
 
 ```py
 # add pathtofile app for execute calling to db
