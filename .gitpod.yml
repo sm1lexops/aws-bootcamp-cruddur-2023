@@ -33,5 +33,4 @@ vscode:
     - ms-python.isort
     - DavidAnson.vscode-markdownlint
     - mtxr.sqltools-driver-pg
-    - ms-toolsai.vscode-jupyter-cell-tags
     - mtxr.sqltools
