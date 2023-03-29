@@ -47,3 +47,6 @@ ports:
   - name: ddb
     port: 8000
     visibility: public
+  - name: postgresql
+    port: 5432
+    visibility: public
