@@ -699,8 +699,9 @@ Some precompiled versions of this layer are available publicly on AWS freely to 
 
 *https://github.com/jetbridge/psycopg2-lambda-layer*
 
-Just go to Layers + in the function console and add a reference for your region
-arn:aws:lambda:ca-central-1:898466741470:layer:psycopg2-py38:1
+> Layer for Lambda in my case for test
+
+*arn:aws:lambda:eu-central-1:898466741470:layer:psycopg2-py38:1*
 
 Alternatively you can create your own development layer by downloading the psycopg2-binary source files from 
 
