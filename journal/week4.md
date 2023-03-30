@@ -683,7 +683,7 @@ aws lambda update-function-configuration \
     ]
 }
 ```
-![AWS Lambda VPC Policy for Network](assets/week-4/AWS_Lambda_VPM.jpg)
+![AWS Lambda VPC Policy for Network](assets/week-4/AWS_Lambda_VPC.jpg)
 
 * Check attached security group for Lambda
 
