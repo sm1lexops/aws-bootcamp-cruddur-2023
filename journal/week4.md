@@ -666,7 +666,8 @@ aws lambda update-function-configuration \
                 "ec2:CreateNetworkInterface",
                 "ec2:DescribeNetworkInterfaces",
                 "ec2:DetachNetworkInterface",
-                "ec2:DeleteNetworkInterface"
+                "ec2:DeleteNetworkInterface",
+                "ec2:"DescribeInstances"
             ],
             "Resource": "*"
         },
@@ -685,13 +686,56 @@ aws lambda update-function-configuration \
 ```
 ![AWS Lambda VPC Policy for Network](assets/week-4/AWS_Lambda_VPC.jpg)
 
-* Check attached security group for Lambda
+* Attach security group for Lambda
 
-* Check you created database and load schema and seed
+* Add (create) layer to your Lambda function
+> Development https://github.com/AbhimanyuHK/aws-psycopg2
+
+*This is a custom compiled psycopg2 C library for Python. Due to AWS Lambda missing the required PostgreSQL libraries in the AMI image, we needed to compile psycopg2 with the PostgreSQL libpq.so library statically linked libpq library instead of the default dynamic link.*
+
+EASIEST METHOD
+
+Some precompiled versions of this layer are available publicly on AWS freely to add to your function by ARN reference.
+
+*https://github.com/jetbridge/psycopg2-lambda-layer*
+
+Just go to Layers + in the function console and add a reference for your region
+arn:aws:lambda:ca-central-1:898466741470:layer:psycopg2-py38:1
+
+Alternatively you can create your own development layer by downloading the psycopg2-binary source files from 
+
+*https://pypi.org/project/psycopg2-binary/#files*
+
+Download the package for the lambda runtime environment: 
+
+*psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl*
+
+Extract to a folder, then zip up that folder and upload as a new lambda layer to your AWS account
+
+> Production
+
+Follow the instructions on https://github.com/AbhimanyuHK/aws-psycopg2 to compile your own layer from postgres source libraries for the desired version.
+
+* Creat RDS load schema and seed
 
 * UP docker compose and sign up account
 
 * Confirm account and check your AWS database for created user
+
+> Success! You shouldn't get any error messages from `CloudWatch` and user added to RDS
+
+![CloudWatch Logs Example](assets/week-4/cloudwatch_logs.jpg)
+
+>RDS User Created -> example
+ 
+```sh
+cruddur=> select * from users;
+                 uuid                 |  display_name  | handle  |          email           |           cognito_user_id            |         created_at         
+--------------------------------------+----------------+---------+--------------------------+--------------------------------------+----------------------------
+ 930f8a0f-25fa-4c5d-ba07-98b3641faa41 | ALKSEY SMIRNOV | smilove | smilovesmirnov@gmail.com | aa76b8af-c755-4508-8c6b-301b930c45f0 | 2023-03-30 16:28:23.669335
+(1 row)
+cruddur=> 
+```
 
 ```sh
 psql $CONNECTION_PSQL_PROD -c "SELECT * FROM USERS;"
@@ -795,7 +839,7 @@ class Db:
     self.init_pool()
 
   def template(self,*args):
-    pathing = list((app.root_path,'db','sql',) + args)
+    pathing = list((app.root_path,'sql',) + args)
     pathing[-1] = pathing[-1] + ".sql"
 
     template_path = os.path.join(*pathing)
