@@ -653,7 +653,37 @@ aws lambda update-function-configuration \
 
 * Create post confirmation trigger for AWS Lambda
 
-* Create and Attach AWS Lambda policy for network
+* Create and Attach AWS Lambda policy for network and logs
+
+```sh
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowVPCAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DetachNetworkInterface",
+                "ec2:DeleteNetworkInterface"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowVPCExecution",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:*"
+        }
+    ]
+}
+```
+![AWS Lambda VPC Policy for Network](assets/week-4/AWS_Lambda_VPM.jpeg)
 
 * Check attached security group for Lambda
 
