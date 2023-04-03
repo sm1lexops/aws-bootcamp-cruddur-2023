@@ -4,8 +4,9 @@ import boto3
 import os
 import sys
 
-print("== db-update-cognito-user-ids")
+print("==== db-update-cognito-user-ids ====")
 
+# for have to use db.py def we need change our path
 current_path = os.path.dirname(os.path.abspath(__file__))
 parent_path = os.path.abspath(os.path.join(current_path, '..', '..'))
 sys.path.append(parent_path)
@@ -42,7 +43,6 @@ def get_cognito_user_ids():
     handle = next((a for a in attrs if a["Name"] == 'preferred_username'), None)
     dict_users[handle['Value']] = sub['Value']
   return dict_users
-
 
 users = get_cognito_user_ids()
 
