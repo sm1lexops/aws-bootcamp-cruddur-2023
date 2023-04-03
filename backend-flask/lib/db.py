@@ -9,7 +9,7 @@ class Db:
     self.init_pool()
 
   def template(self,*args):
-    pathing = list((app.root_path,'sql',) + args)
+    pathing = list((app.root_path,'db','sql',) + args)
     pathing[-1] = pathing[-1] + ".sql"
 
     template_path = os.path.join(*pathing)
@@ -40,7 +40,6 @@ class Db:
     no_color = '\033[0m'
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
     print(sql,params)
-    
   def query_commit(self,sql,params={}):
     self.print_sql('commit with returning',sql,params)
 
@@ -80,10 +79,9 @@ class Db:
         cur.execute(wrapped_sql,params)
         json = cur.fetchone()
         if json == None:
-          "{}"
+          return "{}"
         else:
           return json[0]
-
   def query_value(self,sql,params={}):
     self.print_sql('value',sql,params)
     with self.pool.connection() as conn:
@@ -91,7 +89,6 @@ class Db:
         cur.execute(sql,params)
         json = cur.fetchone()
         return json[0]
-
   def query_wrap_object(self,template):
     sql = f"""
     (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
