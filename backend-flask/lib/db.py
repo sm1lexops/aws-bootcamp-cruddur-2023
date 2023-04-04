@@ -24,7 +24,9 @@ class Db:
     return template_content
 
   def init_pool(self):
-    connection_url = os.getenv("CONNECTION_URL")
+    connection_url = "postgresql://postgres:password@localhost:5432/cruddur"
+    print("===== some issues =====>>>>" , connection_url)
+    #connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
   # we want to commit data such as an insert
   # be sure to check for RETURNING in all uppercases
@@ -42,7 +44,6 @@ class Db:
     print(sql,params)
   def query_commit(self,sql,params={}):
     self.print_sql('commit with returning',sql,params)
-
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
 
