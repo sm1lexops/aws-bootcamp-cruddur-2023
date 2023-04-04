@@ -24,7 +24,7 @@ class Db:
     return template_content
 
   def init_pool(self):
-    connection_url = "postgresql://postgres:password@localhost:5432/cruddur"
+    connection_url = os.getenv("CONNECTION_URL")
     print("===== some issues =====>>>>" , connection_url)
     #connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
