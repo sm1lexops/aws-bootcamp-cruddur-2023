@@ -341,11 +341,11 @@ def get_user_uuids():
         )
   """
   users = db.query_array_json(sql,{
-    'my_handle':  'andrewbrown',
-    'other_handle': 'bayko'
+    'my_handle':  'korney',
+    'other_handle': 'smirnov'
   })
-  my_user    = next((item for item in users if item["handle"] == 'andrewbrown'), None)
-  other_user = next((item for item in users if item["handle"] == 'bayko'), None)
+  my_user    = next((item for item in users if item["handle"] == 'korney'), None)
+  other_user = next((item for item in users if item["handle"] == 'smirnov'), None)
   results = {
     'my_user': my_user,
     'other_user': other_user
@@ -486,7 +486,7 @@ def get_my_user_uuid():
       users.handle =%(handle)s
   """
   uuid = db.query_value(sql,{
-    'handle':  'andrewbrown'
+    'handle':  'korney'
   })
   return uuid
 
@@ -616,5 +616,98 @@ print(json.dumps(dict_users, sort_keys=True, indent=2, default=str))
 
 ```sh
 aws cognito-idp list-users --user-pool-id=eu-central-1_LUcicGf0b
+```
+
+## Implement auto updating cognito user ids
+
+* Create `./backend-flask/bin/cognito/update_cognito_user_ids` file
+
+```py
+#!/usr/bin/env python3
+
+import boto3
+import os
+import sys
+
+print("==== db-update-cognito-user-ids ====")
+
+# for have to use db.py def we need change our path
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def update_users_with_cognito_user_id(handle,sub):
+  sql = """
+    UPDATE public.users
+    SET cognito_user_id = %(sub)s
+    WHERE
+      users.handle = %(handle)s;
+  """
+  db.query_commit(sql,{
+    'handle' : handle,
+    'sub' : sub
+  })
+
+def get_cognito_user_ids():
+  userpool_id = os.getenv("AWS_COGNITO_USER_POOL_ID")
+  client = boto3.client('cognito-idp')
+  params = {
+    'UserPoolId': userpool_id,
+    'AttributesToGet': [
+        'preferred_username',
+        'sub'
+    ]
+  }
+  response = client.list_users(**params)
+  users = response['Users']
+  dict_users = {}
+  for user in users:
+    attrs = user['Attributes']
+    sub    = next((a for a in attrs if a["Name"] == 'sub'), None)
+    handle = next((a for a in attrs if a["Name"] == 'preferred_username'), None)
+    dict_users[handle['Value']] = sub['Value']
+  return dict_users
+
+users = get_cognito_user_ids()
+
+for handle, sub in users.items():
+  print('=====', handle, sub, "=====")
+  update_users_with_cognito_user_id(
+    handle=handle,
+    sub=sub
+  )
+```
+
+> Check if the script is working ==> success example
+
+```sh
+==== db-update-cognito-user-ids ====
+===== some issues =====>>>> postgresql://postgres:password@localhost:5432/cruddur
+===== korney 648866bd-d054-475a-8099-a5f211ef2f27 =====
+ SQL STATEMENT-[commit with returning]------
+
+    UPDATE public.users
+    SET cognito_user_id = %(sub)s
+    WHERE
+      users.handle = %(handle)s;
+   {'handle': 'korney', 'sub': '648866bd-d054-475a-8099-a5f211ef2f27'}
+===== smirnov 7d1739ba-8733-4a7b-b2dd-563745231431 =====
+ SQL STATEMENT-[commit with returning]------
+
+    UPDATE public.users
+    SET cognito_user_id = %(sub)s
+    WHERE
+      users.handle = %(handle)s;
+   {'handle': 'smirnov', 'sub': '7d1739ba-8733-4a7b-b2dd-563745231431'}
+```
+
+> Check that ID added
+
+```sh
+                 uuid                 |  display_name   | handle  |          email           |           cognito_user_id            |         created_at         
+--------------------------------------+-----------------+---------+--------------------------+--------------------------------------+----------------------------
+ 750bba38-d657-427d-be64-870a77ddad39 | Korney Devosky  | korney  | profeelucker@gmail.com   | 648866bd-d054-475a-8099-a5f211ef2f27 | 2023-04-04 11:17:55.509469
+ f1b4fa3e-7927-42b9-a064-3206da2c80a0 | Aleksey Smirnov | smirnov | smilovesmirnov@gmail.com | 7d1739ba-8733-4a7b-b2dd-563745231431 | 2023-04-04 11:17:55
 ```
 
