@@ -747,7 +747,6 @@ smirnov     2023-04-05 08:21 AM   Definitely. I think his character is a g...
 > run `list-conversation`, should be no err
 
 ```sh
-gitpod /workspace/aws-bootcamp-cruddur-2023/backend-flask (week-5) $ ./bin/ddb/patterns/get-conversation 
 {
   "ConsumedCapacity": {
     "CapacityUnits": 0.0,
@@ -775,4 +774,10 @@ gitpod /workspace/aws-bootcamp-cruddur-2023/backend-flask (week-5) $ ./bin/ddb/p
   "TableName": "cruddur-messages"
 }
 ```
+
+> Scan ddb `scan`, update `Messages` tab from frontend GUI, you should get 
+
+![Messages conversation DynamoDB](assets/week-5/week_5_conversation_ddb.jpg)
+
+
 
