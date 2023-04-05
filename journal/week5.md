@@ -702,12 +702,77 @@ for handle, sub in users.items():
    {'handle': 'smirnov', 'sub': '7d1739ba-8733-4a7b-b2dd-563745231431'}
 ```
 
-> Check that ID added
+> Check that cognito ID added
 
 ```sh
                  uuid                 |  display_name   | handle  |          email           |           cognito_user_id            |         created_at         
 --------------------------------------+-----------------+---------+--------------------------+--------------------------------------+----------------------------
  750bba38-d657-427d-be64-870a77ddad39 | Korney Devosky  | korney  | profeelucker@gmail.com   | 648866bd-d054-475a-8099-a5f211ef2f27 | 2023-04-04 11:17:55.509469
  f1b4fa3e-7927-42b9-a064-3206da2c80a0 | Aleksey Smirnov | smirnov | smilovesmirnov@gmail.com | 7d1739ba-8733-4a7b-b2dd-563745231431 | 2023-04-04 11:17:55
+```
+
+* Run ddb scripts
+
+> run ddb `create`, `schema-load`, `seed`
+
+> than run `get-conversation`, you should get
+
+```sh
+{
+  "CapacityUnits": 1.5,
+  "TableName": "cruddur-messages"
+}
+korney      2023-04-05 08:02 AM   One thing that really stands out about B...
+smirnov     2023-04-05 08:03 AM   I thought the special effects in Babylon...
+korney      2023-04-05 08:04 AM   Yes, I was really blown away by the leve...
+smirnov     2023-04-05 08:05 AM   And I also appreciated the way the show ...
+korney      2023-04-05 08:06 AM   Absolutely. The show had a great balance...
+smirnov     2023-04-05 08:07 AM   And it's also worth noting the way the s...
+korney      2023-04-05 08:08 AM   Yes, I agree. And it's impressive how th...
+smirnov     2023-04-05 08:09 AM   Definitely. And it's one of the reasons ...
+korney      2023-04-05 08:10 AM   Agreed. And it's also worth noting the w...
+smirnov     2023-04-05 08:11 AM   Yes, it definitely had a big impact on t...
+korney      2023-04-05 08:12 AM   Another character I wanted to discuss is...
+smirnov     2023-04-05 08:13 AM   Zathras was a really unique and memorabl...
+korney      2023-04-05 08:14 AM   Yes, I thought he was a great addition t...
+smirnov     2023-04-05 08:15 AM   And I appreciated the way the show used ...
+korney      2023-04-05 08:16 AM   Definitely. It was a great way to integr...
+smirnov     2023-04-05 08:17 AM   Yeah, that was a clever storytelling dev...
+korney      2023-04-05 08:18 AM   I also thought that Zathras was a great ...
+smirnov     2023-04-05 08:19 AM   Yes, that's a good point. Babylon 5 was ...
+korney      2023-04-05 08:20 AM   And Zathras was just one example of that...
+smirnov     2023-04-05 08:21 AM   Definitely. I think his character is a g...
+```
+
+> run `list-conversation`, should be no err
+
+```sh
+gitpod /workspace/aws-bootcamp-cruddur-2023/backend-flask (week-5) $ ./bin/ddb/patterns/get-conversation 
+{
+  "ConsumedCapacity": {
+    "CapacityUnits": 0.0,
+    "TableName": "cruddur-messages"
+  },
+  "Count": 0,
+  "Items": [],
+  "ResponseMetadata": {
+    "HTTPHeaders": {
+      "content-length": "111",
+      "content-type": "application/x-amz-json-1.0",
+      "date": "Wed, 05 Apr 2023 07:14:16 GMT",
+      "server": "Jetty(9.4.48.v20220622)",
+      "x-amz-crc32": "4151107619",
+      "x-amzn-requestid": "df1ab636-abd6-45a2-adfb-65b43f2ebcbf"
+    },
+    "HTTPStatusCode": 200,
+    "RequestId": "df1ab636-abd6-45a2-adfb-65b43f2ebcbf",
+    "RetryAttempts": 0
+  },
+  "ScannedCount": 0
+}
+{
+  "CapacityUnits": 0.0,
+  "TableName": "cruddur-messages"
+}
 ```
 
