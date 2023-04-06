@@ -779,5 +779,152 @@ smirnov     2023-04-05 08:21 AM   Definitely. I think his character is a g...
 
 ![Messages conversation DynamoDB](assets/week-5/week_5_conversation_ddb.jpg)
 
+## Implement DynamoDB Lambda Stream
 
+* Create ddb table `cruddur-messages` with indexes
 
+* Turn On at the tab `Exports and streams` DynamoDB stream details *new image*
+
+* Create ddb table trigger for lambda 
+
+> Run script `./bin/ddb/schema-load`
+
+* Create new IAM policy file `./aws/policy/cruddur-messages-stream-policy.json` for ddb lambda connections
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:Query"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:eu-central-1:446273730290:table/cruddur-messages",
+                "arn:aws:dynamodb:eu-central-1:446273730290:table/cruddur-messages/index/message-group-sk-index"
+            ]
+        }
+    ]
+}
+```
+
+* Create new Lambda function `./aws/lambdas/cruddur-messages-stream.py` deploy code and grant next policy
+
+- AWSLambdaInvocation-DynamoDBAWS
+
+- cruddur-messages-stream-policy
+
+```py
+import json
+import boto3
+from boto3.dynamodb.conditions import Key, Attr
+
+dynamodb = boto3.resource(
+ 'dynamodb',
+ region_name='eu-central-1',
+ endpoint_url="http://dynamodb.eu-central-1.amazonaws.com"
+)
+
+def lambda_handler(event, context):
+  print('event-data',event)
+
+  eventName = event['Records'][0]['eventName']
+  if (eventName == 'REMOVE'):
+    print("skip REMOVE event")
+    return
+  pk = event['Records'][0]['dynamodb']['Keys']['pk']['S']
+  sk = event['Records'][0]['dynamodb']['Keys']['sk']['S']
+  if pk.startswith('MSG#'):
+    group_uuid = pk.replace("MSG#","")
+    message = event['Records'][0]['dynamodb']['NewImage']['message']['S']
+    print("GRUP ===>",group_uuid,message)
+    
+    table_name = 'cruddur-messages'
+    index_name = 'message-group-sk-index'
+    table = dynamodb.Table(table_name)
+    data = table.query(
+      IndexName=index_name,
+      KeyConditionExpression=Key('message_group_uuid').eq(group_uuid)
+    )
+    print("RESP ===>",data['Items'])
+    
+    # recreate the message group rows with new SK value
+    for i in data['Items']:
+      delete_item = table.delete_item(Key={'pk': i['pk'], 'sk': i['sk']})
+      print("DELETE ===>",delete_item)
+      
+      response = table.put_item(
+        Item={
+          'pk': i['pk'],
+          'sk': sk,
+          'message_group_uuid':i['message_group_uuid'],
+          'message':message,
+          'user_display_name': i['user_display_name'],
+          'user_handle': i['user_handle'],
+          'user_uuid': i['user_uuid']
+        }
+      )
+      print("CREATE ===>",response)
+```
+
+* Disable `#AWS_ENDPOINT_URL: "http://dynamodb.eu-central-1.amazonaws.com"`
+
+* UP docker-compose, in frontend tab `Messages` add to <url>/new/<your second registered user name>
+
+> You should get updated messages in a group 
+
+![Group messages succes](assets/week-5/ddb_messages.jpg)
+
+> You shouldn't get any Error in CloudWatch
+
+![CloudWatch Logs](assets/week-5/ddb_lambda_stream.jpg)
+
+## Serverless Caching
+
+### Install Momento CLI tool
+
+In your gitpod.yml file add:
+
+```yml
+  - name: momento
+    before: |
+      brew tap momentohq/tap
+      brew install momento-cli
+```
+
+### Login to Momento
+
+There is no `login` you just have to generate an access token and not lose it. 
+ 
+You cannot rotate out your access token on an existing cache.
+
+If you lost your cache or your cache was comprised you just have to wait for the TTL to expire.
+
+> It might be possible to rotate out the key by specifcing the same cache name and email.
+
+ ```sh
+ momento account signup aws --email andrew@exampro.co --region us-east-1
+ ```
+
+### Create Cache
+
+```sh
+export MOMENTO_AUTH_TOKEN=""
+export MOMENTO_TTL_SECONDS="600"
+export MOMENTO_CACHE_NAME="cruddur"
+gp env MOMENTO_AUTH_TOKEN=""
+gp env MOMENTO_TTL_SECONDS="600"
+gp env MOMENTO_CACHE_NAME="cruddur"
+```
+
+> you might need to do `momento configure` since it might not pick up the env var in the CLI.
+
+Create the cache:
+
+```sh
+momento cache create --name cruddur
+```

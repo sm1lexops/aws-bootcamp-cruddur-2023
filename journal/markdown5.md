@@ -2,7 +2,7 @@
 
 ## To Do Checklist
 
-- [ ] Watch Week-5 Video
+- [x] Watch Week-5 Video
 
 > [Video Content Link](videocontent/video_content_week5.md)
 
@@ -10,18 +10,18 @@
 
 - [x] Create week-5 branch and go ahead
 - [x] Writing utility scripts to easily setup and teardown and debug DynamoDB data 
-- [ ] Data Modelling a Direct Messaging System using Single Table Design
-- [ ] Implementing DynamoDB query using Single Table Design
-- [ ] Provisioning DynamoDB tables with Provisioned Capacity
-- [ ] Utilizing a Global Secondary Index (GSI) with DynamoDB
-- [ ] Rapid data modelling and implementation of DynamoDB with DynamoDB Local
-
-- [ ]
-- [ ]
+- [x] Data Modelling a Direct Messaging System using Single Table Design
+- [x] Implementing DynamoDB query using Single Table Design
+- [x] Provisioning DynamoDB tables with Provisioned Capacity
+- [x] Utilizing a Global Secondary Index (GSI) with DynamoDB
+- [x] Rapid data modelling and implementation of DynamoDB with DynamoDB Local
+- [x] DynamoDB messages lambda stream
 
 ## Homework Challenges
 *speeding up until next week*
 
-- [ ] *Homework Submissions*
+- [x] Serverless Caching
+- [x] Learn SQL(MySQL, Postgresql) Tutorial 
+- [x] Learn NoSQL(DynamoDB) Tutorial
 
 - [x] *Knowledge Chalenges*
