@@ -22,7 +22,7 @@ The `/journal` directory contains
 - [x] [Week 2](journal/week2.md)        ~~  [*Homework Submission Week 2*](journal/markdown2.md) 
 - [x] [Week 3](journal/week3.md)        ~~  [*Homework Submission Week 3*](journal/markdown3.md) 
 - [x] [Week 4](journal/week4.md)        ~~  [*Homework Submission Week 4*](journal/markdown4.md) 
-- [ ] [Week 5](journal/week5.md)        ~~  [*Homework Submission Week 5*](journal/markdown5.md) 
+- [x] [Week 5](journal/week5.md)        ~~  [*Homework Submission Week 5*](journal/markdown5.md) 
 - [ ] [Week 6](journal/week6.md)        ~~  [*Homework Submission Week 6*](journal/markdown6.md) 
 - [ ] [Week 7](journal/week7.md)        ~~  [*Homework Submission Week 7*](journal/markdown7.md) 
 - [ ] [Week 8](journal/week8.md)        ~~  [*Homework Submission Week 8*](journal/markdown8.md) 
