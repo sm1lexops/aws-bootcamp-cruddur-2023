@@ -8,12 +8,12 @@
 
 ## Class Summary
 
-- [ ] Create week-6 branch and go ahead 
-- [ ] 
-- [ ] 
-- [ ]
-- [ ]
-- [ ]
+- [x] Create week-6 branch and go ahead 
+- [ ] Deploy an ECS Cluster using ECS Service Connect
+- [ ] Deploy serverless containers using Fargate for the Backend and Frontend Application
+- [ ] Route traffic to the frontend and backend on different subdomains using Application Load Balancer
+- [ ] Securing our flask container
+- [ ] Creating several bash utility scripts to easily work with serverless containers.
 - [ ]
 - [ ]
 - [ ]
@@ -28,4 +28,4 @@
 
 - [ ] *Homework Submissions*
 
-- [ ] *Knowledge Chalenges*
+- [ ] *Knowledge Chalenges*(Security Quize)
