@@ -928,3 +928,5 @@ Create the cache:
 ```sh
 momento cache create --name cruddur
 ```
+
+#*WEEK-5 IS COMPLETED*
