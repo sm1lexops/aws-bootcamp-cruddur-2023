@@ -78,22 +78,24 @@ export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
 echo $ECR_PYTHON_URL
 ```
 
-* 2. Pull your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+* 2. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+
+> Check you are in `./backend-flask` repository
 
 ```sh
-docker pull python:3.10-slim-buster
+docker build -t backend-flask .
 ```
 
 * 3. After the pull completes, tag your image so you can push the image to this repository:
 
 ```sh
-docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster
+docker tag backend-flask:latest $ECR_PYTHON_URL:latest
 ```
 
 * 4. Run the following command to push this image to your newly created AWS repository:
 
 ```sh
-docker push $ECR_PYTHON_URL:3.10-slim-buster
+docker push $ECR_PYTHON_URL:latest
 ```
     
 > You should get your image at ECR 
