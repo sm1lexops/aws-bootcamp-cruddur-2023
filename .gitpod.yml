@@ -29,6 +29,7 @@ tasks:
       pip3 install -r requirements.txt
       export GITPOD_IP=$(curl ifconfig.me)
       source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds/update-sg-rule"
+      aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
 vscode:
   extensions:
     - ms-python.python
