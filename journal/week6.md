@@ -143,7 +143,7 @@ docker tag backend-flask:latest $ECR_BACKEND_FLASK_URL:latest
 docker push $ECR_BACKEND_FLASK_URL:latest
 ```
 
-## Create Task and Exection Roles for Task Defintion
+## Create Exection Role for Task Defintion
 
 > Create file /aws/ecs-assume-role-execution-policy.json` for execution role
 
@@ -159,7 +159,7 @@ docker push $ECR_BACKEND_FLASK_URL:latest
 }
 ```
 
-> Create execution role
+> Create execution role from root worspace directory
 
 ```sh
 aws iam create-role \
@@ -167,7 +167,89 @@ aws iam create-role \
     --assume-role-policy-document file://aws/policies/ecs-assume-role-execution-policy.json
 ```
 
-## For frontend React
+> Create file `ecs-service-execution-policy.json` with policy
+
+```sh
+{
+  "Version":"2012-10-17",
+  "Statement":[{
+    "Effect": "Allow",
+    "Action": [
+      "ssm:GetParameters",
+      "ssm:GetParameter"
+    ],
+    "Resource": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/*"
+  }]
+}
+```
+
+> Put role policy
+
+```sh
+aws iam put-role-policy \
+  --policy-name CruddurServiceExecutionPolicy \
+  --role-name CruddurServiceExecutionRole \
+  --policy-document file://aws/policies/ecs-service-execution-policy.json
+```
+
+> Check you should get role with policy attached
+
+![IAM Role and Policy](assets/week-6/ecs_role_policy.jpg)
+
+## Create Task Role for Task Defintion
+
+```sh
+aws iam create-role \
+    --role-name CruddurTaskRole \
+    --assume-role-policy-document "{
+  \"Version\":\"2012-10-17\",
+  \"Statement\":[{
+    \"Action\":[\"sts:AssumeRole\"],
+    \"Effect\":\"Allow\",
+    \"Principal\":{
+      \"Service\":[\"ecs-tasks.amazonaws.com\"]
+    }
+  }]
+}"
+
+aws iam put-role-policy \
+  --policy-name SSMAccessPolicy \
+  --role-name CruddurTaskRole \
+  --policy-document "{
+  \"Version\":\"2012-10-17\",
+  \"Statement\":[{
+    \"Action\":[
+      \"ssmmessages:CreateControlChannel\",
+      \"ssmmessages:CreateDataChannel\",
+      \"ssmmessages:OpenControlChannel\",
+      \"ssmmessages:OpenDataChannel\"
+    ],
+    \"Effect\":\"Allow\",
+    \"Resource\":\"*\"
+  }]
+}
+"
+```
+
+> Attach policy to role
+
+```sh
+aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccess --role-name CruddurTaskRole
+aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess --role-name CruddurTaskRole
+```
+
+
+> Create AWS parameter store for ENV VAR
+
+```sh
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/AWS_ACCESS_KEY_ID" --value $AWS_ACCESS_KEY_ID
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY" --value $AWS_SECRET_ACCESS_KEY
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/CONNECTION_URL" --value $CONNECTION_PSQL_PROD
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" --value $ROLLBAR_ACCESS_TOKEN
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
+```
+
+## Create ECS Image For frontend React
 
 * Create ECR repo
 
