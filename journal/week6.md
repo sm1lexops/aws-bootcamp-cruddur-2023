@@ -143,6 +143,30 @@ docker tag backend-flask:latest $ECR_BACKEND_FLASK_URL:latest
 docker push $ECR_BACKEND_FLASK_URL:latest
 ```
 
+## Create Task and Exection Roles for Task Defintion
+
+> Create file /aws/ecs-assume-role-execution-policy.json` for execution role
+
+```sh
+{
+  "Version":"2012-10-17",
+  "Statement":[{
+      "Action":["sts:AssumeRole"],
+      "Effect":"Allow",
+      "Principal":{
+        "Service":["ecs-tasks.amazonaws.com"]
+    }}]
+}
+```
+
+> Create execution role
+
+```sh
+aws iam create-role \
+    --role-name CruddurServiceExecutionRole \
+    --assume-role-policy-document file://aws/policies/ecs-assume-role-execution-policy.json
+```
+
 ## For frontend React
 
 * Create ECR repo
