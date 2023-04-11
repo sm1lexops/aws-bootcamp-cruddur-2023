@@ -1,0 +1,11 @@
+{
+  "Version":"2012-10-17",
+  "Statement":[{
+    "Effect": "Allow",
+    "Action": [
+      "ssm:GetParameters",
+      "ssm:GetParameter"
+    ],
+    "Resource": "arn:aws:ssm:${AWS_DEFAULT_REGION}:${AWS_ACCOUNT_ID}:parameter/cruddur/backend-flask/*"
+  }]
+}
