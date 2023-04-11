@@ -51,6 +51,13 @@ aws ecs create-cluster \
 
 ## Create ECR repo and push image
 
+
+
+> Should get success json answer
+
+
+## Push your first container
+
 * Create ECR repo
 
 ```sh
@@ -59,11 +66,6 @@ aws ecr create-repository \
   --image-tag-mutability MUTABLE
 ```
 
-> Should get success json answer
-
-
-## Push your first container
-
 * 1. Retrieve an authentication token and authenticate your Docker client to your registry.
 Use the AWS CLI:
 
@@ -71,11 +73,54 @@ Use the AWS CLI:
 aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
 ```
 
+## For Base-image python
+
 > Set URL for ECR 
 
 ```sh
 export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cruddur-python"
 echo $ECR_PYTHON_URL
+```
+
+* 2. Pull your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+
+> Check you are in `./backend-flask` repository
+
+```sh
+docker pull python:3.10-slim-buster
+```
+
+* 3. After the pull completes, tag your image so you can push the image to this repository:
+
+```sh
+docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster
+```
+
+* 4. Run the following command to push this image to your newly created AWS repository:
+
+```sh
+docker push $ECR_PYTHON_URL:3.10-slim-buster
+```
+    
+> You should get your image at ECR 
+
+![AWS ECR repo Image](assets/week-6/ecr_image.jpg)
+
+## For backend-flask
+
+* Create ECR repo
+
+```sh
+aws ecr create-repository \
+  --repository-name backend-flask \
+  --image-tag-mutability MUTABLE
+```
+
+> Set URL for ECR 
+
+```sh
+export ECR_BACKEND_FLASK_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/backend-flask"
+echo $ECR_BACKEND_FLASK_URL
 ```
 
 * 2. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
@@ -89,17 +134,56 @@ docker build -t backend-flask .
 * 3. After the pull completes, tag your image so you can push the image to this repository:
 
 ```sh
-docker tag backend-flask:latest $ECR_PYTHON_URL:latest
+docker tag backend-flask:latest $ECR_BACKEND_FLASK_URL:latest
 ```
 
 * 4. Run the following command to push this image to your newly created AWS repository:
 
 ```sh
-docker push $ECR_PYTHON_URL:latest
+docker push $ECR_BACKEND_FLASK_URL:latest
 ```
-    
-> You should get your image at ECR 
 
-![AWS ECR repo Image](assets/week-6/ecr_image.jpg)
+## For frontend React
 
+* Create ECR repo
 
+```sh
+aws ecr create-repository \
+  --repository-name frontend-react-js \
+  --image-tag-mutability MUTABLE
+```
+
+> Set URL for ECR 
+
+```sh
+export ECR_FRONTEND_REACT_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/frontend-react-js"
+echo $ECR_FRONTEND_REACT_URL
+```
+
+* 2. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+
+> Check you are in `./frontend-react-js` repository
+
+```sh
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="${AWS_COGNITO_USER_POOL_ID}" \
+--build-arg REACT_APP_CLIENT_ID="${REACT_APP_CLIENT_ID}" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+```
+
+* 3. After the pull completes, tag your image so you can push the image to this repository:
+
+```sh
+docker tag frontend-react-js:latest $ECR_FRONTEND_REACT_URL:latest
+```
+
+* 4. Run the following command to push this image to your newly created AWS repository:
+
+```sh
+docker push $ECR_FRONTEND_REACT_URL:latest
+```
