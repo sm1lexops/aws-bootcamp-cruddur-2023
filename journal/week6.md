@@ -271,6 +271,12 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
   "executionRoleArn": "arn:aws:iam::446273730290:role/CruddurServiceExecutionRole",
   "taskRoleArn": "arn:aws:iam::446273730290:role/CruddurTaskRole",
   "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "operatingSystemFamily": "LINUX",
+  "requiresCompatibilities": [ 
+    "FARGATE" 
+  ],
   "containerDefinitions": [
     {
       "name": "backend-flask",
@@ -307,16 +313,16 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
       "environment": [
         {"name": "OTEL_SERVICE_NAME", "value": "backend-flask"},
         {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
-        {"name": "AWS_COGNITO_USER_POOL_ID", "value": ""},
-        {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": ""},
-        {"name": "FRONTEND_URL", "value": ""},
-        {"name": "BACKEND_URL", "value": ""},
-        {"name": "AWS_DEFAULT_REGION", "value": ""}
+        {"name": "AWS_COGNITO_USER_POOL_ID", "value": "eu-central-1_LUcicGf0b"},
+        {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "6ka89qsm260qt7859q6enn93nq"},
+        {"name": "FRONTEND_URL", "value": "*"},
+        {"name": "BACKEND_URL", "value": "*"},
+        {"name": "AWS_DEFAULT_REGION", "value": "eu-central-1"}
       ],
       "secrets": [
         {"name": "AWS_ACCESS_KEY_ID"    , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID"},
         {"name": "AWS_SECRET_ACCESS_KEY", "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY"},
-        {"name": "CONNECTION_URL"       , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/CONNECTION_PSQL_PROD" },
+        {"name": "CONNECTION_URL"       , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/CONNECTION_URL" },
         {"name": "ROLLBAR_ACCESS_TOKEN" , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" },
         {"name": "OTEL_EXPORTER_OTLP_HEADERS" , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" }
         
