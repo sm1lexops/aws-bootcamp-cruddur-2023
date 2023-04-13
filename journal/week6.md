@@ -488,11 +488,11 @@ This is for when we are uing a NetworkMode of awsvpc
 > Install AWS Session Manager Plugin for Linux
 
 ```sh
-curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
 ```
 
 ```sh
-sudo dpkg -i session-manager-plugin.rpm
+sudo dpkg -i session-manager-plugin.deb
 ```
 
 > verify installation
@@ -507,7 +507,7 @@ session-manager-plugin
 aws ecs execute-command \
 --region $AWS_DEFAULT_REGION \
 --cluster cruddur \
---task 058098fcbd0543d68e7f6e9062b2d619
+--task arn:aws:ecs:eu-central-1:446273730290:task/cruddur/de11d214c33e4a969bf4db274cc3b03a
 --container backend-flask \
 --command "/bin/bash" \
 --interactive
