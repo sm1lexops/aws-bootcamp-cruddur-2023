@@ -1,15 +1,25 @@
 {
   "family": "backend-flask",
-  "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/CruddurServiceExecutionRole",
-  "taskRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/CruddurTaskRole",
+  "executionRoleArn": "arn:aws:iam::446273730290:role/CruddurServiceExecutionRole",
+  "taskRoleArn": "arn:aws:iam::446273730290:role/CruddurTaskRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
       "name": "backend-flask",
-      "image": "BACKEND_FLASK_IMAGE_URL",
+      "image": "446273730290.dkr.ecr.eu-central-1.amazonaws.com/backend-flask",
       "cpu": 256,
       "memory": 512,
       "essential": true,
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "python /backend-flask/bin/flask/health-check"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      },
       "portMappings": [
         {
           "name": "backend-flask",
@@ -40,7 +50,7 @@
         {"name": "AWS_SECRET_ACCESS_KEY", "valueFrom": "arn:aws:ssm:AWS_REGION:AWS_ACCOUNT_ID:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY"},
         {"name": "CONNECTION_URL"       , "valueFrom": "arn:aws:ssm:AWS_REGION:AWS_ACCOUNT_ID:parameter/cruddur/backend-flask/CONNECTION_PSQL_PROD" },
         {"name": "ROLLBAR_ACCESS_TOKEN" , "valueFrom": "arn:aws:ssm:AWS_REGION:AWS_ACCOUNT_ID:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" },
-        {"name": "OTEL_EXPORTER_OTLP_HEADERS" , "valueFrom": "arn:aws:ssm:AWS_REGION:AWS_ACCOUNT_ID:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" }
+        {"name": "OTEL_EXPORTER_OTLP_HEADERS" , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" }
         
       ]
     }
