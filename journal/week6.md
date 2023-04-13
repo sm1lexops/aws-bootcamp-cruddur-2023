@@ -143,6 +143,51 @@ docker tag backend-flask:latest $ECR_BACKEND_FLASK_URL:latest
 docker push $ECR_BACKEND_FLASK_URL:latest
 ```
 
+## Create ECS Image For frontend React
+
+* Create ECR repo
+
+```sh
+aws ecr create-repository \
+  --repository-name frontend-react-js \
+  --image-tag-mutability MUTABLE
+```
+
+> Set URL for ECR 
+
+```sh
+export ECR_FRONTEND_REACT_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/frontend-react-js"
+echo $ECR_FRONTEND_REACT_URL
+```
+
+* 2. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+
+> Check you are in `./frontend-react-js` repository
+
+```sh
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="${AWS_COGNITO_USER_POOL_ID}" \
+--build-arg REACT_APP_CLIENT_ID="${REACT_APP_CLIENT_ID}" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+```
+
+* 3. After the pull completes, tag your image so you can push the image to this repository:
+
+```sh
+docker tag frontend-react-js:latest $ECR_FRONTEND_REACT_URL:latest
+```
+
+* 4. Run the following command to push this image to your newly created AWS repository:
+
+```sh
+docker push $ECR_FRONTEND_REACT_URL:latest
+```
+
 ## Create Exection Role for Task Defintion
 
 > Create file /aws/ecs-assume-role-execution-policy.json` for execution role
@@ -332,10 +377,51 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
 }
 ```
 
+* Create `./aws/task-definitions/backend-flask.json` file, change your AWS Region and ID
+
+```json
+{
+  "family": "frontend-react-js",
+  "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/CruddurServiceExecutionRole",
+  "taskRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/CruddurTaskRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "frontend-react-js",
+      "image": "BACKEND_FLASK_IMAGE_URL",
+      "cpu": 256,
+      "memory": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "frontend-react-js",
+          "containerPort": 3000,
+          "protocol": "tcp", 
+          "appProtocol": "http"
+        }
+      ],
+
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "cruddur",
+            "awslogs-region": "ca-central-1",
+            "awslogs-stream-prefix": "frontend-react"
+        }
+      }
+    }
+  ]
+}
+```
+
 * Register Task Definition
 
 ```sh
 aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json
+```
+
+```sh
+aws ecs register-task-definition --cli-input-json file://aws/task-defintions/frontend-react-js.json
 ```
 
 * Create Launch Template Security Group
@@ -381,50 +467,49 @@ aws ec2 authorize-security-group-ingress \
   --tag-specifications 'ResourceType=security-group,Tags=[{Key=Name,Value=BACKENDFLASK}]'
 ```
 
-
-
-
-## Create ECS Image For frontend React
-
-* Create ECR repo
+## Create Cluster Service 
 
 ```sh
-aws ecr create-repository \
-  --repository-name frontend-react-js \
-  --image-tag-mutability MUTABLE
+aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
 ```
-
-> Set URL for ECR 
 
 ```sh
-export ECR_FRONTEND_REACT_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/frontend-react-js"
-echo $ECR_FRONTEND_REACT_URL
+aws ecs register-task-definition --cli-input-json file://aws/task-defintions/service-frontend-react-js.json
 ```
 
-* 2. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
-
-> Check you are in `./frontend-react-js` repository
+This is for when we are uing a NetworkMode of awsvpc
 
 ```sh
-docker build \
---build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
---build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
---build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
---build-arg REACT_APP_AWS_USER_POOLS_ID="${AWS_COGNITO_USER_POOL_ID}" \
---build-arg REACT_APP_CLIENT_ID="${REACT_APP_CLIENT_ID}" \
--t frontend-react-js \
--f Dockerfile.prod \
-.
+--network-configuration "awsvpcConfiguration={subnets=[$DEFAULT_SUBNET_IDS],securityGroups=[$SERVICE_CRUD_SG],assignPublicIp=ENABLED}"
 ```
 
-* 3. After the pull completes, tag your image so you can push the image to this repository:
+## Test Container Service Connection
+
+> Install AWS Session Manager Plugin for Linux
 
 ```sh
-docker tag frontend-react-js:latest $ECR_FRONTEND_REACT_URL:latest
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
 ```
-
-* 4. Run the following command to push this image to your newly created AWS repository:
 
 ```sh
-docker push $ECR_FRONTEND_REACT_URL:latest
+sudo dpkg -i session-manager-plugin.rpm
 ```
+
+> verify installation
+
+```sh
+session-manager-plugin
+```
+
+> Use ecs session manager 
+
+```sh
+aws ecs execute-command \
+--region $AWS_DEFAULT_REGION \
+--cluster cruddur \
+--task 058098fcbd0543d68e7f6e9062b2d619
+--container backend-flask \
+--command "/bin/bash" \
+--interactive
+```
+
