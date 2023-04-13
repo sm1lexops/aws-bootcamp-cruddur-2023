@@ -39,11 +39,11 @@
       "environment": [
         {"name": "OTEL_SERVICE_NAME", "value": "backend-flask"},
         {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
-        {"name": "AWS_COGNITO_USER_POOL_ID", "value": ""},
-        {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": ""},
-        {"name": "FRONTEND_URL", "value": ""},
-        {"name": "BACKEND_URL", "value": ""},
-        {"name": "AWS_DEFAULT_REGION", "value": ""}
+        {"name": "AWS_COGNITO_USER_POOL_ID", "value": "eu-central-1_LUcicGf0b"},
+        {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "6ka89qsm260qt7859q6enn93nq"},
+        {"name": "FRONTEND_URL", "value": "*"},
+        {"name": "BACKEND_URL", "value": "*"},
+        {"name": "AWS_DEFAULT_REGION", "value": "eu-central-1"}
       ],
       "secrets": [
         {"name": "AWS_ACCESS_KEY_ID"    , "valueFrom": "arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID"},
