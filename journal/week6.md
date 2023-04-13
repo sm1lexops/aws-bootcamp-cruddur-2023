@@ -507,7 +507,7 @@ session-manager-plugin
 aws ecs execute-command \
 --region $AWS_DEFAULT_REGION \
 --cluster cruddur \
---task arn:aws:ecs:eu-central-1:446273730290:task/cruddur/de11d214c33e4a969bf4db274cc3b03a
+--task de11d214c33e4a969bf4db274cc3b03a \
 --container backend-flask \
 --command "/bin/bash" \
 --interactive
