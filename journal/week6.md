@@ -512,4 +512,28 @@ aws ecs execute-command \
 --command "/bin/bash" \
 --interactive
 ```
+  
+> You should starting session, and connect to your container
+
+```sh
+gitpod /workspace/aws-bootcamp-cruddur-2023 (week-6) $ aws ecs execute-command \
+--region $AWS_DEFAULT_REGION \
+--cluster cruddur \
+--task <ecs-task-id-arn> \
+--container backend-flask \
+--command "/bin/bash" \
+--interactive
+
+The Session Manager plugin was installed successfully. Use the AWS CLI to start a session.
+
+
+Starting session with SessionId: ecs-execute-command-08f97ed7401bbd629
+root@ip-:/backend-flask# 
+```
+
+> All container running and `healthy`
+
+![ECS CloudWatch Logs ](assets/week-6/cloudwatch_log_ecs.jpg)
+
+![ECS Success Run Task](assets/week-6/container_ecs.jpg)
 
