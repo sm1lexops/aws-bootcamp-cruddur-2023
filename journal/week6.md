@@ -537,3 +537,22 @@ root@ip-:/backend-flask#
 
 ![ECS Success Run Task](assets/week-6/container_ecs.jpg)
 
+## Creat Scripts for ECS Fargate
+
+> Create `build`
+
+```sh
+
+```
+
+> Create `deploy`
+
+```sh
+
+```
+
+> Create `connect`
+
+```sh
+
+```
