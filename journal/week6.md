@@ -421,7 +421,7 @@ aws ecs register-task-definition --cli-input-json file://aws/task-definitions/ba
 ```
 
 ```sh
-aws ecs register-task-definition --cli-input-json file://aws/task-defintions/frontend-react-js.json
+aws ecs register-task-definition --cli-input-json file://aws/task-definitions/frontend-react-js.json
 ```
 
 * Create Launch Template Security Group
