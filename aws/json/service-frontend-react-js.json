@@ -4,16 +4,23 @@
   "desiredCount": 1,
   "enableECSManagedTags": true,
   "enableExecuteCommand": true,
+  "loadBalancers": [
+    {
+        "targetGroupArn": "arn:aws:elasticloadbalancing:eu-central-1:446273730290:targetgroup/cruddur-backend-tg/f442e0139a20b8cb",
+        "containerName": "backend-flask",
+        "containerPort": 4567
+    }
+  ],
   "networkConfiguration": {
     "awsvpcConfiguration": {
       "assignPublicIp": "ENABLED",
       "securityGroups": [
-        "sg-04bdc8d5443cc8283"
+        "sg-031232c5e189d8dfa"
       ],
       "subnets": [
-        "subnet-0462b87709683ccaa",
-        "subnet-066a53dd88d557e05",
-        "subnet-021a6adafb79249e3"
+        "subnet-07d3623c56679470a",
+        "subnet-08601bef1b54cc046",
+        "subnet-05823eb7893060c30"
       ]
     }
   },
