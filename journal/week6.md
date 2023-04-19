@@ -649,7 +649,7 @@ I've registered a domain name `omgchat.xyz` for this bootcamp via [porkbun](http
 ![DNS Records Route53](assets/week-6/route53_dns_records.jpg)
 
 - At Load Balancers, add a listener to make HTTP:80 redirect to HTTPS:443, and another one to make HTTPS:443 forward to frontend with certificate we created; edit rules for HTTPS:443 to add a new IF which sets Host Header as `api.omgchat.xyz` and sets THEN forward to `cruddur-backend-flask-tg`.
-- At Route 53 > Hosted zones > beici-demo.xyz, create a record without a record name, set type as "A - Route Traffic to an IPv4 address and some AWS resources", set route traffic as "Alias to Application and Classic Load Balancer" with the right region and load balancer, set routing policy as simple routing; do it again with record name `api.omgchat.xyz`.
+- At Route 53 > Hosted zones > omgchat.xyz, create a record without a record name, set type as "A - Route Traffic to an IPv4 address and some AWS resources", set route traffic as "Alias to Application and Classic Load Balancer" with the right region and load balancer, set routing policy as simple routing; do it again with record name `api.omgchat.xyz`.
 
 > If All is correct and working, you should get access to your App
 
