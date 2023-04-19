@@ -46,8 +46,8 @@
         {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
         {"name": "AWS_COGNITO_USER_POOL_ID", "value": "eu-central-1_LUcicGf0b"},
         {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "6ka89qsm260qt7859q6enn93nq"},
-        {"name": "FRONTEND_URL", "value": "*"},
-        {"name": "BACKEND_URL", "value": "*"},
+        {"name": "FRONTEND_URL", "value": "https://omgchat.xyz"},
+        {"name": "BACKEND_URL", "value": "https://api.omgchat.xyz"},
         {"name": "AWS_DEFAULT_REGION", "value": "eu-central-1"}
       ],
       "secrets": [
