@@ -2,9 +2,9 @@
 
 *begin*
 
-## Test RDS Connecetion
+## Prerequisites
 
-* Create file for testing cluster connections
+* Create file for testing backend health
 
 ```py
 #!/usr/bin/env python3

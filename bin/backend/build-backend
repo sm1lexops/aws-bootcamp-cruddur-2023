@@ -1,0 +1,25 @@
+#! /usr/bin/bash
+ABS_PATH=$(readlink -f "$0")
+BACKEND_PATH=$(dirname $ABS_PATH)
+BIN_PATH=$(dirname $BACKEND_PATH)
+PROJECT_PATH=$(dirname $BIN_PATH)
+BACKEND_FLASK_PATH="$PROJECT_PATH/backend-flask"
+
+echo "===== Write <prod> or <dev> argument to Build image in Appropriate ENV ====="
+read -r build
+
+if [ "$build" = "prod" ]; then
+    echo "===== Build backend-flask-prod image PRODUCTION ENV ====="
+    DOCKER_FILE="Dockerfile.prod"
+    DOCKER_FILE_NAME="backend-flask-prod"
+
+else
+    echo "===== Build backend-flask image DEVELOPMENT ENV ====="
+    DOCKER_FILE="Dockerfile"
+    DOCKER_FILE_NAME="backend-flask"
+fi
+
+docker build \
+-f "$BACKEND_FLASK_PATH/$DOCKER_FILE" \
+-t $DOCKER_FILE_NAME \
+"$BACKEND_FLASK_PATH/."
