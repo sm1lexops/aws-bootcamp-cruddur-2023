@@ -5,8 +5,14 @@ NO_COLOR='\033[0m'
 LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-schema_path="$(realpath .)/db/schema.sql"
-echo $schema_path
+ABS_PATH=$(readlink -f "$0")
+DB_PATH=$(dirname $ABS_PATH)
+BIN_PATH=$(dirname $DB_PATH)
+BACKEND_PATH=$(dirname $BIN_PATH)
+PROJECT_PATH=$(dirname $BACKEND_PATH)
+BACKEND_PATH="$PROJECT_PATH/backend-flask"
+schema_path="$BACKEND_PATH/db/schema.sql"
+echo "schema_path: $schema_path"
 
 if [ "$1" = "prod" ]; then
   echo "Running in production mode"

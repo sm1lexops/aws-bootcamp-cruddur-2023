@@ -8,7 +8,7 @@ print("==== db-update-cognito-user-ids ====")
 
 # for have to use db.py def we need change our path
 current_path = os.path.dirname(os.path.abspath(__file__))
-parent_path = os.path.abspath(os.path.join(current_path, '..', '..', 'backend-flask'))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..', '..', 'backend-flask'))
 sys.path.append(parent_path)
 from lib.db import db
 
