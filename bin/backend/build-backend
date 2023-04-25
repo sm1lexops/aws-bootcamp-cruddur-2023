@@ -12,13 +12,11 @@ if [ "$build" = "prod" ]; then
     echo "===== Build backend-flask-prod image PRODUCTION ENV ====="
     DOCKER_FILE="Dockerfile.prod"
     DOCKER_FILE_NAME="backend-flask-prod"
-else if [ "$build" = "dev" ]; then
+else 
     echo "===== Build backend-flask image DEVELOPMENT ENV ====="
     DOCKER_FILE="Dockerfile"
     DOCKER_FILE_NAME="backend-flask"
-else
-    echo "===== Input Error, type: <prod> or <dev> ====="
-    exit 1
+
 fi
 
 docker build \
