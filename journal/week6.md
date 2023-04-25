@@ -655,22 +655,8 @@ I've registered a domain name `omgchat.xyz` for this bootcamp via [porkbun](http
 
 ![First Access to Cruddur App](assets/week-6/frist_crud.jpg)
 
-## Creat Scripts for ECS Fargate
+## Creat Scripts for ECS Fargate and refactor project directory
 
-> Create `build`
+> All builded scripts for backend you can see [At this comment](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/07dd4bd456147a5120fe1d4062492e9f363144a6)
 
-```sh
-
-```
-
-> Create `deploy`
-
-```sh
-
-```
-
-> Create `connect`
-
-```sh
-
-```
+> [Scripts for frontend]()
