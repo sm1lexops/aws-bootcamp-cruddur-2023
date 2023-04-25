@@ -659,4 +659,5 @@ I've registered a domain name `omgchat.xyz` for this bootcamp via [porkbun](http
 
 > All builded scripts for backend you can see [At this comment](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/07dd4bd456147a5120fe1d4062492e9f363144a6)
 
-> [Scripts for frontend]()
+> [Scripts for frontend](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/df2618f81da8f3abf68038b9f90996f26a0ff64b)
+
