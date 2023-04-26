@@ -42,3 +42,16 @@ I've registered a domain name `omgchat.xyz` for this bootcamp via [porkbun](http
 > All builded scripts for backend you can see [At this comment](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/07dd4bd456147a5120fe1d4062492e9f363144a6)
 
 > [Scripts for frontend](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/df2618f81da8f3abf68038b9f90996f26a0ff64b)
+
+> Data showing and Database Connections is correct
+
+![DB Data](assets/week-7/6-week-db-data.jpg)
+
+> Message Groups is working on Prod
+
+![Message Groups](assets/week-7/6-week-messages.jpg)
+
+> No Error on Web App Page
+
+![No Error](assets/week-7/6-week-noerror.jpg)
+
