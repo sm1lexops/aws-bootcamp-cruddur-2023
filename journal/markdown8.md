@@ -8,24 +8,17 @@
 
 ## Class Summary
 
-- [ ] Create week-8 branch and go ahead 
-- [ ] 
-- [ ] 
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+- [x] Create week-8 branch and go ahead 
+- [ ] Implement CDK Stack 
+- [ ] Serve Avatars via CloudFront
+- [ ] Implement Users Profile Page
+- [ ] 	Implement Users Profile Form
+- [ ] Implement Backend Migrations
+- [ ] Presigned URL generation via Ruby Lambda
+- [ ] HTTP API Gateway with Lambda Authorizer
+- [ ] Create JWT Lambda Layer
+- [ ] Render Avatars in App via CloudFront
 
 ## Homework Challenges
-*speeding up until next week*
 
 - [ ] *Homework Submissions*
-
-- [ ] *Knowledge Chalenges*
