@@ -3,8 +3,10 @@
 import boto3
 import os
 import sys
-
-print("==== db-update-cognito-user-ids ====")
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="==== db-update-cognito-user-ids ===="
+printf ("${CYAN}==== ${LABEL}${NO_COLOR}\n")
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 parent_path = os.path.abspath(os.path.join(
