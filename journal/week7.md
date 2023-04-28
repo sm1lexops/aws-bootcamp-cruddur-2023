@@ -4,6 +4,7 @@
 - [Application Load Balancer](#application-load-balancer)
 - [Domain Configuration](#domain-configuration)
 - [Creat Scripts for ECS Fargate and refactor project directory](#creat-scripts-for-ecs-fargate-and-refactor-project-directory)
+- [Configure Timezone setting for ISO 8601](#configure-timezone-setting-for-iso-8601)
 
 ## Application Load Balancer
 
@@ -55,3 +56,6 @@ I've registered a domain name `omgchat.xyz` for this bootcamp via [porkbun](http
 
 ![No Error](assets/week-7/6-week-noerror.jpg)
 
+## Configure Timezone setting for ISO 8601
+
+> You can see all changes [In This commit](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/d3604dfc64b1cec6fdce462200272e05db106e98)
