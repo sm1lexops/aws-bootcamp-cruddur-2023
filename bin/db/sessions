@@ -1,4 +1,5 @@
 #! /usr/bin/bash
+
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 LABEL="db-sessions"
@@ -8,7 +9,7 @@ if [ "$1" = "prod" ]; then
   echo "Running in production mode"
   URL=$CONNECTION_PSQL_PROD
 else
-  URL=$CONNECTION_PSQL_DEV
+  URL=$CONNECTION_URL
 fi
 
 NO_DB_URL=$(sed 's/\/cruddur//g' <<<"$URL")

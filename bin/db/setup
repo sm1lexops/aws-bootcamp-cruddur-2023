@@ -8,21 +8,10 @@ printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
 
 ABS_PATH=$(readlink -f "$0")
 DB_PATH=$(dirname $ABS_PATH)
-BIN_PATH=$(dirname $DB_PATH)
-BACKEND_PATH=$(dirname $BIN_PATH)
-PROJECT_PATH=$(dirname $BACKEND_PATH)
-BACKEND_FLASK_PATH="$PROJECT_PATH/backend-flask"
-bin_path="$PROJECT_PATH/bin/backend"
-echo "BACKEND_FLASK_PATH: $BACKEND_FLASK_PATH"
 
-source "$bin_path/db/drop"
-sleep 1
-source "$bin_path/db/create"
-sleep 1
-source "$bin_path/db/schema-load"
-sleep 1
-source "$bin_path/db/seed"
-sleep 1
-python "$bin_path/cognito/update_cognito_user_ids"
-#sleep 1
-#python "$DB_PATH//migrate"
+source "$DB_PATH/drop"
+source "$DB_PATH/create"
+source "$DB_PATH/schema-load"
+source "$DB_PATH/seed"
+python "$DB_PATH/update_cognito_user_ids"
+python "$DB_PATH//migrate"

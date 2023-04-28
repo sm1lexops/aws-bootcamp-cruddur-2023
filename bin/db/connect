@@ -4,7 +4,7 @@ if [ "$1" = "prod" ]; then
   echo "Running in production mode"
   URL=$CONNECTION_PSQL_PROD
 else
-  URL=$CONNECTION_PSQL_DEV
+  URL=$CONNECTION_URL
 fi
 
 psql $URL
