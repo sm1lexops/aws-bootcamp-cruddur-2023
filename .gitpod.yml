@@ -15,25 +15,37 @@ tasks:
       brew install momento-cli
 
   - name: postgres
-    init: |
+    before: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
-
-  - name: dependencies
-    init: |
+    command: |
+      export GITPOD_IP=$(curl ifconfig.me)
+      source "$THEIA_WORKSPACE_ROOT/bin/backend/rds/update-sg-rule"
+  - name: flask
+    command: |
       cd ./frontend-react-js
       npm i 
       cd ../backend-flask
       pip3 install -r requirements.txt
-      export GITPOD_IP=$(curl ifconfig.me)
-      source "$THEIA_WORKSPACE_ROOT/bin/backend/rds/update-sg-rule"
+
+  - name: fargate
+    before: |
       aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
       curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
       sudo dpkg -i session-manager-plugin.deb
       rm -f session-manager-plugin.deb
       session-manager-plugin
+
+  - name: cdk
+    before: |
+      npm install aws-cdk -g
+      cd thumbing-serverless-cdk
+      cp .env.cdk .env
+      npm i
+      cd ../
+
 vscode:
   extensions:
     - ms-python.python
