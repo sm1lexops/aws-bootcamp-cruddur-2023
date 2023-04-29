@@ -53,12 +53,12 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     // create policies
     const s3UploadsReadWritePolicy = this.createPolicyBucketAccess(uploadsBucket.bucketArn)
     const s3AssetsReadWritePolicy = this.createPolicyBucketAccess(assetsBucket.bucketArn)
-    //const snsPublishPolicy = this.createPolicySnSPublish(snsTopic.topicArn)
+    const snsPublishPolicy = this.createPolicySnSPublish(snsTopic.topicArn)
 
     // attach policies for permissions
     lambda.addToRolePolicy(s3UploadsReadWritePolicy);
     lambda.addToRolePolicy(s3AssetsReadWritePolicy);
-    //lambda.addToRolePolicy(snsPublishPolicy);
+    lambda.addToRolePolicy(snsPublishPolicy);
   }
 
   createBucket(bucketName: string): s3.IBucket {
@@ -136,7 +136,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     );
   }
 
-  /*
+  
   createPolicySnSPublish(topicArn: string){
     const snsPublishPolicy = new iam.PolicyStatement({
       actions: [
@@ -148,5 +148,5 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     });
     return snsPublishPolicy;
   }
-  */
+  
 }

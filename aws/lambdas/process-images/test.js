@@ -2,9 +2,9 @@ const {getClient, getOriginalImage, processImage, uploadProcessedImage} = requir
 
 async function main(){
   client = getClient()
-  const srcBucket = 'cruddur-thumbs'
+  const srcBucket = 'omgchat-thumbs'
   const srcKey = 'avatar/original/data.jpg'
-  const dstBucket = 'cruddur-thumbs'
+  const dstBucket = 'omgchat-thumbs'
   const dstKey = 'avatar/processed/data.png'
   const width = 256
   const height = 256
