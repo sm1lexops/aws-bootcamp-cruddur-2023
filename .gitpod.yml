@@ -34,8 +34,8 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       rm -f session-manager-plugin.deb
       session-manager-plugin
+      cd ../thumbing-serverless-cdk
       npm install aws-cdk -g
-      cd thumbing-serverless-cdk
       cp .env.cdk .env
       npm i
       cd ../
