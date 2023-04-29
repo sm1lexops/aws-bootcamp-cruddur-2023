@@ -10,7 +10,7 @@ tasks:
       cd $THEIA_WORKSPACE_ROOT
       
   - name: momento
-    init: |
+    before: |
       brew tap momentohq/tap
       brew install momento-cli
 
@@ -21,15 +21,12 @@ tasks:
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
 
-  - name: flask
-    command: |
+  - name: dependencies
+    init: |
       cd ./frontend-react-js
       npm i 
       cd ../backend-flask
       pip3 install -r requirements.txt
-
-  - name: fargate
-    init: |
       export GITPOD_IP=$(curl ifconfig.me)
       source "$THEIA_WORKSPACE_ROOT/bin/backend/rds/update-sg-rule"
       aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
@@ -37,7 +34,6 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       rm -f session-manager-plugin.deb
       session-manager-plugin
-
   - name: cdk
     init: |
       npm install aws-cdk -g
@@ -45,7 +41,6 @@ tasks:
       cp .env.cdk .env
       npm i
       cd ../
-
 vscode:
   extensions:
     - ms-python.python
