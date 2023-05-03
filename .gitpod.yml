@@ -34,7 +34,10 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       rm -f session-manager-plugin.deb
       session-manager-plugin
-      cd ../thumbing-serverless-cdk
+      cd ./aws/lambdas/process-images
+      npm init -y
+      npm install sharp @aws-sdk/client-s3
+      cd ../../../thumbing-serverless-cdk
       npm install aws-cdk -g
       cp .env.cdk .env
       npm i

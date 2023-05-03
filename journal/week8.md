@@ -132,7 +132,7 @@ In order to visit https://assets.<your_domain_name>/avatars/data.jpg to see the 
 - set record name as `assets.<your_domain_name>`
 - turn on alias, route traffic to alias to CloudFront distribution
 
-In my case, you can see my profile at https://assets.beici-demo.xyz/avatars/data.jpg.
+In my case, you can see my profile at https://assets.omgchat.xyz/avatars/data.jpg.
 
 ## Backend and Frontend for Profile Page
 
@@ -146,7 +146,7 @@ In my case, you can see my profile at https://assets.beici-demo.xyz/avatars/data
 - `backend-flask/services/update_profile.py`
 - `backend-flask/app.py`
 
-For the frontend, update/create the following scripts ([repo](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/tree/week-8/frontend-react-js)):
+For the frontend, update/create the following scripts ([frontend repo](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/tree/week-8/frontend-react-js)):
 
 - `frontend-react-js/src/components/ActivityFeed.js`
 - `frontend-react-js/src/components/CrudButton.js`
@@ -173,7 +173,9 @@ For the frontend, update/create the following scripts ([repo](https://github.com
 
 Since our previous postgres database didn't have the column for saving bio, migration is required. We also need to update some backend scripts in order to let users edit bio and save the updated bio in the database.
 
-Create an empty `backend-flask/db/migrations/.keep`, and an executable script `bin/generate/migration` as seen in [code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/bin/generate/migration). Run `./bin/generate/migration add_bio_column`, a python script such as `backend-flask/db/migrations/1681742424_add_bio_column.py` will be generated. Edit the generated python script with SQL commands as seen in [code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/backend-flask/db/migrations/1681742424_add_bio_column.py).
+* Create an empty `backend-flask/db/migrations/.keep`, and an executable script [`bin/generate/migration` - code](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/bin/db/migrate). 
+
+* Run `./bin/generate/migration add_bio_column`, a python script such as `backend-flask/db/migrations/1681742424_add_bio_column.py` will be generated. Edit the generated python script with SQL commands as seen in [code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/backend-flask/db/migrations/1681742424_add_bio_column.py).
 
 Update `backend-flask/db/schema.sql`, and update `backend-flask/lib/db.py` with verbose option.
 
