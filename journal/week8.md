@@ -175,12 +175,29 @@ Since our previous postgres database didn't have the column for saving bio, migr
 
 * Create an empty `backend-flask/db/migrations/.keep`, and an executable script [`bin/generate/migration` - code](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/bin/db/migrate). 
 
-* Run `./bin/generate/migration add_bio_column`, a python script such as `backend-flask/db/migrations/1681742424_add_bio_column.py` will be generated. Edit the generated python script with SQL commands as seen in [code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/backend-flask/db/migrations/1681742424_add_bio_column.py).
+* Run `./bin/generate/migration add_bio_column`, a python script such as `backend-flask/db/migrations/1683116766_add_bio_column.py` will be generated. Edit the generated python script with SQL commands as seen in [code](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/backend-flask/db/migrations/1683116766_add_bio_column.py).
 
-Update `backend-flask/db/schema.sql`, and update `backend-flask/lib/db.py` with verbose option.
+* Update [`backend-flask/db/schema.sql` - code](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/backend-flask/db/schema.sql), and update [`backend-flask/lib/db.py`](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/backend-flask/lib/db.py) with verbose option.
 
-Create executable scripts `bin/db/migrate` and `bin/db/rollback` as seen in [repo](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/tree/week-8/bin/db). If we run `./bin/db/migrate`, a new column called bio will be created in the db table of `users`.
+* Create executable scripts [`bin/db/migrate`](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/bin/db/migrate) and [`bin/db/rollback`](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-8/bin/db/rollback). 
 
+> First time you need connect to `psql` and run
+
+```sql
+CREATE TABLE IF NOT EXISTS public.schema_information (
+  id integer UNIQUE,
+  last_successful_run text
+);
+
+INSERT INTO public.schema_information (id, last_successful_run)
+VALUES(1, '0')
+ON CONFLICT (id) DO NOTHING;
+INSERT 0 1
+```
+
+> Then run `./bin/db/migrate`, a new column called bio will be created in the db table of `users`.
+
+> You can rollback changes with `./bin/db/rollback`
 ## Implement Avatar Uploading
 
 Firstly we need to create an API endpoint, which invoke a presigned URL like `https://<API_ID>.execute-api.<AWS_REGION>.amazonaws.com`. This presigned URL can give access to the S3 bucket (`beici-cruddur-uploaded-avatars` in my case), and can deliver the uploaded image to the bucket.
