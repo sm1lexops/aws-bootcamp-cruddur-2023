@@ -39,6 +39,7 @@ tasks:
       cp .env.cdk .env
       npm i
       cd ../
+      ./bin/avatar/build
 vscode:
   extensions:
     - ms-python.python
