@@ -11,7 +11,7 @@ printf "${CYAN}====== ${LABEL1}${NO_COLOR} ${CYAN}======\n"
 docker-compose up
 
 sleep 1
-printf "${CYAN}====== ${LABEL2}${NO_COLOR}\n"
+printf "${CYAN}====== ${LABEL2}${NO_COLOR} ${CYAN}======${NO_COLOR)\n"
 ABS_PATH=$(readlink -f "$0")
 BIN_PATH=$(dirname $ABS_PATH)
 echo $BIN_PATH
