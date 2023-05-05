@@ -3,11 +3,13 @@ import React from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
+// [TODO] Authenication
+import Cookies from 'js-cookie'
 import { Auth } from 'aws-amplify';
 
 export default function SignupPage() {
 
-  // Username is Email
+  // Username is Eamil
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
