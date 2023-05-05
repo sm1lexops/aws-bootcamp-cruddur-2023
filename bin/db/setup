@@ -11,7 +11,7 @@ DB_PATH=$(dirname $ABS_PATH)
 
 source "$DB_PATH/drop"
 source "$DB_PATH/create"
-python "$DB_PATH//migrate"
 source "$DB_PATH/schema-load"
 source "$DB_PATH/seed"
 python "$DB_PATH/update_cognito_user_ids"
+python "$DB_PATH//migrate"
