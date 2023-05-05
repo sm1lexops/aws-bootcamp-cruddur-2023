@@ -220,7 +220,7 @@ At AWS Lambda, create the corresponding two functions:
 
    > Add this layer to your Lambda  `CruddurAvatarUpload` function
 
-   - At the Lambda `Code` tab rename Handler as function.handler in the `Runtime settings`
+   - At the Lambda `Code` tab rename Handler as *function.handler* in the `Runtime settings`
    - add environment variable `UPLOADS_BUCKET_NAME`
    - create a new policy `PresignedUrlAvatarPolicy` as seen in `aws/policies/s3-upload-avatar-presigned-url-policy.json` ([code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/aws/policies/s3-upload-avatar-presigned-url-policy.json)), and then attach this policy to the role of this Lambda
 
