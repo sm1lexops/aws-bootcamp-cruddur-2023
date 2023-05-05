@@ -7,7 +7,7 @@ zip -r lambda-layers . -x ".*" -x "*/.*"
 zipinfo -t lambda-layers
 
 aws lambda publish-layer-version \
-  --layer-name jwt \
+  --layer-name jwt-ruby \
   --description "Lambda Layer for JWT" \
   --license-info "MIT" \
   --zip-file fileb://lambda-layers.zip \
