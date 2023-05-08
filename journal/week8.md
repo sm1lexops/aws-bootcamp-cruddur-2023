@@ -229,14 +229,16 @@ At AWS Lambda, create the corresponding two functions:
    - upload `lambda_authorizer.zip` into the code source
    - add environment variables `USER_POOL_ID` and `CLIENT_ID`
 
-Different from Andrew's video and his codes, I don't have a layer of JWT cause I passed the JWT sub from `CruddurApiGatewayLambdaAuthorizer` to `CruddurAvatarUpload` ([reference](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html)).
+*Repit with strong knowledge and debugging skills* - Different from Andrew's video and his codes, I don't have a layer of JWT cause I passed the JWT sub from `CruddurApiGatewayLambdaAuthorizer` to `CruddurAvatarUpload` ([reference](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html)).
 
-At AWS S3, update the permissions of `beici-cruddur-uploaded-avatars` by editing the CORS configuration as seen in `aws/s3/cors.json` ([code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/aws/s3/cors.json)).
+At AWS S3, update the permissions of `omgchat-uploaded-avatars` by editing the CORS configuration as seen in `aws/s3/cors.json` ([code](https://github.com/beiciliang/aws-bootcamp-cruddur-2023/blob/week-8/aws/s3/cors.json)).
 
-At AWS API Gateway, create `api.<domain_name>` (in my case `api.beici-demo.xyz`), create two routes:
+At AWS API Gateway, create `api.<domain_name>` (in my case `api.omgchat.xyz`), create two routes:
 
-- `POST /avatars/key_upload` with authorizer `CruddurJWTAuthorizer` which invoke Lambda `CruddurApiGatewayLambdaAuthorizer`, and with integration `CruddurAvatarUpload`
+- `POST /avatars/key_upload` with integration `CruddurAvatarUpload`
+- `POST /avatars/key_upload` create authorizer `CruddurJWTAuthorizer` which invoke Lambda `CruddurApiGatewayLambdaAuthorizer`
 - `OPTIONS /{proxy+}` without authorizer, but with integration `CruddurAvatarUpload`
+
 
 Noted that we don't need to configure CORS at API Gateway. If you did before, click "Clear" to avoid potential CORS issues.
 
@@ -253,13 +255,3 @@ There are some environment variables and setups worth double checking:
 
 ## Proof of Implementation
 
-In my gitpod space, run the following commands, and then edit my profile with a new bio and image. The GIF below proofs that avatar uploading and rendering were successfully implemented.
-
-```sh
-cd /workspace/aws-bootcamp-cruddur-2023
-./bin/bootstrap
-docker compose up
-./bin/prepare
-```
-
-![Proof of Implementation](assets/week08-proof.gif)
