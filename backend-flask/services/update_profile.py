@@ -20,7 +20,7 @@ class UpdateProfile:
       data = UpdateProfile.query_users_short(handle)
       model['data'] = data
     return model
-  
+
   def update_profile(bio,display_name,cognito_user_id):
     if bio == None:    
       bio = ''
@@ -33,7 +33,7 @@ class UpdateProfile:
     })
   def query_users_short(handle):
     sql = db.template('users','short')
-    data = db.query_select_object(sql,{
+    data = db.query_object_json(sql,{
       'handle': handle
     })
     return data
