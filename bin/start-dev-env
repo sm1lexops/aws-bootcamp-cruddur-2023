@@ -5,7 +5,7 @@ set -e # stop if it fails at any point
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 LABEL2="load-data to db/ddb"
-printf "${CYAN}====== ${LABEL1}${NO_COLOR} ${CYAN}======\n"
+printf "${CYAN}====== ${LABEL1}${NO_COLOR} ${CYAN}======${NO_COLOR}n"
 
 printf "${CYAN}====== ${LABEL2}${NO_COLOR} ${CYAN}======${NO_COLOR)\n"
 ABS_PATH=$(readlink -f "$0")
