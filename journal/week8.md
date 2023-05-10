@@ -255,3 +255,10 @@ There are some environment variables and setups worth double checking:
 
 ## Proof of Implementation
 
+> Profile page
+
+![Implement Profile page](assets/week-8/implement_profile.jpg)
+
+> Update profile
+
+![Update profile](assets/week-8/update_profile.jpg)
