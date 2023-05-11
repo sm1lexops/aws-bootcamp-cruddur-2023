@@ -8,8 +8,8 @@
 
 ## Class Summary
 
-- [ ] Create week-10 branch and go ahead 
-- [ ] 
+- [x] Create week-10 branch and go ahead 
+- [x] 
 - [ ] 
 - [ ]
 - [ ]
