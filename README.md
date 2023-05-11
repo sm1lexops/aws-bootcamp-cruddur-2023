@@ -26,7 +26,7 @@ The `/journal` directory contains
 - [x] [Week 6](journal/week6.md)        ~~  [*Serverless ECS/ECR/ACM/Fargate*](journal/markdown6.md) 
 - [x] [Week 7](journal/week7.md)        ~~  [*Solving CORS with ALB and Route53*](journal/markdown7.md) 
 - [x] [Week 8](journal/week8.md)        ~~  [*Serverless Image Processing*](journal/markdown8.md) 
-- [ ] [Week 9](journal/week9.md)        ~~  [*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/markdown9.md) 
+- [x] [Week 9](journal/week9.md)        ~~  [*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/markdown9.md) 
 - [ ] [Week 10](journal/week10.md)      ~~  [*CloudFormation part 1*](journal/markdown10.md) 
 - [ ] [Week 11](journal/week11.md)      ~~  [*CloudFormation part 2*](journal/markdown11.md) 
 - [ ] [Week 12](journal/week12.md)      ~~  [*Modern APIs*](journal/markdown12.md) 
