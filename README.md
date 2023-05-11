@@ -1,4 +1,7 @@
 # FREE AWS Cloud Project Bootcamp
+
+![AWS CodeBuild](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoib2JGVlpFNFQrc2dKSGVsMm5JeVVKakY5SmRUNWdXZ0s2WExpdjVadENNOGVsQnNjRTVhTzVJS0pvM2RBNjc3Ly9oUjM0dGpUelJ4RmRKb0Y1Wk9lMVFRPSIsIml2UGFyYW1ldGVyU3BlYyI6IkVzNUU3bnB4U2xpT09GTFUiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#<your-repository-url>)
 - Application: Cruddur
 - Cohort: 2023-A1
