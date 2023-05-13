@@ -1,8 +1,12 @@
 tasks:
+  - name: cfn
+    before: |
+    pip3 install cfn-lint
+    cargo install cfn-guard
   - name: aws-cli
     env:
       AWS_CLI_AUTO_PROMPT: on-partial
-    init: |
+    before: |
       cd /workspace
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
@@ -26,8 +30,7 @@ tasks:
       cd ./frontend-react-js
       npm i 
       cd ../backend-flask
-      pip3 install -r requirements.txt
-      pip3 install cfn-lint
+      pip3 install -r requirements.txt  
       export GITPOD_IP=$(curl ifconfig.me)
       source "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
       aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
