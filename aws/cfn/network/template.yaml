@@ -10,15 +10,154 @@ Description: |
   - 2 Availability Zone
   - 2 Public Subnet
   - 4 Private Subnet
+Parameters:
+  VpcCidrBlock:
+    Description: VPC Ip network range
+    Type: CommaDelimitedList
+    Default: >
+      10.0.0.0/16,
+      172.31.0.0/16,
+      192.168.0.0/20
+  SubnetCidrBlocks:
+    Description: VPC Subnet
+    Type: CommaDelimitedList
+    Default: > 
+      10.0.0.0/24,
+      10.0.1.0/24,
+      10.0.2.0/24,
+      10.0.3.0/24,
+      10.0.4.0/24,
+      10.0.5.0/24,
+      172.31.0.0/24,
+      172.31.1.0/24,
+      172.31.2.0/24,
+      172.31.3.0/24,
+      172.31.4.0/24,
+      172.31.5.0/24,
+      192.168.0.0/24,
+      192.168.1.0/24,
+      192.168.2.0/24,
+      192.168.3.0/24,
+      192.168.4.0/24,
+      192.168.5.0/24
+  AZ:
+    Type: List<AWS::EC2::AvailabilityZone::Name>
+    Default: >
+     eu-central-1a,
+     eu-central-1b
 Resources:
-  ECSCluster: # Logical Name 
-    Type: 'AWS::ECS::Cluster'
+  VPC:
+    Type: AWS::EC2::VPC
     Properties:
-      ClusterName: MyEmptyCluster   
-      CapacityProviders: 
-       - FARGATE
+      CidrBlock: !Select [0, !Ref VpcCidrBlock]
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}VPC"
 
-#Parameters:
-#Mappings:
-#Outputs:
-#Metadata:
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}IGW"
+
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref IGW
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Select [0, !Ref SubnetCidrBlocks]
+      AvailabilityZone: !Select [0, !Ref AZ]
+      EnableDns64: false
+      MapPublicIpOnLaunch: true #public subnet
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PublicSubnet1"
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Select [1, !Ref SubnetCidrBlocks]
+      AvailabilityZone: !Select [1, !Ref AZ]
+      EnableDns64: false
+      MapPublicIpOnLaunch: true #public subnet
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PublicSubnet2"
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Select [2, !Ref SubnetCidrBlocks]
+      AvailabilityZone: !Select [0, !Ref AZ]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false #public subnet
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PrivateSubnet1"
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Select [3, !Ref SubnetCidrBlocks]
+      AvailabilityZone: !Select [1, !Ref AZ]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false #public subnet
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PrivateSubnet2"
+  PrivateSubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Select [4, !Ref SubnetCidrBlocks]
+      AvailabilityZone: !Select [0, !Ref AZ]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false #public subnet
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PrivateSubnet3"
+  PrivateSubnet4:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Select [5, !Ref SubnetCidrBlocks]
+      AvailabilityZone: !Select [1, !Ref AZ]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false #public subnet
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PrivateSubnet4"
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}PublicRouteTable"
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGW
+
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+
+  PublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
