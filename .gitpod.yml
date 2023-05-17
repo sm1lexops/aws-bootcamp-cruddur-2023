@@ -1,12 +1,8 @@
 tasks:
-  - name: cfn
-    init: |
-    pip3 install cfn-lint
-    cargo install cfn-guard
   - name: aws-cli
     env:
       AWS_CLI_AUTO_PROMPT: on-partial
-    init: |
+    before: |
       cd /workspace
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
@@ -14,7 +10,7 @@ tasks:
       cd $THEIA_WORKSPACE_ROOT
       
   - name: momento
-    init: |
+    before: |
       brew tap momentohq/tap
       brew install momento-cli
 
@@ -38,6 +34,8 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       rm -f session-manager-plugin.deb
       session-manager-plugin
+      pip3 install cfn-lint
+      cargo install cfn-guard
       cd ../aws/lambdas/process-images
       npm init -y
       npm install sharp @aws-sdk/client-s3
