@@ -1,16 +1,20 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  - Create AWS Fargate Cluster for omgchat App 
-  -
-  -
-  -
+  - AWS Fargate Cluster for omgchat App 
+  - Application Load Balancer (ALB)
+    * ipv4 only
+    * internet facing
+    * certificate attached from ACM
+  - ALB Security Group
+  - Backend Target Group
+  - Frontend Target Group
+  - HTTPS Listener
+    * domain to frontend Target Group
+    * api.domain to backend Target Group
+  - HTTP Listener
+    * redirect to HTTPS
+
 Parameters:
-  
-Metadata:
-  
-Mappings:
-  
-Conditions:
   
 Resources:
  FargateCluster:
@@ -25,6 +29,14 @@ Resources:
     Configuration:
       ExecuteCommandConfiguration:
         Logging: DEFAULT
-Transform:
+    ServiceConnectDefaults:
+      Namespace: omgchat
+    ALB:
+      Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+      Properties:
+        Name: !Sub "${AWS::StackName}ALB"
+        IpAddresType: ipv4 
+
+      
   
 Outputs:

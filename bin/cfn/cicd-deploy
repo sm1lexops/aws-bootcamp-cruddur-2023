@@ -1,5 +1,9 @@
-#! /usr/bin/env bash 
+#! /usr/bin/bash 
 set -e
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="===== CI/CD CloudFormation deploy ====="
+printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/template.yaml"
 
@@ -7,4 +11,5 @@ aws cloudformation deploy \
     --stack-name "omgchatCluster" \
     --template-file $CFN_PATH \
     --no-execute-changeset \
+    --tags group=cicd_omgchat_stack \
     --capabilities CAPABILITY_NAMED_IAM
