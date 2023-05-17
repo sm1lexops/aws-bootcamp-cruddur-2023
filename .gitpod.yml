@@ -51,8 +51,6 @@ vscode:
     - eamodio.gitlens
     - 42Crunch.vscode-openapi 
     - ms-python.isort
-    - mtxr.sqltools-driver-pg
-    - mtxr.sqltools
 ports:
   - name: frontend
     port: 3000

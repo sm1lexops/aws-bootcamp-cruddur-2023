@@ -1,15 +1,30 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  Testing Setup ECS Cluster 
+  - Create AWS Fargate Cluster for omgchat App 
+  -
+  -
+  -
+Parameters:
+  
+Metadata:
+  
+Mappings:
+  
+Conditions:
+  
 Resources:
-  ECSCluster: # Logical Name 
-    Type: 'AWS::ECS::Cluster'
-    Properties:
-      ClusterName: MyEmptyCluster   
-      CapacityProviders: 
-       - FARGATE
-
-#Parameters:
-#Mappings:
-#Outputs:
-#Metadata:
+ FargateCluster:
+  Type: 'AWS::ECS::Cluster' 
+  Properties:
+    ClusterName: !Sub "${AWS::StackName}Cluster"
+    CapacityProviders:
+      - FARGATE
+    ClusterSettings:
+      - Name: containerInsights
+        Value: enabled
+    Configuration:
+      ExecuteCommandConfiguration:
+        Logging: DEFAULT
+Transform:
+  
+Outputs:
