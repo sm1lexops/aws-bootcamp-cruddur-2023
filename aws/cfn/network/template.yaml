@@ -1,6 +1,15 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  Testing Setup ECS Cluster 
+  CFN Template for Network components:
+  - VPC (eu-central-1)
+    * set dns support for EC2 instance
+    * Only Ipv4
+  - InternetGateway
+  - Public Router Table
+  - Private Router Table
+  - 2 Availability Zone
+  - 2 Public Subnet
+  - 4 Private Subnet
 Resources:
   ECSCluster: # Logical Name 
     Type: 'AWS::ECS::Cluster'
