@@ -144,4 +144,14 @@ Resources:
     Properties:
       GroupDescription: For omgchat ALB Ingress Traffic
       GroupName: !Sub "${AWS::StackName}ALBSecGroup"
-    
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: '0.0.0.0/0'
+          Description: Internet HTTP
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: '0.0.0.0/0'
+          Description: Internet HTTPS
