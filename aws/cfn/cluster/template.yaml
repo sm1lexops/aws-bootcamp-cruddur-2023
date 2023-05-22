@@ -15,28 +15,133 @@ Description: |
     * redirect to HTTPS
 
 Parameters:
-  
+  NetworkingStack:
+    Type: String
+    Description: This is our base layer of networking components eg. VPC, Subnets
+    Default: OmgchatNet
+  CertificateArn:
+    Type: String
+  #Frontend Properties
+  FrontendPort:
+    Type: Number
+    Default: "3000"
+  FrontendHealthCheckIntervalSeconds:
+    Type: Number
+    Default: "15"
+  FrontendHealthCheckPath:
+    Type: String
+    Default: "/"
+  FrontendHealthCheckPort:
+    Type: String
+    Default: "80"
+  FrontendHealthCheckProtocol:
+    Type: String
+    Default: "HTTP"
+  FrontendHealthCheckTimeoutSeconds:
+    Type: Number
+    Default: "5"
+  FrontendHealthyThresholdCount:
+    Type: Number
+    Default: "2"
+  FrontendUnhealthyThresholdCount:
+    Type: Number
+    Default: "2"
+  #Backend Properties
+  BackendPort:
+    Type: Number
+    Default: "4567"
+  BackendHealthCheckIntervalSeconds:
+    Type: String
+    Default: "15"
+  BackendHealthCheckPath:
+    Type: String
+    Default: "/api/health-check"
+  BackendHealthCheckPort:
+    Type: String
+    Default: "80"
+  BackendHealthCheckProtocol:
+    Type: String
+    Default: "HTTP"
+  BackendHealthCheckTimeoutSeconds:
+    Type: Number
+    Default: "5"
+  BackendHealthyThresholdCount:
+    Type: Number
+    Default: "2"
+  BackendUnhealthyThresholdCount:
+    Type: Number
+    Default: "2"
 Resources:
- FargateCluster:
-  Type: 'AWS::ECS::Cluster' 
-  Properties:
-    ClusterName: !Sub "${AWS::StackName}Cluster"
-    CapacityProviders:
-      - FARGATE
-    ClusterSettings:
-      - Name: containerInsights
-        Value: enabled
-    Configuration:
-      ExecuteCommandConfiguration:
-        Logging: DEFAULT
-    ServiceConnectDefaults:
-      Namespace: omgchat
-    ALB:
-      Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-      Properties:
-        Name: !Sub "${AWS::StackName}ALB"
-        IpAddresType: ipv4 
-
-      
-  
-Outputs:
+  FargateCluster:
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
+    Type: 'AWS::ECS::Cluster' 
+    Properties:
+      ClusterName: !Sub "${AWS::StackName}Cluster"
+      CapacityProviders:
+        - FARGATE
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+      Configuration:
+        ExecuteCommandConfiguration:
+          Logging: DEFAULT
+      ServiceConnectDefaults:
+        Namespace: omgchat
+  ALB:
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: !Sub "${AWS::StackName}ALB"
+      IpAddressType: ipv4 
+      Type: application
+      Scheme: internet-facing
+      SecurityGroups:
+        - !GetAtt ALBSecGroup.GroupId
+      Subnets:
+        - 10.0.0.0/24
+        - 10.0.1.0/24 
+      LoadBalancerAttributes:
+        - Key: routing.http2.enabled
+          Value: "true"
+        - Key: routing.http.preserve_host_header.enabled
+          Value: "false"
+        - Key: deletion_protection.enabled
+          Value: "true"
+        - Key: load_balancing.cross_zone.enabled
+          Value: "true"
+        - Key: access_logs.s3.enabled
+          Value: "false"
+  HTTPListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Protocol: "HTTP"
+      Port: 80
+      LoadBalancerArn: !Ref LoadBalancer
+      DefaultActions:
+        - Type: redirect
+          RedirectConfig:
+            StatusCode: "HTTP_301"
+            Protocol: "HTTPS"
+            Port: "443"
+            Host: "#{host}"
+            Path: "/#{path}"
+            Query: "#{query}"
+  HTTPSListener:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Protocol: HTTPS
+      Port: 443
+      LoadBalancerArn: !Ref LoadBalancer
+      Certificates: 
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn:  !Ref FrontendTG
+  ALBSecGroup:
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: For omgchat ALB Ingress Traffic
+      GroupName: !Sub "${AWS::StackName}ALBSecGroup"
+    
