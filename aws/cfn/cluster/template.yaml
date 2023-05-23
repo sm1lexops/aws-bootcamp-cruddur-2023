@@ -18,7 +18,7 @@ Parameters:
   NetworkingStack:
     Type: String
     Description: This is our base layer of networking components eg. VPC, Subnets
-    Default: OmgchatNet
+    Default: OmgNet
   CertificateArn:
     Type: String
   #Frontend Properties
@@ -115,8 +115,7 @@ Resources:
       SecurityGroups:
         - !GetAtt ALBSecGroup.GroupId
       Subnets:
-        - 10.0.0.0/24
-        - 10.0.1.0/24 
+      Fn::Split: [",", Fn::ImportValue: !Sub "${NetworkingStack}PublicSubnetIds"]
       LoadBalancerAttributes:
         - Key: routing.http2.enabled
           Value: "true"
