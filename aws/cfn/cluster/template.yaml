@@ -87,6 +87,23 @@ Resources:
           Logging: DEFAULT
       ServiceConnectDefaults:
         Namespace: omgchat
+  ALBSecGroup:
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: For omgchat ALB Ingress Traffic
+      GroupName: !Sub "${AWS::StackName}ALBSecGroup"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: '0.0.0.0/0'
+          Description: Internet HTTP
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: '0.0.0.0/0'
+          Description: Internet HTTPS
   ALB:
   #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -111,6 +128,8 @@ Resources:
           Value: "true"
         - Key: access_logs.s3.enabled
           Value: "false"
+  FrontendTG:
+    Type: AWS::
   HTTPListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -138,20 +157,16 @@ Resources:
       DefaultActions:
         - Type: forward
           TargetGroupArn:  !Ref FrontendTG
-  ALBSecGroup:
-  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: For omgchat ALB Ingress Traffic
-      GroupName: !Sub "${AWS::StackName}ALBSecGroup"
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: '0.0.0.0/0'
-          Description: Internet HTTP
-        - IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-          CidrIp: '0.0.0.0/0'
-          Description: Internet HTTPS
+  ALBListenerRule:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html
+  Type: AWS::ElasticLoadBalancingV2::ListenerRule
+  Properties:
+    Actions:
+      - Type: forward
+        TargetGroupArn: BackendTG
+    Conditions:
+      - Field: host-header
+        HostHeaderConfig:
+          Values: api.omgchat.xyz
+    ListenerArn: !Ref HTTPSListener
+    Priority: 1
