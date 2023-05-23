@@ -222,3 +222,5 @@ Resources:
           Values: api.omgchat.xyz
       ListenerArn: !Ref HTTPSListener
       Priority: 1
+indeek:
+  Properties:

@@ -8,7 +8,8 @@ printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
 
 aws cloudformation deploy \
-    --stack-name "omgchatCluster" \
+    --stack-name "OmgCluster" \
     --template-file $CFN_PATH \
     --no-execute-changeset \
+    --tags group=omgchat-cluster \
     --capabilities CAPABILITY_NAMED_IAM

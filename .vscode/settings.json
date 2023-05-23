@@ -22,6 +22,9 @@
         "!Join sequence"
     ],
     "yaml.schemas": {
-        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
+        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+            "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
+        ],
+        "https://json.schemastore.org/yamllint.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
     }
 }
