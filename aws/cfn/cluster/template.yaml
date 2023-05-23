@@ -20,8 +20,8 @@ Parameters:
     Description: This is our base layer of networking components eg. VPC, Subnets
     Default: OmgNet
   CertificateArn:
-    Type: String
-    Default: 'arn:aws:acm:eu-central-1:446273730290:certificate/1b237fc9-c5eb-4415-bc47-bc2329f1d906'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /OmgCluster/CertificateArn
   #Frontend Properties
   FrontendPort:
     Type: Number
