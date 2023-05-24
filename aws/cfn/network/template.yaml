@@ -98,7 +98,7 @@ Resources:
       CidrBlock: !Select [2, !Ref SubnetCidrBlocks]
       AvailabilityZone: !Select [0, !Ref AZ]
       EnableDns64: false
-      MapPublicIpOnLaunch: false #public subnet
+      MapPublicIpOnLaunch: false #private subnet
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}PrivateSubnet1"
@@ -109,7 +109,7 @@ Resources:
       CidrBlock: !Select [3, !Ref SubnetCidrBlocks]
       AvailabilityZone: !Select [1, !Ref AZ]
       EnableDns64: false
-      MapPublicIpOnLaunch: false #public subnet
+      MapPublicIpOnLaunch: false #private subnet
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}PrivateSubnet2"
@@ -120,7 +120,7 @@ Resources:
       CidrBlock: !Select [4, !Ref SubnetCidrBlocks]
       AvailabilityZone: !Select [0, !Ref AZ]
       EnableDns64: false
-      MapPublicIpOnLaunch: false #public subnet
+      MapPublicIpOnLaunch: false #private subnet
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}PrivateSubnet3"
@@ -131,7 +131,7 @@ Resources:
       CidrBlock: !Select [5, !Ref SubnetCidrBlocks]
       AvailabilityZone: !Select [1, !Ref AZ]
       EnableDns64: false
-      MapPublicIpOnLaunch: false #public subnet
+      MapPublicIpOnLaunch: false #private subnet
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}PrivateSubnet4"
