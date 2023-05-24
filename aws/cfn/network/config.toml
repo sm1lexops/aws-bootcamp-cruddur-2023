@@ -1,0 +1,4 @@
+[deploy]
+bucket = 'cfn-artifacts'
+region = 'eu-central-1'
+stack_name = 'OmgNet'

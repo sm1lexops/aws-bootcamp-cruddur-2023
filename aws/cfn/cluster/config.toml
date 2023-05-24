@@ -1,0 +1,8 @@
+[deploy]
+bucket = 'cfn-artifacts'
+region = 'eu-central-1'
+stack_name = 'OmgCluster'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:eu-central-1:446273730290:certificate/1b237fc9-c5eb-4415-bc47-bc2329f1d906'
+NetworkingStack = 'OmgNet'
