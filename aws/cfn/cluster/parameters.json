@@ -1,7 +1,7 @@
 [
     {
       "ParameterKey": "FrontendHealthCheckIntervalSeconds",
-      "ParameterValue": "33"
+      "ParameterValue": "15"
     }
   ]
   

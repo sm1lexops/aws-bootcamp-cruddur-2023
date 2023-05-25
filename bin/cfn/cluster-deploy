@@ -6,7 +6,7 @@ LABEL="===== Cluster CloudFormation deploy ====="
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
-CFN_PARAM="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/parameters.json"
+CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/parameters.json"
 
 aws cloudformation deploy \
     --stack-name "OmgCluster" \
