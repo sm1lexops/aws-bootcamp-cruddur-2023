@@ -11,3 +11,31 @@ Parameters:
   ClusterStack:
     Type: String
     Default: OmgCluster
+
+Resources:
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
+  FargateService:
+    Type: AWS::ECS::Service
+    Properties:
+  
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+  
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+  TaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+Outputs:
+  ServiceName:
+    Value: !GetAtt FargateService.Name
+    Export:
+      Name: !Sub
