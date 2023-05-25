@@ -1,15 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  Testing Setup ECS Cluster 
-Resources:
-  ECSCluster: # Logical Name 
-    Type: 'AWS::ECS::Cluster'
-    Properties:
-      ClusterName: MyEmptyCluster   
-      CapacityProviders: 
-       - FARGATE
-
-#Parameters:
-#Mappings:
-#Outputs:
-#Metadata:
+  - Task Definition
+  - Fargate Service
+  - Execution Role
+  - Task Role
+Parameters:
+  NetworkingStack:
+    Type: String
+    Default: OmgNet
+  ClusterStack:
+    Type: String
+    Default: OmgCluster
