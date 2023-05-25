@@ -1,0 +1,11 @@
+[
+    {
+      "ParameterKey": "AWSSecretAccessKey",
+      "ParameterValue": "15"
+    },
+    {
+      "ParameterKey":"AWSAccessKey",
+      "ParameterValue":"15"
+    }
+  ]
+  
