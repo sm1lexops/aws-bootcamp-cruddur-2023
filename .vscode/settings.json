@@ -22,11 +22,12 @@
         "!Join sequence"
     ],
     "yaml.schemas": {
+        "https://s3.amazonaws.com/cfn-resource-specifications-us-east-1-prod/schemas/2.15.0/all-spec.json": "*-template.yaml",
         "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
-            "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml",
             "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
         ],
-        "https://yarnpkg.com/configuration/yarnrc.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/network/template.yaml"
+        "https://yarnpkg.com/configuration/yarnrc.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/network/template.yaml",
+        "https://json.schemastore.org/yamllint.json": "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
     },
     "cloudfix-linter.Platforms": [
         "Cloudformation"
