@@ -5,9 +5,14 @@ NO_COLOR='\033[0m'
 LABEL="===== Services stack CloudFormation deploy ====="
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
+CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/parameters.json"
+REGION="eu-central-1"
 
 aws cloudformation deploy \
-    --stack-name "omgchatCluster" \
+    --stack-name "OmgSrvBackendFlask" \
+    --region $REGION \
     --template-file $CFN_PATH \
     --no-execute-changeset \
+    --tags group=omgchat-backend-flask \
+    --parameter-overrides $CFN_PARAM \
     --capabilities CAPABILITY_NAMED_IAM
