@@ -27,7 +27,10 @@
             "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
         ],
         "https://yarnpkg.com/configuration/yarnrc.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/network/template.yaml",
-        "https://json.schemastore.org/yamllint.json": "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
+        "https://json.schemastore.org/yamllint.json": [
+            "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml",
+            "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
+        ]
     },
     "cloudfix-linter.Platforms": [
         "Cloudformation"

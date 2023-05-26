@@ -108,6 +108,21 @@ Resources:
           ToPort: 443
           CidrIp: '0.0.0.0/0'
           Description: Internet HTTPS
+  ServiceSecGroup:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for ECS Services
+      GroupName: !Sub "${AWS::Stackname}ServiceSecGroup"
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          Description: ALB HTTP
+          SourceSecurityGroupId: !GetAtt ALBSecGroup.GroupId
+          FromPort: !Ref BackendPort
+          ToPort: !Ref BackendPort
+      Tags: 
+        - Tag
+      VpcId: String
   ALB:
   #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -229,3 +244,30 @@ Resources:
           TargetGroupArn:  !Ref BackendTG
       ListenerArn: !Ref HTTPSListener
       Priority: 1
+Outputs:
+  ClusterName:
+    Description: Cluster Name
+    Value: !Ref FargateCluster
+    Export: 
+      Name: !Sub "${AWS::StackName}ClusterName"
+  BackendTGArn:
+    Description: ALB Backend Target Group 
+    Value: !Ref BackendTG
+    Export: 
+      Name: !Sub "${AWS::StackName}BackendTGArn"
+  FrontendTGArn:
+    Description: ALB Frontend Target Group 
+    Value: !Ref FrontendTG
+    Export: 
+      Name: !Sub "${AWS::StackName}FrontendTGArn"
+  ALBSecGroupId:
+    Description: Security Group for services communication
+    Value: !Ref ALBSecGroup
+    Export:
+      Name: !Sub "${AWS::StackName}ALBSecGroupId"
+  ServiceSecGroupId:
+    Description: ALB HTTP
+    Value: !GetAtt ServiceSecGroup.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ServiceSecGroupId"
+  

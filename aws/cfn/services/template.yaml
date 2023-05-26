@@ -11,17 +11,68 @@ Parameters:
   ClusterStack:
     Type: String
     Default: OmgCluster
-
+  ContainerName:
+    Type: String
+    Default: 'backend-flask'
+  ContainerPort:
+    Type: String
+    Default: 4567
+  ServiceName:
+    Type: String
+    Default: 'backend-flask'
+  some:
+    Type: String
+    Default: 4567
 Resources:
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
   FargateService:
     Type: AWS::ECS::Service
     Properties:
-  
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
+      Cluster:
+        Fn::ImportValue:
+          !Sub "${ClusterStack}ClusterName" 
+      DeploymentController:
+        Type: ECS
+      DesiredCount: 1
+      EnableECSManagedTags: true
+      EnableExecuteCommand: true
+      HealthCheckGracePeriodSeconds: 0
+      LaunchType: FARGATE
+      LoadBalancers:
+        - TargetGroupArn: 
+            Fn::ImportValue:
+              !Sub "${AWS::ClusterStack}BackendTGArn"
+          ContainerName: !Ref ContainerName
+          ContainerPort: !Ref ContainerPort
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - Fn::ImportValue:
+                !Sub "${AWS::ClusterStack}ALBSecGroupId"
+          Subnets:
+            - Fn::Split:
+              - ","
+              - Fn::ImportValue:
+                  !Sub "${AWS::NetworkingStack}PublicSubnetIds"
+      PlatformVersion: LATEST
+      PropogateTags: SERVICE
+      ServiceConnectConfiguration:
+        Enabled: true
+        NameSpace: omgchat
+        Services: 
+          - DiscoveryName: !Ref ServiceName
+            PortName: !Ref ServiceName
+            ClientAliases: 
+              - Port: !Ref ContainerPort
+      ServiceName: !Ref ServiceName
+      TaskDefinition: !Ref TaskDefinition  
   TaskDefinition:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
     Type: AWS::ECS::TaskDefinition
     Properties:
+      Family: !Ref ServiceName
+      ExecutionRoleArn: 
   
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
   ExecutionRole:
