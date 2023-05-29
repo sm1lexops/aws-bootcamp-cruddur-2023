@@ -48,6 +48,7 @@ tasks:
       cd thumbing-serverless-cdk
       cp .env.example .env
       npm i
+      cd ../
   # For Lambda image-processing
   #- name: sharp      
   #  before: |

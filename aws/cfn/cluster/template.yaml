@@ -262,7 +262,7 @@ Outputs:
       Name: !Sub "${AWS::StackName}FrontendTGArn"
   ALBSecGroupId:
     Description: Security Group for services communication
-    Value: !Ref ALBSecGroup
+    Value: !GetAtt ALBSecGroup.GroupId
     Export:
       Name: !Sub "${AWS::StackName}ALBSecGroupId"
   ServiceSecGroupId:
