@@ -31,8 +31,8 @@
         "https://json.schemastore.org/yamllint.json": [
             "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml",
             "vscode-vfs://github/sm1lexops/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
-        ]
-        
+        ],
+        "schemaservice:/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
     },
     "cloudfix-linter.Platforms": [
         "Cloudformation"

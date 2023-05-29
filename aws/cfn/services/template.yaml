@@ -13,10 +13,10 @@ Parameters:
     Default: OmgCluster
   ContainerName:
     Type: String
-    Default: backend-flask
+    Default: "backend-flask"
   ContainerPort:
     Type: Number
-    Default: "4567"
+    Default: 4567
   ServiceName:
     Type: String
     Default: "backend-flask"
@@ -31,7 +31,7 @@ Parameters:
     Default: '446273730290.dkr.ecr.eu-central-1.amazonaws.com/backend-flask'
   EnvOtelServiceName:
     Type: String
-    Default: backend-flask
+    Default: "backend-flask"
   EnvOtelExporterOtlpEndpoint:
     Type: String
     Default: https://api.honeycomb.io
@@ -86,7 +86,7 @@ Resources:
             Fn::ImportValue:
               !Sub "${ClusterStack}BackendTGArn"
           ContainerName: !Ref ContainerName
-          ContainerPort: "4567"
+          ContainerPort: 4567
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
@@ -101,8 +101,8 @@ Resources:
       PlatformVersion: LATEST
       #PropogateTags: SERVICE
       ServiceConnectConfiguration:
-        Enabled: 'true'
-        NameSpace: 'omgchat'
+        Enabled: true
+        NameSpace: omgchat
         Services: 
           - DiscoveryName: !Ref ServiceName
             PortName: !Ref ServiceName
@@ -117,7 +117,7 @@ Resources:
       Family: !Ref ServiceName
       ExecutionRoleArn: !GetAtt ExecutionRole.Arn
       TaskRoleArn: !GetAtt TaskRole.Arn
-      NetworkMode: 'awsvpc'
+      NetworkMode: awsvpc
       Cpu: !Ref ServiceCpu
       Memory: !Ref ServiceMemory
       RequiresCompatibilities:
