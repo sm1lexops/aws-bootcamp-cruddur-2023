@@ -78,13 +78,13 @@ Resources:
       DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true
-      # HealthCheckGracePeriodSeconds: 0
+      HealthCheckGracePeriodSeconds: 0
       LaunchType: FARGATE
       LoadBalancers:
       - TargetGroupArn:
           Fn::ImportValue: !Sub "${ClusterStack}BackendTGArn"
         ContainerName: !Ref ContainerName
-        ContainerPort: !Ref ContainerPort
+        ContainerPort: 4567
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
@@ -95,7 +95,7 @@ Resources:
             - ","
             - Fn::ImportValue: !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
-      #PropogateTags: SERVICE
+      PropogateTags: SERVICE
       ServiceConnectConfiguration:
         Enabled: true
         NameSpace: omgchat
@@ -103,7 +103,7 @@ Resources:
         - DiscoveryName: !Ref ServiceName
           PortName: !Ref ServiceName
           ClientAliases:
-          - Port: !Ref ContainerPort
+          - Port: 4567
       ServiceName: !Ref ServiceName
       TaskDefinition: !Ref TaskDefinition
   TaskDefinition:
@@ -140,7 +140,7 @@ Resources:
           StartPeriod: 60
         PortMappings:
         - Name: !Ref ContainerName
-          ContainerPort: !Ref ContainerPort
+          ContainerPort: 4567
           Protocol: 'tcp'
           AppProtocol: 'http'
         LogConfiguration:
