@@ -13,19 +13,19 @@ Parameters:
     Default: OmgCluster
   ContainerName:
     Type: String
-    Default: 'backend-flask'
+    Default: backend-flask
   ContainerPort:
-    Type: String
-    Default: 4567
+    Type: Number
+    Default: "4567"
   ServiceName:
     Type: String
-    Default: 'backend-flask'
+    Default: "backend-flask"
   ServiceCpu:
     Type: Number
-    Default: 256
+    Default: '256'
   ServiceMemory:
     Type: Number
-    Default: 512
+    Default: '512'
   EcrImage:
     Type: String
     Default: '446273730290.dkr.ecr.eu-central-1.amazonaws.com/backend-flask'
@@ -79,14 +79,14 @@ Resources:
       DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true
-      HealthCheckGracePeriodSeconds: 0
+    # HealthCheckGracePeriodSeconds: 0
       LaunchType: FARGATE
       LoadBalancers:
         - TargetGroupArn: 
             Fn::ImportValue:
               !Sub "${ClusterStack}BackendTGArn"
           ContainerName: !Ref ContainerName
-          ContainerPort: !Ref ContainerPort
+          ContainerPort: "4567"
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
@@ -99,10 +99,10 @@ Resources:
               - Fn::ImportValue:
                   !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
-      PropogateTags: SERVICE
+      #PropogateTags: SERVICE
       ServiceConnectConfiguration:
-        Enabled: true
-        NameSpace: omgchat
+        Enabled: 'true'
+        NameSpace: 'omgchat'
         Services: 
           - DiscoveryName: !Ref ServiceName
             PortName: !Ref ServiceName
