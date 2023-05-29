@@ -68,7 +68,6 @@ vscode:
     - eamodio.gitlens
     - 42Crunch.vscode-openapi 
     - ms-python.isort
-    - redhat.vscode-yaml
 ports:
   - name: frontend
     port: 3000
