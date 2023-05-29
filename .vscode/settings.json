@@ -22,12 +22,12 @@
         "!Join sequence"
     ],
     "yaml.schemas": {
+        "/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml": "*.yaml",
         "/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml": [
             "*.yaml",
-            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/*/template.yaml",
-            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml",
-            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
+            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/*/template.yaml"
         ]
+        
     },
     "cloudfix-linter.Platforms": [
         "Cloudformation"
