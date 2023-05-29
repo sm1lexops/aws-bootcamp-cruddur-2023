@@ -22,7 +22,7 @@
         "!Join sequence"
     ],
     "yaml.schemas": {
-        "/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml": "*.yaml",
+
         "https://json.schemastore.org/yamllint.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
     },
     "cloudfix-linter.Platforms": [
