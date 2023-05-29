@@ -112,17 +112,17 @@ Resources:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Security Group for ECS Services
-      GroupName: !Sub "${AWS::Stackname}ServiceSecGroup"
-      SecurityGroupIngress: 
+      GroupName: !Sub "${AWS::StackName}ServiceSecGroup"
+      GroupDescription: Security for Fargate Services for Omgchat
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      SecurityGroupIngress:
         - IpProtocol: tcp
-          Description: ALB HTTP
           SourceSecurityGroupId: !GetAtt ALBSecGroup.GroupId
           FromPort: !Ref BackendPort
           ToPort: !Ref BackendPort
-      Tags: 
-        - Tag
-      VpcId: String
+          Description: ALB HTTP
   ALB:
   #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer

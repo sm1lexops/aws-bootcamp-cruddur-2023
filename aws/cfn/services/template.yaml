@@ -84,7 +84,7 @@ Resources:
       LoadBalancers:
         - TargetGroupArn: 
             Fn::ImportValue:
-              !Sub "${AWS::ClusterStack}BackendTGArn"
+              !Sub "${ClusterStack}BackendTGArn"
           ContainerName: !Ref ContainerName
           ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
@@ -92,12 +92,12 @@ Resources:
           AssignPublicIp: ENABLED
           SecurityGroups:
             - Fn::ImportValue:
-                !Sub "${AWS::ClusterStack}ALBSecGroupId"
+                !Sub "${ClusterStack}ALBSecGroupId"
           Subnets:
             - Fn::Split:
               - ","
               - Fn::ImportValue:
-                  !Sub "${AWS::NetworkingStack}PublicSubnetIds"
+                  !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
       PropogateTags: SERVICE
       ServiceConnectConfiguration:
