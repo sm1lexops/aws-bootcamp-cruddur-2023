@@ -23,11 +23,7 @@
     ],
     "yaml.schemas": {
         "/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml": "*.yaml",
-        "/workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml": [
-            "*.yaml",
-            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/*/template.yaml"
-        ]
-        
+        "https://json.schemastore.org/yamllint.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
     },
     "cloudfix-linter.Platforms": [
         "Cloudformation"

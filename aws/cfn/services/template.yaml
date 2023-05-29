@@ -65,51 +65,47 @@ Parameters:
   DDBMessageTable:
     Type: String
     Default: cruddur-messages
-  
+
 Resources:
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
   FargateService:
     Type: AWS::ECS::Service
     Properties:
       Cluster:
-        Fn::ImportValue:
-          !Sub "${ClusterStack}ClusterName" 
+        Fn::ImportValue: !Sub "${ClusterStack}ClusterName"
       DeploymentController:
         Type: ECS
       DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true
-    # HealthCheckGracePeriodSeconds: 0
+      # HealthCheckGracePeriodSeconds: 0
       LaunchType: FARGATE
       LoadBalancers:
-        - TargetGroupArn: 
-            Fn::ImportValue:
-              !Sub "${ClusterStack}BackendTGArn"
-          ContainerName: !Ref ContainerName
-          ContainerPort: 4567
+      - TargetGroupArn:
+          Fn::ImportValue: !Sub "${ClusterStack}BackendTGArn"
+        ContainerName: !Ref ContainerName
+        ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
           SecurityGroups:
-            - Fn::ImportValue:
-                !Sub "${ClusterStack}ALBSecGroupId"
+          - Fn::ImportValue: !Sub "${ClusterStack}ALBSecGroupId"
           Subnets:
-            - Fn::Split:
-              - ","
-              - Fn::ImportValue:
-                  !Sub "${NetworkingStack}PublicSubnetIds"
+          - Fn::Split:
+            - ","
+            - Fn::ImportValue: !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
       #PropogateTags: SERVICE
       ServiceConnectConfiguration:
         Enabled: true
         NameSpace: omgchat
-        Services: 
-          - DiscoveryName: !Ref ServiceName
-            PortName: !Ref ServiceName
-            ClientAliases: 
-              - Port: !Ref ContainerPort
+        Services:
+        - DiscoveryName: !Ref ServiceName
+          PortName: !Ref ServiceName
+          ClientAliases:
+          - Port: !Ref ContainerPort
       ServiceName: !Ref ServiceName
-      TaskDefinition: !Ref TaskDefinition  
+      TaskDefinition: !Ref TaskDefinition
   TaskDefinition:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
     Type: 'AWS::ECS::TaskDefinition'
@@ -121,66 +117,66 @@ Resources:
       Cpu: !Ref ServiceCpu
       Memory: !Ref ServiceMemory
       RequiresCompatibilities:
-        - 'FARGATE'
+      - 'FARGATE'
       ContainerDefinitions:
+      - Name: 'xray'
+        Image: 'public.ecr.aws/xray/aws-xray-daemon'
+        Essential: true
+        User: '1337'
+        PortMappings:
         - Name: 'xray'
-          Image: 'public.ecr.aws/xray/aws-xray-daemon'
-          Essential: true
-          User: '1337'
-          PortMappings:
-            - Name: 'xray'
-              ContainerPort: 2000
-              Protocol: 'udp'
-        - Name: 'backend-flask'
-          Image: !Ref EcrImage 
-          Essential: true
-          HealthCheck:
-            Command:
-              - 'CMD-SHELL'
-              - 'python /backend-flask/bin/health-check'
-            Interval: 30
-            Timeout: 6
-            Retries: 3
-            StartPeriod: 60
-          PortMappings:
-            - Name: !Ref ContainerName
-              ContainerPort: !Ref ContainerPort
-              Protocol: 'tcp'
-              AppProtocol: 'http'
-          LogConfiguration:
-            LogDriver: 'awslogs'
-            Options:
-              awslogs-group: 'omgchat'
-              awslogs-region: !Ref AWS::Region
-              awslogs-stream-prefix: !Ref ServiceName
-          Environment:
-            - Name: 'DDB_MESSAGE_TABLE'
-              Value: !Ref DDBMessageTable
-            - Name: 'OTEL_SERVICE_NAME'
-              Value: !Ref EnvOtelServiceName
-            - Name: 'OTEL_EXPORTER_OTLP_ENDPOINT'
-              Value: !Ref EnvOtelExporterOtlpEndpoint
-            - Name: 'AWS_COGNITO_USER_POOL_ID'
-              Value: !Ref EnvAWSCognitoUserPoolId
-            - Name: 'AWS_COGNITO_USER_POOL_CLIENT_ID'
-              Value: !Ref EnvCognitoUserPoolClientId
-            - Name: 'FRONTEND_URL'
-              Value: !Ref EnvFrontendUrl
-            - Name: 'BACKEND_URL'
-              Value: !Ref EnvBackendUrl
-            - Name: 'AWS_DEFAULT_REGION'
-              Value: !Ref AWS::Region
-          Secrets:
-            - Name: 'AWS_ACCESS_KEY_ID'
-              ValueFrom: !Ref SecretsAWSAccessKeyId
-            - Name: 'AWS_SECRET_ACCESS_KEY'
-              ValueFrom: !Ref SecretsSecretAccessKey
-            - Name: 'CONNECTION_URL'
-              ValueFrom: !Ref SecretsConnectionUrl
-            - Name: 'ROLLBAR_ACCESS_TOKEN'
-              ValueFrom: !Ref SecretsRollbarAccessToken
-            - Name: 'OTEL_EXPORTER_OTLP_HEADERS'
-              ValueFrom: !Ref SecretsOtelExporterOltpHeaders
+          ContainerPort: 2000
+          Protocol: 'udp'
+      - Name: 'backend-flask'
+        Image: !Ref EcrImage
+        Essential: true
+        HealthCheck:
+          Command:
+          - 'CMD-SHELL'
+          - 'python /backend-flask/bin/health-check'
+          Interval: 30
+          Timeout: 6
+          Retries: 3
+          StartPeriod: 60
+        PortMappings:
+        - Name: !Ref ContainerName
+          ContainerPort: !Ref ContainerPort
+          Protocol: 'tcp'
+          AppProtocol: 'http'
+        LogConfiguration:
+          LogDriver: 'awslogs'
+          Options:
+            awslogs-group: 'omgchat'
+            awslogs-region: !Ref AWS::Region
+            awslogs-stream-prefix: !Ref ServiceName
+        Environment:
+        - Name: 'DDB_MESSAGE_TABLE'
+          Value: !Ref DDBMessageTable
+        - Name: 'OTEL_SERVICE_NAME'
+          Value: !Ref EnvOtelServiceName
+        - Name: 'OTEL_EXPORTER_OTLP_ENDPOINT'
+          Value: !Ref EnvOtelExporterOtlpEndpoint
+        - Name: 'AWS_COGNITO_USER_POOL_ID'
+          Value: !Ref EnvAWSCognitoUserPoolId
+        - Name: 'AWS_COGNITO_USER_POOL_CLIENT_ID'
+          Value: !Ref EnvCognitoUserPoolClientId
+        - Name: 'FRONTEND_URL'
+          Value: !Ref EnvFrontendUrl
+        - Name: 'BACKEND_URL'
+          Value: !Ref EnvBackendUrl
+        - Name: 'AWS_DEFAULT_REGION'
+          Value: !Ref AWS::Region
+        Secrets:
+        - Name: 'AWS_ACCESS_KEY_ID'
+          ValueFrom: !Ref SecretsAWSAccessKeyId
+        - Name: 'AWS_SECRET_ACCESS_KEY'
+          ValueFrom: !Ref SecretsSecretAccessKey
+        - Name: 'CONNECTION_URL'
+          ValueFrom: !Ref SecretsConnectionUrl
+        - Name: 'ROLLBAR_ACCESS_TOKEN'
+          ValueFrom: !Ref SecretsRollbarAccessToken
+        - Name: 'OTEL_EXPORTER_OTLP_HEADERS'
+          ValueFrom: !Ref SecretsOtelExporterOltpHeaders
   ExecutionRole:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
@@ -189,33 +185,33 @@ Resources:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
-          - Effect: 'Allow'
-            Principal:
-              Service: 'ecs-tasks.amazonaws.com'
-            Action: 'sts:AssumeRole'
+        - Effect: 'Allow'
+          Principal:
+            Service: 'ecs-tasks.amazonaws.com'
+          Action: 'sts:AssumeRole'
       Policies:
-        - PolicyName: 'omgchat-execution-policy'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Sid: 'VisualEditor0'
-                Effect: 'Allow'
-                Action:
-                  - 'ecr:GetAuthorizationToken'
-                  - 'ecr:BatchCheckLayerAvailability'
-                  - 'ecr:GetDownloadUrlForLayer'
-                  - 'ecr:BatchGetImage'
-                  - 'logs:CreateLogStream'
-                  - 'logs:PutLogEvents'
-                Resource: '*'
-              - Sid: 'VisualEditor1'
-                Effect: 'Allow'
-                Action:
-                  - 'ssm:GetParameters'
-                  - 'ssm:GetParameter'
-                Resource: !Sub 'arn:aws:ssm:eu-central:446273730290:parameterarn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'
+      - PolicyName: 'omgchat-execution-policy'
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Sid: 'VisualEditor0'
+            Effect: 'Allow'
+            Action:
+            - 'ecr:GetAuthorizationToken'
+            - 'ecr:BatchCheckLayerAvailability'
+            - 'ecr:GetDownloadUrlForLayer'
+            - 'ecr:BatchGetImage'
+            - 'logs:CreateLogStream'
+            - 'logs:PutLogEvents'
+            Resource: '*'
+          - Sid: 'VisualEditor1'
+            Effect: 'Allow'
+            Action:
+            - 'ssm:GetParameters'
+            - 'ssm:GetParameter'
+            Resource: !Sub 'arn:aws:ssm:eu-central:446273730290:parameterarn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+      - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
   TaskRole:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
@@ -224,26 +220,26 @@ Resources:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
-          - Effect: 'Allow'
-            Principal:
-              Service: 'ecs-tasks.amazonaws.com'
-            Action: 'sts:AssumeRole'
+        - Effect: 'Allow'
+          Principal:
+            Service: 'ecs-tasks.amazonaws.com'
+          Action: 'sts:AssumeRole'
       Policies:
-        - PolicyName: 'omgchat-task-policy'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Sid: 'VisualEditor0'
-                Effect: 'Allow'
-                Action:
-                  - ssmmessages:CreateControlChannel
-                  - ssmmessages:CreateDataChannel
-                  - ssmmessages:OpenControlChannel
-                  - ssmmessages:OpenDataChannel
-                Resource: '*'
+      - PolicyName: 'omgchat-task-policy'
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Sid: 'VisualEditor0'
+            Effect: 'Allow'
+            Action:
+            - ssmmessages:CreateControlChannel
+            - ssmmessages:CreateDataChannel
+            - ssmmessages:OpenControlChannel
+            - ssmmessages:OpenDataChannel
+            Resource: '*'
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
-        - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+      - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+      - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
 Outputs:
   ServiceName:
     Value: !GetAtt FargateService.Name
