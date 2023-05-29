@@ -49,18 +49,18 @@ tasks:
       cp .env.example .env
       npm i
       cd ../
-  # For Lambda image-processing
-  #- name: sharp      
-  #  before: |
-  #    cd ../aws/lambdas/process-images
-  #    npm init -y
-  #    npm install sharp @aws-sdk/client-s3
-  #    cd ../../../thumbing-serverless-cdk
-  #    npm install aws-cdk -g
-  #    cp .env.cdk .env
-  #    npm i
-  #    cd ../
-  #    ./bin/avatar/build
+# For Lambda image-processing
+#- name: sharp      
+#  before: |
+#    cd ../aws/lambdas/process-images
+#    npm init -y
+#    npm install sharp @aws-sdk/client-s3
+#    cd ../../../thumbing-serverless-cdk
+#    npm install aws-cdk -g
+#    cp .env.cdk .env
+#    npm i
+#    cd ../
+#    ./bin/avatar/build
 vscode:
   extensions:
     - ms-python.python
@@ -68,7 +68,7 @@ vscode:
     - eamodio.gitlens
     - 42Crunch.vscode-openapi 
     - ms-python.isort
-ports:
+    - redhat.vscode-yamlports:
   - name: frontend
     port: 3000
     onOpen: open-browser
