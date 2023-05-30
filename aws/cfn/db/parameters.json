@@ -1,7 +1,11 @@
 [
     {
-      "ParameterKey": "MasterUsername",
+      "ParameterKey": "MasterUserName",
       "ParameterValue": "omgroot"
+    },
+    {
+      "ParameterKey": "MasterUserPassword",
+      "ParameterValue": "$DB_PASSWORD"
     }
   ]
   

@@ -35,7 +35,7 @@ Parameters:
   EngineVersion:
     Type: String
     Default: '15.2'
-  MasterUsername:
+  MasterUserName:
     Type: String
   MasterUserPassword:
     Type: String
@@ -89,7 +89,7 @@ Resources:
 # Must be 1 to 63 letters or numbers.
 # First character must be a letter.
 # Can't be a reserved word for the chosen database engine.
-      MasterUsername:  !Ref MasterUsername
+      MasterUsername:  !Ref MasterUserName
       # Constraints: Must contain from 8 to 128 characters.
       MasterUserPassword: !Ref MasterUserPassword
       PubliclyAccessible: true
