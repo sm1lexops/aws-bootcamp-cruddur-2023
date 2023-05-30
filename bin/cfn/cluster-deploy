@@ -8,9 +8,13 @@ printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
 CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/parameters.json"
 REGION="eu-central-1"
+STACK_NAME="OmgCluster"
+BUCKET="cfn-artifact"
 
 aws cloudformation deploy \
-    --stack-name "OmgCluster" \
+    --stack-name $STACK_NAME \
+    --s3-bucket $BUCKET \
+    --s3-prefix cluster \
     --region $REGION \
     --template-file $CFN_PATH \
     --no-execute-changeset \

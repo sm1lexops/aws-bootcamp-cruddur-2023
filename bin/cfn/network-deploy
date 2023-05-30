@@ -5,9 +5,13 @@ NO_COLOR='\033[0m'
 LABEL="===== Network stack CloudFormation deploy ====="
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/network/template.yaml"
+STACK_NAME="OmgNet"
+BUCKET="cfn-artifact"
 
 aws cloudformation deploy \
-    --stack-name "OmgNet" \
+    --stack-name $STACK_NAME \
+    --s3-bucket $BUCKET \
+    --s3-prefix networking \
     --template-file $CFN_PATH \
     --no-execute-changeset \
     --tags group=omgchat-network \
