@@ -22,7 +22,10 @@
         "!Join sequence"
     ],
     "yaml.schemas": {
-        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml"
+        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/services/template.yaml",
+            "file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/template.yaml"
+        ]
     },
     "cloudfix-linter.Platforms": [
         "Cloudformation"

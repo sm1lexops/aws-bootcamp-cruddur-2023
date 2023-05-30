@@ -5,9 +5,18 @@ NO_COLOR='\033[0m'
 LABEL="=====  Database CloudFormation deploy ====="
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/template.yaml"
+CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/parameters.json"
+REGION="eu-central-1"
+STACK_NAME="OmgDb"
+BUCKET="cfn-artifacts"
 
 aws cloudformation deploy \
-    --stack-name "omgchatCluster" \
-    --template-file $CFN_PATH \
-    --no-execute-changeset \
-    --capabilities CAPABILITY_NAMED_IAM
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix db \
+  --region $REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group=omgchat-db \
+  --parameter-overrides $CFN_PARAM MasterUserPassword=$DB_PASSWORD \
+  --capabilities CAPABILITY_NAMED_IAM
