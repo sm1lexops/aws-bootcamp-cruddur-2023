@@ -8,7 +8,7 @@ CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/template.yaml"
 CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/parameters.json"
 REGION="eu-central-1"
 STACK_NAME="OmgDb"
-BUCKET="cfn-artifacts"
+BUCKET="omg-cfn-artifacts"
 
 aws cloudformation deploy \
   --stack-name $STACK_NAME \

@@ -6,7 +6,7 @@ LABEL="===== Network stack CloudFormation deploy ====="
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/network/template.yaml"
 STACK_NAME="OmgNet"
-BUCKET="cfn-artifact"
+BUCKET="omg-cfn-artifact"
 
 aws cloudformation deploy \
     --stack-name $STACK_NAME \
