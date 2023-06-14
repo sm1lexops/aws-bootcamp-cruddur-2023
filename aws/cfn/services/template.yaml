@@ -49,10 +49,10 @@ Parameters:
     Default: 'arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/AWS_COGNITO_USER_POOL_CLIENT_ID'
   EnvFrontendUrl:
     Type: String
-    Default: "*"
+    Default: "https://omgchat.xyz"
   EnvBackendUrl:
     Type: String
-    Default: "*"
+    Default: "https://api.omgchat.xyz"
   SecretsAWSAccessKeyId:
     Type: String
     Default: 'arn:aws:ssm:eu-central-1:446273730290:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
@@ -137,14 +137,14 @@ Resources:
       RequiresCompatibilities:
         - 'FARGATE'
       ContainerDefinitions:
-        - Name: 'xray'
-          Image: 'public.ecr.aws/xray/aws-xray-daemon'
-          Essential: true
-          User: '1337'
-          PortMappings:
-            - Name: 'xray'
-              ContainerPort: 2000
-              Protocol: 'udp'
+    #    - Name: 'xray'
+    #      Image: 'public.ecr.aws/xray/aws-xray-daemon'
+    #      Essential: true
+    #      User: '1337'
+    #      PortMappings:
+    #        - Name: 'xray'
+    #          ContainerPort: 2000
+    #          Protocol: 'udp'
         - Name: 'backend-flask'
           Image: !Ref EcrImage 
           Essential: true
