@@ -65,8 +65,6 @@ vscode:
   extensions:
     - ms-python.python
     - ms-azuretools.vscode-docker
-    - eamodio.gitlens
-    - 42Crunch.vscode-openapi 
     - ms-python.isort
 ports:
   - name: frontend
