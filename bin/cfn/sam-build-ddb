@@ -8,7 +8,7 @@ printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/omgchat-messaging-stream/"
 TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yaml"
 # Uncomment --parameter-overrides and CFN_PARAM ENV if want change some template ENV 
-# CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/db/parameters.json"
+# CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/parameters.json"
 REGION="eu-central-1"
 sam validate -t $TEMPLATE_PATH
 

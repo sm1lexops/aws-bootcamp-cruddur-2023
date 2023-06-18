@@ -1,11 +1,11 @@
 [
     {
-      "ParameterKey": "MasterUserName",
-      "ParameterValue": "omgroot"
+      "ParameterKey": "ReadCapacity",
+      "ParameterValue": "5"
     },
     {
-      "ParameterKey": "MasterUserPassword",
-      "ParameterValue": "$DB_PASSWORD"
+      "ParameterKey": "WriteCapacity",
+      "ParameterValue": "5"
     }
   ]
   
