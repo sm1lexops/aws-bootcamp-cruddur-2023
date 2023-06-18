@@ -1,0 +1,38 @@
+# Generated with ChatGPT
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 10
+Parameters:
+  UserPoolId:
+    Type: String
+  ClientId:
+    Type: String
+Resources:
+  CognitoAuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cognito-auth-function
+      Architectures:
+        - x86_64
+      Handler: index.handler
+      Runtime: nodejs18.x
+      CodeUri: ./src
+      Environment:
+        Variables:
+          USER_POOL_ID: !Ref UserPoolId
+          CLIENT_ID: !Ref ClientId
+      AutoPublishAlias: live
+      PackageType: Image
+      Layers:
+        - !Ref JwtVerifyLayer
+  JwtVerifyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: jwt-verify-layer
+      Description: Layer for aws-jwt-verify library
+      ContentUri: ./layer
+      CompatibleRuntimes:
+        - nodejs18.x
