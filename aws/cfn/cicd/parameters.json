@@ -17,7 +17,7 @@
     },
     {
       "ParameterKey": "BuildSpec",
-      "ParameterValue": "backend-flask/buildspec.yml"
+      "ParameterValue": "./backend-flask/buildspec.yml"
     }
 ]
   
