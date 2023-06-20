@@ -1,0 +1,23 @@
+[
+    {
+      "ParameterKey": "GitHubBranch",
+      "ParameterValue": "prod"
+    },
+    {
+      "ParameterKey": "ClusterStack",
+      "ParameterValue": "OmgCluster"
+    },
+    {
+      "ParameterKey": "ServiceStack",
+      "ParameterValue": "OmgSrvBackendFlask"
+    },
+    {
+      "ParameterKey": "ArtifactBucketName",
+      "ParameterValue": "omg-cfn-artifact"
+    },
+    {
+      "ParameterKey": "BuildSpec",
+      "ParameterValue": "backend-flask/buildspec.yml"
+    }
+]
+  
