@@ -16,6 +16,8 @@ This week we'll study how to use CloudFormation for our Project.
 
 * Authorize to Github, update pending connections for pipeline
 
+* update branch, merge `week-10` to `prod` branch 
+
 ## Preparation
 
 > Full template example [AWS CloudFormation Template ECS snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ecs.html#quickref-ecs-example-1.yaml)
