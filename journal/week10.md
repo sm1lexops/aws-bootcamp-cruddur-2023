@@ -10,10 +10,12 @@ This week we'll study how to use CloudFormation for our Project.
 - []
 
 > CICD cfn
+* create cicd-deploy scrip, tmp dir for output package
 
 * Create artifact bucket
 
-* Authorize to Github
+* Authorize to Github, update pending connections for pipeline
+
 ## Preparation
 
 > Full template example [AWS CloudFormation Template ECS snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ecs.html#quickref-ecs-example-1.yaml)

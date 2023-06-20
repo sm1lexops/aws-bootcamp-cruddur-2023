@@ -12,8 +12,8 @@ Parameters:
     Default: 'sm1lexops/aws-bootcamp-cruddur-2023'
   ClusterStack:
     Type: String
-  ServiceStack:
-    Type: String
+#  ServiceStack:
+#    Type: String
   ArtifactBucketName:
     Type: String
   BuildSpec:
@@ -23,7 +23,7 @@ Resources:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: nested/codebuild.yaml
+      TemplateURL: "https://s3.amazonaws.com/omg-cfn-artifact/cicd/nested/codebuild.yaml"
       Parameters:
         ArtifactBucketName: !Ref ArtifactBucketName
         BuildSpec: !Ref BuildSpec
