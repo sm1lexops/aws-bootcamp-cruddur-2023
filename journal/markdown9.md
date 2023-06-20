@@ -9,6 +9,6 @@
 ## Class Summary
 
 - [x] Create week-9 branch and go ahead 
-- [ ] CI/CD Pipeline Security 
-- [ ] Configuring CodeBuild
-- [ ] Configuring CodePipeline
+- [x] CI/CD Pipeline Security 
+- [x] Configuring CodeBuild
+- [x] Configuring CodePipeline

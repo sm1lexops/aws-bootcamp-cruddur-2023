@@ -1,6 +1,0 @@
-{
-    "python.linting.enabled": false,
-    "githubPullRequests.ignoredPullRequestBranches": [
-        "week-6"
-    ]
-}

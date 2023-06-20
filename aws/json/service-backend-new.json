@@ -1,0 +1,41 @@
+{
+  "cluster": "OmgClusterCluster",
+  "launchType": "FARGATE",
+  "desiredCount": 1,
+  "enableECSManagedTags": true,
+  "enableExecuteCommand": true,
+  "loadBalancers": [
+    {
+        "targetGroupArn": "arn:aws:elasticloadbalancing:eu-central-1:446273730290:targetgroup/OmgClu-Backe-KH5WB07AROPD/97007a8345fcc89a",
+        "containerName": "backend-flask",
+        "containerPort": 4567
+    }
+  ],
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "ENABLED",
+      "securityGroups": [
+        "sg-09912082ef98e2a70"
+      ],
+      "subnets": [
+        "subnet-087e1402afeb42558",
+        "subnet-01452476227036de0"
+        
+      ]
+    }
+  },
+  "serviceConnectConfiguration": {
+    "enabled": true,
+    "namespace": "omgchat",
+    "services": [
+      {
+        "portName": "backend-flask",
+        "discoveryName": "backend-flask",
+        "clientAliases": [{"port": 4567}]
+      }
+    ]
+  },
+  "propagateTags": "SERVICE",
+  "serviceName": "backend-flask",
+  "taskDefinition": "backend-flask"
+}

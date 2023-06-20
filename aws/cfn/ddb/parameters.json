@@ -1,0 +1,11 @@
+[
+    {
+      "ParameterKey": "ReadCapacity",
+      "ParameterValue": "5"
+    },
+    {
+      "ParameterKey": "WriteCapacity",
+      "ParameterValue": "5"
+    }
+  ]
+  

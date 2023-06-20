@@ -3,3 +3,4 @@ frontend-react-js/build/*
 *.env
 node_modules
 docker/dynamodb/shared-local-instance.db
+.aws-sam

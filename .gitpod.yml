@@ -1,57 +1,71 @@
 tasks:
+  - name: aws-sam
+    init: |
+      cd /workspace
+      wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+      unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+      sudo ./sam-installation/install
+      cd $THEIA_WORKSPACE_ROOT
+  - name: momento
+    before: |
+      brew tap momentohq/tap
+      brew install momento-cli
+  - name: cfn
+    before: |
+      bundle update --bundler
+      pip install cfn-lint
+      cargo install cfn-guard
+      gem install cfn-toml
   - name: aws-cli
     env:
       AWS_CLI_AUTO_PROMPT: on-partial
-    init: |
+    before: |
       cd /workspace
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
-      
-  - name: momento
-    before: |
-      brew tap momentohq/tap
-      brew install momento-cli
-
+      bash bin/ecr-login
   - name: postgres
-    init: |
+    before: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
-
-  - name: dependencies
-    init: |
-      cd ./frontend-react-js
-      npm i 
-      cd ../backend-flask
-      pip3 install -r requirements.txt
+    command: |
       export GITPOD_IP=$(curl ifconfig.me)
-      source "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
-      aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
+      source  "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
+  - name: fargate
+    before: |
+      cd /workspace
       curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
       sudo dpkg -i session-manager-plugin.deb
-      rm -f session-manager-plugin.deb
-      session-manager-plugin
-      cd ../aws/lambdas/process-images
-      npm init -y
-      npm install sharp @aws-sdk/client-s3
-      cd ../../../thumbing-serverless-cdk
+      cd $THEIA_WORKSPACE_ROOT
+      cd backend-flask
+  - name: cdk
+    before: |
       npm install aws-cdk -g
+      cd thumbing-serverless-cdk
       cp .env.cdk .env
       npm i
       cd ../
-      ./bin/avatar/build
+# For Lambda image-processing
+#- name: sharp      
+#  before: |
+#    cd ../aws/lambdas/process-images
+#    npm init -y
+#    npm install sharp @aws-sdk/client-s3
+#    cd ../../../thumbing-serverless-cdk
+#    npm install aws-cdk -g
+#    cp .env.cdk .env
+#    npm i
+#    cd ../
+#    ./bin/avatar/build
 vscode:
   extensions:
     - ms-python.python
     - ms-azuretools.vscode-docker
-    - eamodio.gitlens
-    - 42Crunch.vscode-openapi 
     - ms-python.isort
-    - mtxr.sqltools-driver-pg
-    - mtxr.sqltools
 ports:
   - name: frontend
     port: 3000

@@ -1,0 +1,15 @@
+[
+    {
+      "ParameterKey": "EnvFrontendUrl",
+      "ParameterValue": "https://omgchat.xyz"
+    },
+    {
+      "ParameterKey": "EnvFrontendUrl",
+      "ParameterValue": "https://omgchat.xyz"
+    },
+    {
+      "ParameterKey": "DDBMessageTable",
+      "ParameterValue": "OmgDdb-DynamoDBTable-G12N0ET4TBR0"
+    }
+  ]
+  

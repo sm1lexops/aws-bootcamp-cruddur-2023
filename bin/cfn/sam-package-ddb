@@ -1,0 +1,20 @@
+#! /usr/bin/bash -e
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="=====  Packagin AWS SAM DynamoDB Lambda Layer Function ====="
+printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+
+BUCKET_ARTIFACTS="omg-cfn-artifact"
+REGION="eu-central-1"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yaml"
+OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yaml"
+
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
+
+sam package \
+  --s3-bucket $BUCKET_ARTIFACTS \
+  --region $REGION \
+  --output-template-file $OUTPUT_TEMPLATE_PATH \
+  --template-file $TEMPLATE_PATH \
+  --s3-prefix "sam-ddb"

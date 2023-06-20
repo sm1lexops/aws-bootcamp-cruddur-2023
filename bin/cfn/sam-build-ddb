@@ -1,0 +1,24 @@
+#! /usr/bin/bash -e
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="=====  Build AWS SAM DynamoDB ====="
+printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+
+FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/omgchat-messaging-stream/"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yaml"
+# Uncomment --parameter-overrides and CFN_PARAM ENV if want change some template ENV 
+# CFN_PARAM="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/parameters.json"
+REGION="eu-central-1"
+sam validate -t $TEMPLATE_PATH
+
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html
+# --use container is for building the lambda in a container, this argument create needed for our example python3.9 environment for building SAM
+
+sam build \
+--use-container \
+--template $TEMPLATE_PATH \
+--region $REGION
+
+#--base-dir $FUNC_DIR >> if you want override CodeUri path to template file
+#--parameter-overrides $CFN_PARAM

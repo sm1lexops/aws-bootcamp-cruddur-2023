@@ -1,0 +1,41 @@
+#! /usr/bin/bash
+set -xe
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="===== CI/CD CloudFormation deploy ====="
+LABEL1="===== Packaging CloudFormation template to S3 bucket ====="
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/template.yaml"
+PARAMETERS="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/parameters.json"
+PACKAGED_PATH="/workspace/aws-bootcamp-cruddur-2023/tmp/packaged-template.yaml"
+
+cfn-lint $CFN_PATH
+
+REGION="eu-central-1"
+STACK_NAME="OmgCicd"
+BUCKET="omg-cfn-artifact"
+
+# Before deploying we need package our build
+
+printf "${CYAN}==== ${LABEL1}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+
+aws cloudformation package \
+  --template-file $CFN_PATH \
+  --s3-bucket $BUCKET \
+  --s3-prefix cicd-package \
+  --region $REGION \
+  --output-template-file $PACKAGED_PATH
+
+sleep 1
+printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix cicd \
+  --region $REGION \
+  --template-file $PACKAGED_PATH \
+  --no-execute-changeset \
+  --tags group=omgchat-cicd \
+  --parameter-overrides $PARAMETERS \
+  --capabilities CAPABILITY_NAMED_IAM
