@@ -16,7 +16,11 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-
+				"vscodevim.vim",
+				"vintharas.learn-vim",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-azuretools.vscode-docker"
 			],
 			"settings": {
 				"terminal.integrated.fontSize": 16,
