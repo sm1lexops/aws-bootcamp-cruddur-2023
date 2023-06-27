@@ -1,14 +1,14 @@
-# Week-12
+# Week-x
 
 ## To Do Checklist
 
-- [ ] Watch Week-12 Video
+- [ ] Watch Week-x Video
 
-> [Video Content Link](videocontent/video_content_week12.md)
+> [Video Content Link](videocontent/video_content_week_x.md)
 
 ## Class Summary
 
-- [ ] Create week-12 branch and go ahead 
+- [ ] Create week-x branch and go ahead 
 - [ ] 
 - [ ] 
 - [ ]

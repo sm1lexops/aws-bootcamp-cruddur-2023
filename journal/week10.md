@@ -18,6 +18,10 @@ This week we'll study how to use CloudFormation for our Project.
 
 * update branch, merge `week-10` to `prod` branch 
 
+> Frontend
+
+* Need certificate arn from us-east-1, because CloudFront services need global cert
+
 ## Preparation
 
 > Full template example [AWS CloudFormation Template ECS snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ecs.html#quickref-ecs-example-1.yaml)
