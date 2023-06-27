@@ -8,25 +8,25 @@ Description: |
   * Route53 RecordSet        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html
 
 Parameters:
-  DomainName:
+  RootBucketName:
+    Type: String
+  WwwBucketName:
     Type: String
   CertificateArn:
-    Type: AWS::SSM::Parameter::Value<String>
-    Default: /OmgCluster/CertificateArn
+    Type: String
     
 Resources:
   WwwBucket: # Logical Name 
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub "www.${DomainName}"
+      BucketName: !Ref WwwBucketName
       WebsiteConfiguration:
         RedirectAllRequestsTo:
-          HostName: !Ref DomainName
+          HostName: !Ref RootBucketName
   RootBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Ref DomainName
-      AccessControl: PublicRead
+      BucketName: !Ref RootBucketName
       PublicAccessBlockConfiguration:
         BlockPublicPolicy: false
       WebsiteConfiguration:
@@ -38,8 +38,8 @@ Resources:
       Bucket: !Ref RootBucket
       PolicyDocument:
         Statement:
-          - Actions:
-            - 's3;GetObject'
+          - Action:
+            - 's3:GetObject'
             Effect: Allow
             Resource: !Sub 'arn:aws:s3:::${RootBucket}/*'
             Principal: '*'
@@ -48,8 +48,8 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
-          - !Ref DomainName
-          - !Sub "www.${DomainName}"
+          - !Ref RootBucketName
+          - !Ref WwwBucketName
         Comment: Frontend React Js for Cruddur
         Enabled: true
         HttpVersion: http2and3 

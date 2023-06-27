@@ -1,7 +1,15 @@
 [
     {
-      "ParameterKey": "DomainName",
+      "ParameterKey": "RootBucketName",
       "ParameterValue": "omgchat.xyz"
+    },
+    {
+      "ParameterKey": "WwwBucketName",
+      "ParameterValue": "www.omgchat.xyz"
+    },
+    {
+      "ParameterKey": "CertificateArn",
+      "ParameterValue": "arn:aws:acm:us-east-1:446273730290:certificate/ac26cd1c-f835-49a7-9139-30630f24452a"
     }
 ]
   
