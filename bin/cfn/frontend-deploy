@@ -5,9 +5,21 @@ NO_COLOR='\033[0m'
 LABEL="===== Frontend CloudFormation deploy ====="
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/frontend/template.yaml"
+PARAMETERS="file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/frontend/parameters.json"
+
+cfn-lint $CFN_PATH
+
+REGION="eu-central-1"
+STACK_NAME="OmgFrontend"
+BUCKET="omg-cfn-artifact"
 
 aws cloudformation deploy \
-    --stack-name "omgchatCluster" \
-    --template-file $CFN_PATH \
-    --no-execute-changeset \
-    --capabilities CAPABILITY_NAMED_IAM
+  --template-file $CFN_PATH \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix frontend \
+  --region $REGION \
+  --no-execute-changeset \
+  --tags group=omgchat-frontend \
+  --parameter-overrides $PARAMETERS \
+  --capabilities CAPABILITY_NAMED_IAM
