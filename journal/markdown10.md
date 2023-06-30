@@ -2,30 +2,26 @@
 
 ## To Do Checklist
 
-- [ ] Watch Week-10 Video
+- [x] Watch Week-10 Video
 
 > [Video Content Link](videocontent/video_content_week10.md)
 
 ## Class Summary
 
 - [x] Create week-10 branch and go ahead 
-- [x] 
-- [ ] 
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
 
-## Homework Challenges
-*speeding up until next week*
+- [x] Preparation
 
-- [ ] *Homework Submissions*
+- [x] Network-cloudformation-template
 
-- [ ] *Knowledge Chalenges*
+- [x] Cluster-cloudformation-template
+
+- [x] Aws-rds-postgresql-cloudformation-template
+
+- [x] Services-cloudformation-template
+
+- [x] Frontend-cloudformation-template
+
+- [x] cicd-cloudformation-template
+
+- [x] Summary
