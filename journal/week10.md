@@ -362,4 +362,18 @@ aws cloudformation deploy \
 ```
 ## Summary
 
-All issues happened with AWS CloudFormation related to the Route53 service, A records, and ALB. It is good practice to check templates using the cfn-lint library before executing deployment of CFN stacks. If a deployment encounters any issues with long execution times, it is recommended to check the related services and policies in the AWS console.
+* All kind of images and proof our work
+
+> You should have all of our CFN stacks s3 artifacts
+
+![s3_cfn_artifacts](assets/week-10/cfn_stacks.jpg)
+
+> Good CICD shape pipeline 
+
+![s3_cfn_artifacts](assets/week-10/cfn_pipeline.jpg)
+
+> All CFN Stacks deployed 
+
+![s3_cfn_artifacts](assets/week-10/cfn_stacks.jpg)
+
+Issues happened with AWS CloudFormation related to the Route53 service, `A` records, and `ALB`. It is good practice to check templates using the cfn-lint library before executing deployment of CFN stacks. If a deployment encounters any issues with long execution times, it is recommended to check the related services and policies in the AWS console.
