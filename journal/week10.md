@@ -366,7 +366,7 @@ aws cloudformation deploy \
 
 > You should have all of our CFN stacks s3 artifacts
 
-![s3_cfn_artifacts](assets/week-10/cfn_stacks.jpg)
+![s3_cfn_artifacts](assets/week-10/cfn_s3_artifacts.jpg)
 
 > Good CICD shape pipeline 
 
