@@ -72,7 +72,7 @@ export default function SignupPage() {
           className='signup_form'
           onSubmit={onsubmit}
         >
-          <h2>Sign up to create a Cruddur account</h2>
+          <h2>Sign up to create a Omgchat account</h2>
           <div className='fields'>
             <div className='field text_field name'>
               <label>Name</label>

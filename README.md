@@ -3,14 +3,14 @@
 ![AWS CodeBuild](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoib2JGVlpFNFQrc2dKSGVsMm5JeVVKakY5SmRUNWdXZ0s2WExpdjVadENNOGVsQnNjRTVhTzVJS0pvM2RBNjc3Ly9oUjM0dGpUelJ4RmRKb0Y1Wk9lMVFRPSIsIml2UGFyYW1ldGVyU3BlYyI6IkVzNUU3bnB4U2xpT09GTFUiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#<your-repository-url>)
-- Application: Cruddur
+- Application: Cruddur => **Omgchat**
 - Cohort: 2023-A1
 
 This is the starting codebase that will be used in the FREE AWS Cloud Project Bootcamp 2023
 
-![Cruddur Graphic](_docs/assets/cruddur-banner.jpg)
+![Omgchat Graphic](_docs/assets/cruddur-banner.jpg)
 
-![Cruddur Screenshot](_docs/assets/cruddur-screenshot.png)
+![Omgchat Screenshot](_docs/assets/cruddur-screenshot.jpg)
 
 ## Instructions
 
@@ -30,7 +30,7 @@ The `/journal` directory contains
 - [x] [Week 7](journal/week7.md)        ~~  [*Solving CORS with ALB and Route53*](journal/markdown7.md) 
 - [x] [Week 8](journal/week8.md)        ~~  [*Serverless Image Processing*](journal/markdown8.md) 
 - [x] [Week 9](journal/week9.md)        ~~  [*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/markdown9.md) 
-- [x] [Week 10](journal/week10.md)      ~~  [*CloudFormation part 1*](journal/markdown10.md) 
+- [x] [Week 10](journal/week10.md)      ~~  [*AWS CloudFormation*](journal/markdown10.md) 
 - [ ] [Week X](journal/weekx.md)      ~~  [*Cleanup*](journal/markdownx.md) 
 
 *It's all about thoughts. Thought is the beginning of everything. And thoughts can be controlled. And therefore the main thing of improvement is to work on thoughts*
