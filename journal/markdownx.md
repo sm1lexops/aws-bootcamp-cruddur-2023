@@ -12,8 +12,8 @@
 - [x] Create script for build static content for frontend
 - [x] Create Sync Tool for automate deployment static frontend content
 - [x] Create Gemfile and Rakefile for github-actions
-- [ ]
-- [ ]
+- [ ] Create AWS CFN template.yaml for github OIDC credentials
+- [ ] 
 - [ ]
 - [ ]
 - [ ]
