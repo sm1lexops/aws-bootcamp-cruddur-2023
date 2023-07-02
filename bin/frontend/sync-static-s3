@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-puts("==== Don't forget install <gem install aws_s3_website_sync> ====")
+puts("==== Installing <gem install aws_s3_website_sync> ====")
 require 'bundler/inline'
 require 'nokogiri'
 
@@ -26,6 +26,8 @@ changeset_path = changeset_path.sub(".json","-#{Time.now.to_i}.json")
 
 puts "output_changset_path: #{changeset_path}"
 puts "auto_approve:         #{ENV["SYNC_AUTO_APPROVE"]}"
+
+puts("==== Syncing static content with AWS S3 Bucket ====")
 
 puts "sync =="
 AwsS3WebsiteSync::Runner.run(
