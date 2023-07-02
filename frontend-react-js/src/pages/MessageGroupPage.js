@@ -13,7 +13,7 @@ import MessagesForm from 'components/MessageForm';
 export default function MessageGroupPage() {
   const [messageGroups, setMessageGroups] = React.useState([]);
   const [messages, setMessages] = React.useState([]);
-  const [popped, setPopped] = React.useState([]);
+  const [setPopped] = React.useState([]);
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
   const params = useParams();

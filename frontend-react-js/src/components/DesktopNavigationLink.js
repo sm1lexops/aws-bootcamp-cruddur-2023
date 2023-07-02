@@ -18,19 +18,19 @@ export default function DesktopNavigationLink(props) {
     switch(props.handle){
       case 'home':
         return <HomeIcon className='icon' />
-        break;
+      //  break;
       case 'notifications':
         return <NotificationsIcon className='icon' />
-        break;
+      //  break;
       case 'profile':
         return <ProfileIcon className='icon' />
-        break;
+      //  break;
       case 'more':
         return <MoreIcon className='icon' />
-        break;
+      //  break;
       case 'messages':
         return <MessagesIcon className='icon' />
-        break;
+      //  break;
       default:
         break;
     }
