@@ -1,0 +1,11 @@
+[
+    {
+      "ParameterKey": "GitHubOrg",
+      "ParameterValue": "sm1lexops"
+    },
+    {
+      "ParameterKey": "RepositoryName",
+      "ParameterValue": "aws-bootcamp-cruddur-2023"
+    }
+  ]
+  
