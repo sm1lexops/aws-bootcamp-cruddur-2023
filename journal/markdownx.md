@@ -8,10 +8,10 @@
 
 ## Class Summary
 
-- [ ] Create week-x branch and go ahead 
-- [ ] 
-- [ ] 
-- [ ]
+- [x] Create week-x branch and go ahead 
+- [x] Create script for build static content for frontend
+- [x] Create Sync Tool for automate deployment static frontend content
+- [x] Create Gemfile and Rakefile for github-actions
 - [ ]
 - [ ]
 - [ ]

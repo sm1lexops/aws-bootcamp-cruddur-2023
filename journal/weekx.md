@@ -104,3 +104,5 @@ ignore: 8   delete: 3   create: 3   update: 2   no_change: 23
 
 Invalidation IF5LMAJ31WAWUV8YPWZDRP28R8 has been created. Please wait about 60 seconds for it to finish.
 ```
+
+![Invalidation](assets/week-x/cf_invalidation.jpg)
