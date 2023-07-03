@@ -106,3 +106,43 @@ Invalidation IF5LMAJ31WAWUV8YPWZDRP28R8 has been created. Please wait about 60 s
 ```
 
 ![Invalidation](assets/week-x/cf_invalidation.jpg)
+
+
+## Reconnect Database and Post Confirmation Lambda
+
+*the main issues was in Lambda Post Confirmation function:*
+
+* First [Check code](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-x/aws/lambdas/cruddur-post-confirrmation.py)
+
+* Next check `CONNECTION_URL` and update it
+
+* After run `schema-load`, `migrate` and `seed` scripts for Loading data into rds
+
+* Delete your old user from `Cognito` and join one more time to `omgchat.xyz`
+
+* Check your connection to `prod` postresql, before that you'll need update `GITPOD_IP`, `DB_SG_ID` and `DB_SG_RULE_ID` and run [`update-sg-rule`](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-x/bin/rds/update-sg-rule) to give access to RDS
+
+> You should have access
+
+```sh
+psql $CONNECTION_URL_PROD
+```
+
+* Check your new user from Database and run command bellow
+
+> You should see something like that, <cognito_user_id> shouldn't be empty
+
+```sh
+omgchat=> select * from users;
+                 uuid                 |  display_name   | handle  |          email           |           cognito_user_id            |         created_at         
+--------------------------------------+-----------------+---------+--------------------------+--------------------------------------+----------------------------
+ 7fd6217e-8515-4275-8d9e-957d700587dc | Aleksey Smirnov | smirnov | smilovesmirnov@gmail.com | 9bf48207-9665-4f2d-8f1d-40da7007aa92 | 2023-07-03 16:15:04.243368
+(4 rows)
+
+omgchat=> 
+```
+
+* Check that you can take a `Crud`, resolve issues
+
+*Well done, you are in a good shape*
+
