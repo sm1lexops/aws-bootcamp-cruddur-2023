@@ -1,9 +1,16 @@
 #! /usr/bin/bash
 
+echo " ==== You'll need DB_SG_RULE_ID=<sgr> and DB_SG_ID=<sg> ==== "
 CYAN='\033[1;36m'
+GREEN='\033[0;32m'
 NO_COLOR='\033[0m'
 LABEL="rds-update-sg-rule"
+
 printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+
+GITPOD_IP=$(curl ifconfig.me)
+LABEL1="GITPOD_IP: $GITPOD_IP"
+printf "${GREEN}==== ${LABEL1}${NO_COLOR} ${GREEN}======${NO_COLOR}\n"
 
 aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
