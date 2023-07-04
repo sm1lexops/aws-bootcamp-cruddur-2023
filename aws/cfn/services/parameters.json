@@ -4,12 +4,12 @@
       "ParameterValue": "https://omgchat.xyz"
     },
     {
-      "ParameterKey": "EnvFrontendUrl",
-      "ParameterValue": "https://omgchat.xyz"
+      "ParameterKey": "EnvBackendUrl",
+      "ParameterValue": "https://api.omgchat.xyz"
     },
     {
       "ParameterKey": "DDBMessageTable",
-      "ParameterValue": "OmgDdb-DynamoDBTable-G12N0ET4TBR0"
+      "ParameterValue": "OmgDdb-DynamoDBTable-KWLL3BZ0AUVY"
     }
   ]
   
