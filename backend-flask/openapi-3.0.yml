@@ -1,6 +1,6 @@
 openapi: '3.0.2'
 info:
-  title: Cruddur Backend API
+  title: Omgchat Backend API
   version: '1.0'
     
 servers:
@@ -172,10 +172,10 @@ components:
           example: 0056a369-4618-43a4-ad88-e7c371bf5582
         display_name:
           type: string
-          example: "Andrew Brown"
+          example: "Aleksey Smirnov"
         handle:
           type: string
-          example: "andrewbrown"
+          example: "smirnov"
         message:
           type: string
           example: "Who likes pineapple on their pizza?"
@@ -205,7 +205,7 @@ components:
           example: 0056a369-4618-43a4-ad88-e7c371bf5582
         handle:
           type: string
-          example: "andrewbrown"
+          example: "smirnov"
         message:
           type: string
           example: "Who likes pineapple on their pizza?"
@@ -230,13 +230,13 @@ components:
           example: 0056a369-4618-43a4-ad88-e7c371bf5582
         display_name:
           type: string
-          example: "Andrew Brown"
+          example: "Aleksey Smirnov"
         handle:
           type: string
-          example: "andrewbrown"
+          example: "smirnov"
         message:
           type: string
-          example: "Who likes pineapple on their pizza?"
+          example: "Who likes salted caramel?"
         created_at:
           type: string
           example: "2023-02-06T18:11:03+00:00"
@@ -248,7 +248,7 @@ components:
           example: 0056a369-4618-43a4-ad88-e7c371bf5582
         display_name:
           type: string
-          example: "Worf"
+          example: "Wolf"
         handle:
           type: string
-          example: "worf"
+          example: "wolf"
