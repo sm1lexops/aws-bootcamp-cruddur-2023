@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  OmgchatMachineUser:
+    Type: 'AWS::IAM::User'
+    Properties: 
+      UserName: 'omgchat_machine_user'
+  DynamoDBFullAccessPolicy: 
+    Type: 'AWS::IAM::Policy'
+    Properties: 
+      PolicyName: 'DynamoDBFullAccessPolicy'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - dynamodb:PutItem
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:BatchWriteItem
+            Resource: '*'
+      Users:
+        - !Ref OmgchatMachineUser

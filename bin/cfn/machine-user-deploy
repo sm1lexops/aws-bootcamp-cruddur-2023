@@ -1,0 +1,20 @@
+#! /usr/bin/env bash 
+set -e
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="=====  MachineUser for DDB CloudFormation deploy ====="
+printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/machine-user/template.yaml"
+REGION="eu-central-1"
+STACK_NAME="OmgMachineUser"
+BUCKET="omg-cfn-artifact"
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix db \
+  --region $REGION \
+  --template-file $CFN_PATH \
+  --no-execute-changeset \
+  --tags group=omgchat-machine-user \
+  --capabilities CAPABILITY_NAMED_IAM
