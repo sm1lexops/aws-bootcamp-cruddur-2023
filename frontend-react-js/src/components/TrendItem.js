@@ -12,7 +12,7 @@ export default function TrendItem(props) {
   return (
     <a className="trending" href="/trending">
       <span className="hashtag">#{props.hashtag}</span>
-      <span className="count">#{commify(props.count)} cruds</span>
+      <span className="count">#{commify(props.count)} omgats</span>
     </a>
   );
 }

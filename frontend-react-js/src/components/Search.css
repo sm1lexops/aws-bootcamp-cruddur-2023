@@ -9,5 +9,5 @@
   color: #fff;
 }
 .search_field input[type='text']:focus {
-  border: solid 1px rgb(149,0,255,1);
+  border: solid 1px var(--field-border-focus)
 }
