@@ -20,17 +20,29 @@ At the start of the bootcamp you need to create a new Github Repository from `we
 
 The `/journal` directory contains
 
-- [x] [Week 0](journal/week0.md)        ~~  [*Architecture and Billing*](journal/markdown0.md)   
-- [x] [Week 1](journal/week1.md)        ~~  [*App Containerization*](journal/markdown1.md) 
-- [x] [Week 2](journal/week2.md)        ~~  [*Observability*](journal/markdown2.md) 
-- [x] [Week 3](journal/week3.md)        ~~  [*Decentralized Authentication*](journal/markdown3.md) 
-- [x] [Week 4](journal/week4.md)        ~~  [*Relational Databases*](journal/markdown4.md) 
-- [x] [Week 5](journal/week5.md)        ~~  [*AWS DynamoDB*](journal/markdown5.md) 
-- [x] [Week 6](journal/week6.md)        ~~  [*Serverless ECS/ECR/ACM/Fargate*](journal/markdown6.md) 
-- [x] [Week 7](journal/week7.md)        ~~  [*Solving CORS with ALB and Route53*](journal/markdown7.md) 
-- [x] [Week 8](journal/week8.md)        ~~  [*Serverless Image Processing*](journal/markdown8.md) 
-- [x] [Week 9](journal/week9.md)        ~~  [*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/markdown9.md) 
-- [x] [Week 10](journal/week10.md)      ~~  [*AWS CloudFormation*](journal/markdown10.md) 
-- [ ] [Week X](journal/weekx.md)      ~~  [*Cleanup*](journal/markdownx.md) 
+| Submissions | Tutotial |
+| :------------: | :--------- |
+|- [x] [Week 0](journal/markdown0.md)|[*Architecture and Billing*](journal/week0.md)|   
+|- [x] [Week 1](journal/markdown1.md)|[*App Containerization*](journal/week1.md)| 
+|- [x] [Week 2](journal/markdown2.md)|[*Observability*](journal/week2.md)| 
+|- [x] [Week 3](journal/markdown3.md)|[*Decentralized Authentication*](journal/week3.md)| 
+|- [x] [Week 4](journal/markdown4.md)|[*Relational Databases*](journal/week4.md)| 
+|- [x] [Week 5](journal/markdown5.md)|[*AWS DynamoDB*](journal/week5.md)| 
+|- [x] [Week 6](journal/markdown6.md)|[*Serverless ECS/ECR/ACM/Fargate*](journal/week6.md)| 
+|- [x] [Week 7](journal/markdown7.md)|[*Solving CORS with ALB and Route53*](journal/week7.md)| 
+|- [x] [Week 8](journal/markdown8.md)|[*Serverless Image Processing*](journal/week8.md)| 
+|- [x] [Week 9](journal/markdown9.md)|[*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/week9.md)| 
+|- [x] [Week 10](journal/markdown10.md)|[*AWS CloudFormation*](journal/week10.md)| 
+|- [x] [Week X](journal/markdownx.md)|[*Cleanup*](journal/weekx.md)| 
 
-*It's all about thoughts. Thought is the beginning of everything. And thoughts can be controlled. And therefore the main thing of improvement is to work on thoughts*
+## Finall Diagram 
+
+> It's Simplified overview diagram
+
+![AWS Bootcamp Project Finall Diagramm](journal/assets/week-x/Omgchat_AWS_Diagram.jpeg)
+
+> Techonlogy and AWS Services we have used 
+
+![AWS_SERVICES](journal/assets/week-x/Omgchat_AWS_Bootcamp_Services.jpeg)
+
+*It's all about thoughts. Thought is the beginning of everything. And thoughts can be controlled. And therefore the main thing of improvement is to work on thoughts.*
