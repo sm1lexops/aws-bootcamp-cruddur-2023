@@ -4,6 +4,8 @@
 
 - [Reconnect Database and Post Confirmation Lambda](#reconnect-database-and-post-confirmation-lambda)
 
+- [Refactoring Ddb](#refactoring-ddb)
+
 - [Refactoring and CleanUp](#refactoring-and-cleanup)
 
 - [Summary](#summary)
@@ -151,9 +153,95 @@ omgchat=>
 
 * Check that you can take a `Crud`, resolve issues
 
+## Refactoring Ddb
+
+* Add ENV VAR `DDB_MESSAGE_TABLE="OmgDdb-DynamoDBTable-KWLL3BZ0AUVY"` into `backend-flask.env`
+
+* Change table name `ddb.py` 4 line
+
+```sh
+table_name = os.getenv("DDB_MESSAGE_TABLE")
+```
+
+* Add ENV VAR to the `template.yaml`
+
+```yaml
+            - Name: 'DDB_MESSAGE_TABLE'
+              Value: !Ref DDBMessageTable
+```
+
+* Create AWS CFN for MachineUser DynamoDB
+
+> [`template.yaml`](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-x/aws/cfn/machine-user/template.yaml)
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  OmgchatMachineUser:
+    Type: 'AWS::IAM::User'
+    Properties: 
+      UserName: 'omgchat_machine_user'
+  DynamoDBFullAccessPolicy: 
+    Type: 'AWS::IAM::Policy'
+    Properties: 
+      PolicyName: 'DynamoDBFullAccessPolicy'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - dynamodb:PutItem
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:BatchWriteItem
+            Resource: '*'
+      Users:
+        - !Ref OmgchatMachineUser
+```
+
+* Create and run script
+
+> [`machine-user-deployq](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-x/bin/cfn/machine-user-deploy)
+
+```sh
+#! /usr/bin/env bash 
+set -e
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="=====  MachineUser for DDB CloudFormation deploy ====="
+printf "${CYAN}==== ${LABEL}${NO_COLOR} ${CYAN}======${NO_COLOR}\n"
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/machine-user/template.yaml"
+REGION="eu-central-1"
+STACK_NAME="OmgMachineUser"
+BUCKET="omg-cfn-artifact"
+
+aws cloudformation deploy \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --s3-prefix db \
+  --region $REGION \
+  --template-file $CFN_PATH \
+  --no-execute-changeset \
+  --tags group=omgchat-machine-user \
+  --capabilities CAPABILITY_NAMED_IAM
+```
+
 ## Refactoring and CleanUp
 
+* Refactoring routes -> [commit](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/6e63bdbdfce4d8a6d73d243f30dd91491f04586d)
 
+* Add Initialization apps -> [commit](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/b2c638e831b3a8e38a3888500380fbf1c602a7c8)
 
-*Well done, you are in a good shape*
+* Update activities and notification form > [commit-1](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/b2c638e831b3a8e38a3888500380fbf1c602a7c8), [commit-2](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/f24bb6f0c6beef6fa69a1f5e3067a21281fd9175), [commit-3](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/99413e97960024113b1db3bddc1b190e98584a62), [commit-4](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/226134a532ab1a66f81bd3b24e5487ea8beee761) 
+
+* Configure migration, change [`migration`](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-x/bin/generate/migration) and run [db migrate script](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/blob/week-x/bin/db/migrate) 
+
+* Fix DateTime -> [commit](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/c294b43bca18890d3a6924fa2784587e8d019111)
+
+* Refactory error handling and fetch request, update frontend -> [commit](https://github.com/sm1lexops/aws-bootcamp-cruddur-2023/commit/b1c09785755c77cda8eb645cf7da3de57d35c013)
+
+*Well done, I'm done*
 
