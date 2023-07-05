@@ -20,7 +20,7 @@ At the start of the bootcamp you need to create a new Github Repository from `we
 
 The `/journal` directory contains
 
-| Submissions | Tutotial |
+| Submissions | Tutorial |
 | :------------: | :--------- |
 |<ul><li>- [x] [Week 0](journal/markdown0.md)</li></ul> |[*Architecture and Billing*](journal/week0.md)|   
 |<ul><li>- [x] [Week 1](journal/markdown1.md)</li></ul> |[*App Containerization*](journal/week1.md)| 
