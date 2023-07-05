@@ -1,5 +1,12 @@
 # Week X — Cleanup
 
+- [Preparation](#preparation)
+
+- [Reconnect Database and Post Confirmation Lambda](#reconnect-database-and-post-confirmation-lambda)
+
+- [Refactoring and CleanUp](#refactoring-and-cleanup)
+
+- [Summary](#summary)
 
 ## Preparation
 
@@ -143,6 +150,10 @@ omgchat=>
 ```
 
 * Check that you can take a `Crud`, resolve issues
+
+## Refactoring and CleanUp
+
+
 
 *Well done, you are in a good shape*
 

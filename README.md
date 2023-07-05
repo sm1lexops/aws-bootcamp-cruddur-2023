@@ -41,7 +41,7 @@ The `/journal` directory contains
 
 ![AWS Bootcamp Project Finall Diagramm](journal/assets/week-x/Omgchat_AWS_Diagram.jpeg)
 
-> Techonlogy and AWS Services we have used 
+> Techology and AWS Services we have used 
 
 ![AWS_SERVICES](journal/assets/week-x/Omgchat_AWS_Bootcamp_Services.jpeg)
 
