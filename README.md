@@ -22,7 +22,7 @@ The `/journal` directory contains
 
 | Submissions | Tutotial |
 | :------------: | :--------- |
-|<li>- [x] [Week 0](journal/markdown0.md)</li> |[*Architecture and Billing*](journal/week0.md)|   
+|<ul><li>- [x] [Week 0](journal/markdown0.md)</li></ul> |[*Architecture and Billing*](journal/week0.md)|   
 |- [x] [Week 1](journal/markdown1.md)|[*App Containerization*](journal/week1.md)| 
 |- [x] [Week 2](journal/markdown2.md)|[*Observability*](journal/week2.md)| 
 |- [x] [Week 3](journal/markdown3.md)|[*Decentralized Authentication*](journal/week3.md)| 
