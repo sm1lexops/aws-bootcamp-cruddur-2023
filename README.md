@@ -23,17 +23,17 @@ The `/journal` directory contains
 | Submissions | Tutotial |
 | :------------: | :--------- |
 |<ul><li>- [x] [Week 0](journal/markdown0.md)</li></ul> |[*Architecture and Billing*](journal/week0.md)|   
-|- [x] [Week 1](journal/markdown1.md)|[*App Containerization*](journal/week1.md)| 
-|- [x] [Week 2](journal/markdown2.md)|[*Observability*](journal/week2.md)| 
-|- [x] [Week 3](journal/markdown3.md)|[*Decentralized Authentication*](journal/week3.md)| 
-|- [x] [Week 4](journal/markdown4.md)|[*Relational Databases*](journal/week4.md)| 
-|- [x] [Week 5](journal/markdown5.md)|[*AWS DynamoDB*](journal/week5.md)| 
-|- [x] [Week 6](journal/markdown6.md)|[*Serverless ECS/ECR/ACM/Fargate*](journal/week6.md)| 
-|- [x] [Week 7](journal/markdown7.md)|[*Solving CORS with ALB and Route53*](journal/week7.md)| 
-|- [x] [Week 8](journal/markdown8.md)|[*Serverless Image Processing*](journal/week8.md)| 
-|- [x] [Week 9](journal/markdown9.md)|[*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/week9.md)| 
-|- [x] [Week 10](journal/markdown10.md)|[*AWS CloudFormation*](journal/week10.md)| 
-|- [x] [Week X](journal/markdownx.md)|[*Cleanup*](journal/weekx.md)| 
+|<ul><li>- [x] [Week 1](journal/markdown1.md)</li></ul> |[*App Containerization*](journal/week1.md)| 
+|<ul><li>- [x] [Week 2](journal/markdown2.md)</li></ul> |[*Observability*](journal/week2.md)| 
+|<ul><li>- [x] [Week 3](journal/markdown3.md)</li></ul> |[*Decentralized Authentication*](journal/week3.md)| 
+|<ul><li>- [x] [Week 4](journal/markdown4.md)</li></ul> |[*Relational Databases*](journal/week4.md)| 
+|<ul><li>- [x] [Week 5](journal/markdown5.md)</li></ul> |[*AWS DynamoDB*](journal/week5.md)| 
+|<ul><li>- [x] [Week 6](journal/markdown6.md)</li></ul> |[*Serverless ECS/ECR/ACM/Fargate*](journal/week6.md)| 
+|<ul><li>- [x] [Week 7](journal/markdown7.md)</li></ul> |[*Solving CORS with ALB and Route53*](journal/week7.md)| 
+|<ul><li>- [x] [Week 8](journal/markdown8.md)</li></ul> |[*Serverless Image Processing*](journal/week8.md)| 
+|<ul><li>- [x] [Week 9](journal/markdown9.md)</li></ul> |[*CI/CD with CodePipeline/CodeBuild/CodeDeploy*](journal/week9.md)| 
+|<ul><li>- [x] [Week 10](journal/markdown10.md)</li></ul> |[*AWS CloudFormation*](journal/week10.md)| 
+|<ul><li>- [x] [Week X](journal/markdownx.md)</li></ul> |[*Cleanup*](journal/weekx.md)| 
 
 ## Finall Diagram 
 
