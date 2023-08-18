@@ -2,29 +2,6 @@ AWS Cloud Project Bootcamp Outline
 Organized by: AWS Ontario Virtual User Group
 
 
-
-
-Registration is CLOSED 
-To join the bootcamp you need to register via the Offical Registration Form
-
-
-
-
-
-Related Resources:
-AWS Cloud Project Bootcamp Outline
-AWS Cloud Project Bootcamp FAQs
-AWS Cloud Project Bootcamp Grading Rubric
-AWS Cloud Project Bootcamp Surveys
-AWS Cloud Project Bootcamp Codes of Conduct
-AWS Cloud Project Bootcamp Sponsorship Package
-AWS Ontario Virtual User Group Meetup Page
-
-Before asking,  READ THE FAQS.
-
-Please don’t comment spelling or grammar mistakes, 
-I will run this document through Grammarly, and have it proofread.
-
 Bootcamp Official Schedule	4
 Bootcamp Goal	6
 Project Scenario	7
@@ -135,75 +112,6 @@ Phase 2 Cloud Project Bootcamp	35
 Guest Instructors	36
 Contributors	36
 
-Bootcamp Official Schedule
-
-This is the official schedule for all events in the bootcamp 
-
-Type
-Name
-Datetime
-Lab (Live)
-Week 0 — Billing and Architecture
-
-Maragret & Chris
-Feb 11 12PM (Noon) ET
-Lab (Live)
-Week 1 — App Containerization
-
-Edi & James 
-Feb 18 12PM (Noon) ET
-Lab (Live)
-Week 2 — Distributed Tracing
-
-Jessica
-Feb 25 12PM (Noon) ET
-Lab (Live)
-Week 3 — Decentralized Authentication
-Mar 4 12PM (Noon) ET
-Lab (Live)
-Week 4 — Postgres and RDS
-Mar 11 12PM (Noon) ET
-Lab (Live)
-Week 5 — DynamoDB and Serverless Caching
-
-Kirk and Alex
-Mar 18 12PM (Noon) ET
-Lab (Live)
-Week 6 — Deploying “Serverless” Containers
-Mar 25 12PM (Noon) ET
-Lab (Live)
-Week 7 — Solving CORS with a Load Balancer and Custom Domain
-Apr 1 12PM (Noon) ET
-Lab (Live)
-Week 8 — Serverless Image Processing
-
-Kristi
-Apr 8 12PM (Noon) ET
-LabLab (Live) (Live)
-Week 9 — CI/CD with CodePipeline, CodeBuild and CodeDeploy
-
-Du’an
-Apr 15 12PM (Noon) ET
-Lab (Live)
-Week 10 — CloudFormation Part 1
-
-Rohini
-Apr 22 12PM (Noon) ET
-Lab (Live)
-Week 11 — CloudFormation Part 2
-Apr 29 12PM (Noon) ET
-Lab (Live)
-Week 12 — Modern APIs
-
-Michael
-May 6 12PM (Noon) ET
-Lab (Live)
-Week 13 
-
-
-
-
-
 
 Bootcamp Goal
 
@@ -221,9 +129,6 @@ Level 200 Intermediate
 Level 250 [AWS Cloud Project Bootcamp]
 Level 300 Advanced
 Level 400 Expert
-
-
-
 
 Project Scenario
 A startup company has decided to build their own micro-blogging platform and has hired you to be its first cloud engineer.
@@ -249,7 +154,6 @@ Takes advantage of modern-applications cloud services.
 The startup company has spent the majority of their funding on hiring you for the next 6 months (but mostly spent the money on marketing and buying a really cool domain) and so you also need to ensure you keep the cloud provider costs as low as possible.
 
 Good Luck! 😂
-
 
 Learning Outcomes
 To learn how to containerize a frontend and backend web application 
