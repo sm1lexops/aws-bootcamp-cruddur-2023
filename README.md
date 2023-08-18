@@ -14,6 +14,8 @@ This is the starting codebase that will be used in the FREE AWS Cloud Project Bo
 
 ## Instructions
 
+[Business Scenarion and Project Outline](journal/assets/outline.doc)
+
 At the start of the bootcamp you need to create a new Github Repository from `week-0` branch.
 
 ## Journaling Homework and Completed Chalenges
